@@ -1,0 +1,793 @@
+<title>Dorita's · Granada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap">
+<script>document.documentElement.classList.add("js");</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+  :root{
+    --papel:#F3F1E9; --papel-alto:#FBFAF4; --tinta:#181712; --tinta-2:rgba(24,23,18,.72);
+    --humo:#6E6A5C; --linea:rgba(24,23,18,.14); --linea-2:rgba(24,23,18,.07);
+    --verde:#4C6B2F; --verde-2:rgba(76,107,47,.14); --brasa:#C2481C; --brasa-2:rgba(194,72,28,.12);
+    --oro:#D98A3D; --noche:#120E0A; --noche-2:#1C140D; --sobre-noche:#F1E7D8; --sobre-noche-2:rgba(241,231,216,.66);
+    --sombra:0 1px 2px rgba(24,23,18,.05), 0 22px 48px -30px rgba(24,23,18,.4);
+    --disp:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+    --serif:"Newsreader",Georgia,"Times New Roman",serif;
+    --w:1180px; --r:16px;
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --papel:#120E0A; --papel-alto:#1B140D; --tinta:#F1E7D8; --tinta-2:rgba(241,231,216,.72);
+    --humo:#9C927E; --linea:rgba(241,231,216,.16); --linea-2:rgba(241,231,216,.08);
+    --verde:#93B368; --verde-2:rgba(147,179,104,.16); --brasa:#E0743B; --brasa-2:rgba(224,116,59,.16);
+    --oro:#E9A65A; --sombra:0 1px 2px rgba(0,0,0,.5), 0 26px 56px -30px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="dark"]{
+    --papel:#120E0A; --papel-alto:#1B140D; --tinta:#F1E7D8; --tinta-2:rgba(241,231,216,.72);
+    --humo:#9C927E; --linea:rgba(241,231,216,.16); --linea-2:rgba(241,231,216,.08);
+    --verde:#93B368; --verde-2:rgba(147,179,104,.16); --brasa:#E0743B; --brasa-2:rgba(224,116,59,.16);
+    --oro:#E9A65A; --sombra:0 1px 2px rgba(0,0,0,.5), 0 26px 56px -30px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--serif);font-size:1.06rem;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+  h1,h2,h3{font-family:var(--disp);margin:0;line-height:1.02;letter-spacing:-.025em;text-wrap:balance}
+  p{margin:0} a{color:inherit} img{max-width:100%;display:block}
+  .wrap{max-width:var(--w);margin:0 auto;padding:0 clamp(1.15rem,4vw,2.75rem)}
+  .eyebrow{font-family:var(--disp);font-weight:600;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brasa);display:inline-flex;align-items:center;gap:.7rem;margin:0}
+  .eyebrow::before{content:"";width:26px;height:1.5px;background:currentColor;display:inline-block}
+  :focus-visible{outline:2.5px solid var(--brasa);outline-offset:3px;border-radius:5px}
+
+  /* reveal: visible sin JS; con .js empieza oculto y sube; reduced-motion cancela */
+  .js .reveal{opacity:0;transform:translateY(22px)}
+  .reveal.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
+  @media (prefers-reduced-motion:reduce){ .js .reveal{opacity:1;transform:none} html{scroll-behavior:auto} }
+  .word{display:inline-block;will-change:transform}
+
+  /* barra demo */
+  .demo{background:var(--noche);color:var(--sobre-noche);position:relative;z-index:60}
+  .demo .wrap{display:flex;gap:.7rem 1rem;align-items:center;flex-wrap:wrap;padding:.6rem 0;font-family:var(--disp);font-size:.76rem;letter-spacing:.02em}
+  .demo b{background:var(--brasa);color:#fff;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .5rem;border-radius:5px}
+  .demo span{color:var(--sobre-noche-2)}
+
+  /* header */
+  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--papel) 82%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--linea-2)}
+  header.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 0}
+  .marca{font-family:var(--disp);font-weight:800;font-size:1.4rem;letter-spacing:-.03em;text-decoration:none}
+  .marca .ap{color:var(--brasa)}
+  .navlinks{display:flex;gap:clamp(.9rem,2.3vw,1.9rem)}
+  .navlinks a{font-family:var(--disp);font-weight:500;font-size:.9rem;color:var(--tinta-2);text-decoration:none;padding-block:.2rem;border-bottom:1.5px solid transparent;transition:color .18s,border-color .18s}
+  .navlinks a:hover{color:var(--tinta);border-color:var(--verde)}
+  @media (max-width:820px){.navlinks{display:none}}
+  .nav-right{display:flex;align-items:center;gap:.6rem}
+  .tema{font-family:var(--disp);font-weight:600;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--tinta-2);border:1px solid var(--linea);border-radius:100px;padding:.42rem .8rem;cursor:pointer;transition:border-color .18s,color .18s}
+  .tema:hover{border-color:var(--verde);color:var(--tinta)}
+  .btn{font-family:var(--disp);font-weight:600;font-size:.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 1.4rem;border-radius:100px;border:1.5px solid transparent;cursor:pointer;transition:transform .16s,background .18s,border-color .18s,color .18s;line-height:1}
+  .btn .fl{transition:transform .16s} .btn:hover .fl{transform:translateX(3px)}
+  .btn-brasa{background:var(--brasa);color:#fff} .btn-brasa:hover{transform:translateY(-1px)}
+  .btn-linea{background:transparent;color:var(--tinta);border-color:var(--linea)} .btn-linea:hover{border-color:var(--verde);color:var(--verde)}
+  .btn-fantasma{background:transparent;color:var(--sobre-noche);border-color:rgba(241,231,216,.32)} .btn-fantasma:hover{border-color:rgba(241,231,216,.7)}
+  .btn-sm{padding:.55rem 1rem;font-size:.86rem}
+
+  /* HERO — panel plancha oscuro en los dos temas */
+  .hero{position:relative;background:radial-gradient(120% 90% at 78% 6%, #3a1c0d 0%, var(--noche-2) 42%, var(--noche) 100%);color:var(--sobre-noche);overflow:hidden;isolation:isolate}
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.9}
+  .hero .herobg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.55;pointer-events:none}
+  .hero .herotint{position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(18,14,10,.5),rgba(18,14,10,.8) 55%,rgba(18,14,10,.95))}
+  .localfoto{margin:0;position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--linea);background:var(--brasa-2)}
+  .localfoto img{width:100%;height:100%;object-fit:cover;display:block}
+  .localfoto figcaption{position:absolute;left:.6rem;bottom:.6rem;font-family:var(--disp);font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(18,14,10,.72);color:var(--sobre-noche);padding:.2rem .5rem;border-radius:5px}
+  .hero .grain{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .hero .wrap{position:relative;z-index:2;padding:clamp(3rem,8vh,6rem) 0 clamp(3rem,7vh,5.5rem);min-height:min(88vh,760px);display:flex;flex-direction:column;justify-content:center}
+  .hero .eyebrow{color:var(--oro)}
+  .wordmark{font-family:var(--disp);font-weight:800;letter-spacing:-.05em;line-height:.86;font-size:clamp(4.2rem,20vw,14rem);margin:1rem 0 0;color:var(--sobre-noche)}
+  .wordmark .ap{color:var(--brasa)}
+  .hero .lema{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,3.6vw,2.3rem);line-height:1.2;max-width:20ch;margin:1.2rem 0 0;color:var(--sobre-noche)}
+  .hero .sub{margin:1.1rem 0 0;max-width:48ch;color:var(--sobre-noche-2);font-size:1.14rem}
+  .hero .cta{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.1rem}
+  .hero .facts{display:flex;flex-wrap:wrap;gap:0 2.4rem;margin-top:2.6rem;border-top:1px solid rgba(241,231,216,.16);padding-top:1.4rem}
+  .hero .facts .f{padding-right:1.4rem}
+  .hero .facts .n{font-family:var(--disp);font-weight:800;font-size:1.5rem;color:var(--sobre-noche)}
+  .hero .facts .l{font-family:var(--disp);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sobre-noche-2);margin-top:.25rem}
+  .scrollhint{position:absolute;left:50%;bottom:1.1rem;transform:translateX(-50%);z-index:2;font-family:var(--disp);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sobre-noche-2);display:flex;flex-direction:column;align-items:center;gap:.4rem}
+  .scrollhint .dot{width:1px;height:26px;background:linear-gradient(var(--oro),transparent)}
+  @media (prefers-reduced-motion:no-preference){.scrollhint .dot{animation:drip 1.8s ease-in-out infinite}}
+  @keyframes drip{0%,100%{transform:scaleY(.4);transform-origin:top;opacity:.5}50%{transform:scaleY(1);opacity:1}}
+
+  section{position:relative}
+  .sec{padding:clamp(3.6rem,9vw,7rem) 0}
+  .rule{border-top:1px solid var(--linea-2)}
+  h2.tit{font-family:var(--disp);font-weight:800;font-size:clamp(2rem,5.4vw,3.4rem);margin:.5rem 0 0;letter-spacing:-.03em}
+  .lede{max-width:52ch;color:var(--tinta-2);font-size:1.16rem;margin-top:1rem}
+
+  /* concepto */
+  .conc{display:grid;grid-template-columns:1fr;gap:clamp(1.6rem,4vw,3.2rem);align-items:start}
+  @media (min-width:860px){.conc{grid-template-columns:.85fr 1.15fr}}
+  .conc .big{font-family:var(--serif);font-size:clamp(1.3rem,2.4vw,1.6rem);line-height:1.5;max-width:36ch}
+  .conc .big + .big{margin-top:1rem}
+  .pasos{display:grid;gap:1rem}
+  .paso{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:baseline;padding:1.2rem 1.35rem;background:var(--papel-alto);border:1px solid var(--linea-2);border-left:3px solid var(--brasa);border-radius:var(--r);box-shadow:var(--sombra)}
+  .paso .n{font-family:var(--disp);font-weight:800;font-size:1.6rem;color:var(--brasa);font-variant-numeric:tabular-nums;line-height:1}
+  .paso h3{font-family:var(--disp);font-weight:700;font-size:1.12rem;margin-bottom:.2rem}
+  .paso p{color:var(--tinta-2);font-size:1.02rem}
+
+  /* platos */
+  .platos{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:2.2rem}
+  @media (min-width:720px){.platos{grid-template-columns:1fr 1fr}.plato.star{grid-column:1/-1}}
+  .plato{background:var(--papel-alto);border:1px solid var(--linea-2);border-radius:var(--r);padding:1.5rem 1.6rem;box-shadow:var(--sombra);display:flex;flex-direction:column;gap:.4rem;transition:transform .25s cubic-bezier(.22,.61,.36,1),border-color .25s}
+  .plato:hover{transform:translateY(-3px);border-color:var(--brasa-2)}
+  .plato .tag{align-self:flex-start;font-family:var(--disp);font-weight:600;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);background:var(--verde-2);padding:.28rem .6rem;border-radius:100px}
+  .plato h3{font-family:var(--disp);font-weight:700;font-size:1.42rem;margin-top:.3rem}
+  .plato p{color:var(--tinta-2);font-size:1.04rem}
+  .plato.star{border-color:var(--brasa);border-left:3px solid var(--brasa);background:linear-gradient(150deg,var(--brasa-2),transparent 55%),var(--papel-alto)}
+  .plato.star .tag{color:var(--brasa);background:var(--brasa-2)}
+  .plato.star h3{font-size:clamp(1.6rem,4vw,2.2rem)}
+  @media (min-width:720px){.plato.star{flex-direction:row;align-items:center;gap:1.6rem;flex-wrap:wrap}.plato.star .cuerpo{flex:1 1 24ch}}
+
+  /* prueba social */
+  .cifras{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.2rem}
+  @media (max-width:560px){.cifras{grid-template-columns:1fr}}
+  .cifra{padding:1.5rem 1.5rem 1.4rem;border:1px solid var(--linea-2);border-radius:var(--r);background:var(--papel-alto)}
+  .cifra .n{font-family:var(--disp);font-weight:800;letter-spacing:-.03em;font-size:clamp(2.6rem,6vw,3.6rem);line-height:1;color:var(--brasa);font-variant-numeric:tabular-nums}
+  .cifra .l{margin-top:.7rem;font-family:var(--disp);font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--humo);line-height:1.4}
+  .cita{margin-top:2.2rem}
+  .cita blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,4.4vw,2.4rem);line-height:1.26;max-width:22ch}
+  .cita cite{display:block;margin-top:.7rem;font-style:normal;font-family:var(--disp);font-weight:600;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--humo)}
+  .social{margin-top:2rem;padding-top:1.4rem;border-top:1px solid var(--linea-2);display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;align-items:center;color:var(--tinta-2)}
+  .social a{color:var(--verde);text-decoration:none;font-weight:500;border-bottom:1.5px solid var(--verde-2)}
+  .social a:hover{border-color:var(--verde)}
+  .social .seg{color:var(--humo);font-family:var(--disp);font-size:.86rem}
+
+  /* servicios (Erigo) */
+  .servicios{background:var(--noche);color:var(--sobre-noche)}
+  .servicios .eyebrow{color:var(--oro)}
+  .servicios h2.tit{color:var(--sobre-noche)}
+  .servicios .lede{color:var(--sobre-noche-2)}
+  .serv-grid{display:grid;grid-template-columns:1fr;gap:1px;background:rgba(241,231,216,.12);border:1px solid rgba(241,231,216,.12);border-radius:var(--r);overflow:hidden;margin-top:2.2rem}
+  @media (min-width:720px){.serv-grid{grid-template-columns:1fr 1fr}}
+  .serv{background:var(--noche);padding:1.5rem 1.6rem;display:flex;flex-direction:column;gap:.4rem;transition:background .2s}
+  .serv:hover{background:var(--noche-2)}
+  .serv .k{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+  .serv h3{font-family:var(--disp);font-weight:700;font-size:1.16rem;color:var(--sobre-noche)}
+  .serv .precio{font-family:var(--disp);font-weight:800;font-size:1rem;color:var(--oro);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .serv p{color:var(--sobre-noche-2);font-size:.98rem}
+  .serv .free{color:var(--verde)}
+
+  /* locales */
+  .locales{display:grid;grid-template-columns:1fr;gap:1.3rem;margin-top:2.2rem}
+  @media (min-width:760px){.locales{grid-template-columns:1fr 1fr}}
+  .local{border:1px solid var(--linea-2);border-radius:var(--r);overflow:hidden;background:var(--papel-alto);display:flex;flex-direction:column}
+  .fotoph{aspect-ratio:16/10;display:grid;place-items:center;text-align:center;color:var(--humo);background:repeating-linear-gradient(45deg,var(--linea-2) 0 1px,transparent 1px 14px),var(--brasa-2);border-bottom:1px dashed var(--linea)}
+  .fotoph span{font-family:var(--disp);font-weight:600;font-size:.74rem;letter-spacing:.13em;text-transform:uppercase}
+  .local .cuerpo{padding:1.4rem 1.6rem 1.6rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
+  .local h3{font-family:var(--disp);font-weight:800;font-size:1.5rem}
+  .local .dir{color:var(--tinta-2);font-size:1.04rem}
+  .local .mapa{margin-top:.5rem;align-self:flex-start;font-family:var(--disp);font-weight:600;font-size:.9rem;text-decoration:none;color:var(--verde);display:inline-flex;gap:.4rem;border-bottom:1.5px solid var(--verde-2);padding-bottom:2px}
+  .horario{margin-top:1.6rem;display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .9rem;padding:1.1rem 1.35rem;border:1px solid var(--linea-2);border-radius:var(--r);background:var(--papel-alto)}
+  .horario .h{font-family:var(--disp);font-weight:700;font-size:1.06rem}
+  .horario .nota{color:var(--humo);font-style:italic;font-size:.95rem}
+
+  /* CTA final */
+  .cierre{background:linear-gradient(160deg,#3a1c0d,var(--noche));color:var(--sobre-noche);text-align:center}
+  .cierre .wrap{padding:clamp(3.4rem,8vw,6rem) 0}
+  .cierre h2{font-family:var(--disp);font-weight:800;font-size:clamp(1.9rem,5vw,3rem);max-width:20ch;margin:.6rem auto 0;color:var(--sobre-noche)}
+  .cierre p{max-width:46ch;margin:1.1rem auto 0;color:var(--sobre-noche-2);font-size:1.1rem}
+  .cierre .cta{justify-content:center;margin-top:2rem}
+
+  footer{background:var(--noche);color:var(--sobre-noche);border-top:1px solid rgba(241,231,216,.1)}
+  footer .wrap{padding:2.6rem 0;display:flex;flex-wrap:wrap;gap:1.4rem 2rem;justify-content:space-between;align-items:flex-start}
+  footer .fm{font-family:var(--disp);font-weight:800;font-size:1.5rem} footer .fm .ap{color:var(--brasa)}
+  footer .figs{display:flex;flex-direction:column;gap:.35rem} footer .figs a{color:var(--sobre-noche-2);text-decoration:none;font-size:1.02rem} footer .figs a:hover{color:var(--oro)}
+  footer .fn{color:var(--sobre-noche-2);font-size:.86rem;max-width:36ch;line-height:1.5} footer .fn b{color:var(--sobre-noche)}
+
+  /* ============ CARTA / PEDIDO (overlay) ============ */
+  .cesta{position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;justify-content:center;padding:.8rem 1rem 1.1rem;pointer-events:none}
+  .cesta button{pointer-events:auto;width:100%;max-width:26rem;border:0;border-radius:14px;cursor:pointer;background:var(--brasa);color:#fff;font-family:var(--disp);font-weight:800;font-size:1rem;padding:1rem 1.3rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 10px 30px rgba(194,72,28,.4)}
+  .cesta[hidden]{display:none}
+  .ov{position:fixed;inset:0;z-index:80;background:rgba(10,7,5,.55);display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+  .ov[hidden]{display:none}
+  .sheet{width:100%;max-width:34rem;max-height:92vh;overflow-y:auto;background:var(--papel);color:var(--tinta);border-radius:20px 20px 0 0;box-shadow:0 -12px 50px rgba(0,0,0,.4)}
+  .sheet-cab{position:sticky;top:0;background:color-mix(in srgb,var(--papel) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--linea-2);padding:1.1rem 1.35rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;z-index:2}
+  .sheet-cab h2{font-family:var(--disp);font-weight:800;font-size:1.35rem}
+  .cerrar{background:transparent;border:1px solid var(--linea);border-radius:100px;width:2.2rem;height:2.2rem;cursor:pointer;color:var(--tinta);font-size:1.1rem;line-height:1}
+  .sheet-cuerpo{padding:0 1.35rem 1.5rem}
+  .mecanica{display:grid;gap:.5rem;margin:1.1rem 0;padding:1rem 1.15rem;background:var(--papel-alto);border:1px solid var(--linea-2);border-left:3px solid var(--verde);border-radius:12px;font-size:.96rem}
+  .mecanica b{color:var(--verde);font-family:var(--disp);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+  .filtros{position:sticky;top:3.6rem;z-index:1;background:var(--papel);margin:0 -1.35rem;padding:.7rem 1.35rem;display:flex;gap:.5rem;overflow-x:auto;border-bottom:1px solid var(--linea-2)}
+  .filtros::-webkit-scrollbar{display:none} .filtros{scrollbar-width:none}
+  .filtro{font-family:var(--disp);font-size:.82rem;font-weight:600;white-space:nowrap;padding:.42rem .85rem;border:1px solid var(--linea);border-radius:100px;background:var(--papel-alto);color:var(--tinta);cursor:pointer}
+  .filtro[aria-pressed=true]{background:var(--verde);border-color:var(--verde);color:#fff}
+  .grupo{margin-top:1.8rem}
+  .grupo h3{font-family:var(--disp);font-weight:800;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;margin:0 0 .2rem}
+  .grupo .pie{color:var(--humo);font-size:.9rem;margin:0 0 .8rem}
+  ul.lista{list-style:none;margin:0;padding:0}
+  ul.lista li{display:flex;align-items:center;gap:.6rem;padding:.65rem 0;border-bottom:1px solid var(--linea-2)}
+  ul.lista li:last-child{border-bottom:0}
+  .it{flex:1 1 auto;min-width:0} .it .det{display:block;font-size:.85rem;color:var(--humo)}
+  .mk{font-family:var(--disp);font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.12rem .4rem;border-radius:4px;white-space:nowrap;flex:none}
+  .mk-sg{background:var(--verde-2);color:var(--verde);border:1px solid var(--verde)}
+  .mk-vg{background:transparent;color:var(--brasa);border:1px solid var(--brasa)}
+  .pre{font-family:var(--disp);font-weight:600;font-variant-numeric:tabular-nums;flex:none;color:var(--tinta)}
+  .inc{font-family:var(--disp);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--humo);flex:none}
+  .cta-count{font-family:var(--disp);font-weight:800;color:var(--brasa);min-width:1.4rem;text-align:center;flex:none;font-variant-numeric:tabular-nums}
+  .add{flex:none;width:2rem;height:2rem;border-radius:100px;border:1.5px solid var(--brasa);background:transparent;color:var(--brasa);font-family:var(--disp);font-size:1.3rem;font-weight:800;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0;transition:background .12s,color .12s,transform .08s}
+  .add:hover{background:var(--brasa);color:#fff} .add:active{transform:scale(.9)}
+  li[data-on]{background:var(--brasa-2);margin:0 -.5rem;padding-left:.5rem;padding-right:.5rem;border-radius:8px;border-bottom-color:transparent}
+  body[data-filtro=sg] ul.lista li:not([data-sg]),body[data-filtro=vg] ul.lista li:not([data-vg]){display:none}
+
+  /* pedido detalle */
+  .pitem{display:flex;align-items:center;gap:.75rem;padding:.7rem 0;border-bottom:1px solid var(--linea-2)}
+  .pitem .pn{flex:1 1 auto;min-width:0} .pitem .pn small{display:block;color:var(--humo);font-family:var(--disp);font-size:.74rem}
+  .step{display:flex;align-items:center;gap:.5rem;flex:none}
+  .step button{width:1.9rem;height:1.9rem;border-radius:100px;border:1.5px solid var(--linea);background:var(--papel-alto);color:var(--tinta);font-family:var(--disp);font-size:1.1rem;font-weight:800;cursor:pointer;display:grid;place-items:center}
+  .step .q{min-width:1.2rem;text-align:center;font-family:var(--disp);font-weight:800;font-variant-numeric:tabular-nums}
+  .pp{font-family:var(--disp);font-weight:600;font-variant-numeric:tabular-nums;min-width:3.6rem;text-align:right;flex:none}
+  .mesas h4,.totl h4{font-family:var(--disp);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--humo);margin:0 0 .6rem}
+  .mesas{margin-top:1.4rem} .mesagrid{display:flex;flex-wrap:wrap;gap:.5rem}
+  .mesab{font-family:var(--disp);font-weight:700;font-size:.92rem;padding:.5rem .85rem;border-radius:10px;border:1.5px solid var(--linea);background:var(--papel-alto);color:var(--tinta);cursor:pointer}
+  .mesab[aria-pressed=true]{background:var(--verde);border-color:var(--verde);color:#fff}
+  .totl{display:flex;align-items:baseline;justify-content:space-between;margin:1.5rem 0 .3rem}
+  .totl .t{font-family:var(--disp);font-weight:800;font-size:1.6rem;color:var(--brasa);font-variant-numeric:tabular-nums}
+  .avtot{font-size:.82rem;color:var(--humo);margin:0 0 1.2rem}
+  .enviar{width:100%;border:0;border-radius:14px;cursor:pointer;background:var(--brasa);color:#fff;font-family:var(--disp);font-weight:800;font-size:1.05rem;padding:1rem;margin-top:.2rem}
+  .enviar[disabled]{opacity:.45;cursor:not-allowed}
+  .link2{display:block;width:100%;text-align:center;margin-top:.85rem;background:none;border:0;color:var(--humo);font:inherit;font-size:.92rem;cursor:pointer;text-decoration:underline}
+  .conf{text-align:center;padding:2.5rem 1.35rem}
+  .conf .ok{width:4.4rem;height:4.4rem;margin:0 auto 1.2rem;border-radius:100px;background:var(--verde);color:#fff;display:grid;place-items:center;font-size:2.3rem}
+  .conf h2{font-family:var(--disp);font-weight:800;font-size:1.7rem;margin:0 0 .4rem}
+  .conf p{color:var(--humo);margin:.2rem 0} .conf .cn{font-family:var(--disp);font-weight:800;color:var(--tinta);font-size:1.15rem}
+
+  /* vista barra */
+  #barra{max-width:46rem;margin:0 auto;padding:1.5rem 1.35rem 4rem}
+  .barratop{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid var(--tinta)}
+  .barratop h2{font-family:var(--disp);font-weight:800;font-size:1.5rem}
+  .barratop .sub{font-family:var(--disp);font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--humo)}
+  .barramsg{color:var(--humo);font-family:var(--disp);text-align:center;padding:2rem 0}
+  .comandas{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
+  .comanda{border:1px solid var(--linea-2);border-left:4px solid var(--brasa);border-radius:12px;background:var(--papel-alto);padding:1rem 1.1rem}
+  .comanda.servida{border-left-color:var(--verde);opacity:.6}
+  .comanda .ch{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;margin-bottom:.55rem}
+  .comanda .mesa{font-family:var(--disp);font-weight:800;font-size:1.1rem} .comanda .hora{font-family:var(--disp);font-size:.74rem;color:var(--humo);font-variant-numeric:tabular-nums}
+  .comanda ul{list-style:none;margin:0 0 .7rem;padding:0;font-size:.95rem}
+  .comanda ul li{display:flex;gap:.5rem;padding:.15rem 0;border:0} .comanda ul li b{font-family:var(--disp);color:var(--brasa);flex:none}
+  .comanda .ct{display:flex;justify-content:space-between;margin:.3rem 0 .8rem;font-family:var(--disp);font-weight:800;font-variant-numeric:tabular-nums}
+  .comanda .acc{display:flex;gap:.5rem} .comanda .acc button{flex:1;border:0;border-radius:9px;font-family:var(--disp);font-weight:700;font-size:.85rem;padding:.5rem;cursor:pointer}
+  .bserv{background:var(--verde);color:#fff} .bquit{background:transparent;border:1.5px solid var(--linea)!important;color:var(--humo)}
+
+  /* indicador de mesa + mesa fija + QR por mesa */
+  .mesapill{font-family:var(--disp);font-weight:700;font-size:.8rem;letter-spacing:.03em;background:var(--verde);color:#fff;padding:.42rem .8rem;border-radius:100px;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
+  .mesapill b{font-weight:800}
+  .mesafija{margin-top:1.4rem} .mesafija h4{font-family:var(--disp);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--humo);margin:0 0 .5rem}
+  .mesafija .mfval{font-family:var(--disp);font-weight:800;font-size:1.15rem;color:var(--verde);background:var(--verde-2);border:1px solid var(--verde);border-radius:10px;padding:.55rem .9rem;display:inline-block}
+  #qrpanel{max-width:52rem;margin:0 auto;padding:1.5rem 1.35rem 4rem}
+  .qrtop{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.5rem;padding-bottom:1rem;border-bottom:2px solid var(--tinta);flex-wrap:wrap}
+  .qrtop h2{font-family:var(--disp);font-weight:800;font-size:1.5rem}
+  .qrtop .sub{font-family:var(--disp);font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--humo)}
+  .qrctl{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:1rem 0 1.4rem;font-family:var(--disp)}
+  .qrctl label{font-size:.9rem;color:var(--tinta-2)}
+  .qrctl input{width:4.5rem;font:inherit;font-weight:700;padding:.4rem .6rem;border:1.5px solid var(--linea);border-radius:8px;background:var(--papel-alto);color:var(--tinta)}
+  .qrgrid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr))}
+  .qrcard{border:1px solid var(--linea-2);border-radius:12px;background:#fff;padding:1rem .8rem;text-align:center;color:#171A13}
+  .qrcard .qrbox{display:flex;justify-content:center;align-items:center;min-height:120px;margin-bottom:.6rem}
+  .qrcard .qrbox img,.qrcard .qrbox canvas{width:120px!important;height:120px!important}
+  .qrcard .ql{font-family:var(--disp);font-weight:800;font-size:1rem;margin-bottom:.5rem}
+  .qrcard .qb{font-family:var(--disp);font-weight:600;font-size:.78rem;border:1.5px solid var(--brasa);color:var(--brasa);background:transparent;border-radius:100px;padding:.35rem .7rem;cursor:pointer}
+  .qrnote{color:var(--humo);font-size:.92rem;margin:1.2rem 0 0;max-width:60ch}
+  @media print{ header.nav,footer,.demo,.cesta,.qrtop,.qrctl,.qrnote,.qrcard .qb{display:none!important} #qrpanel{padding:0} .qrgrid{gap:.4rem} .qrcard{break-inside:avoid;border:1px solid #999} body{background:#fff} }
+</style>
+
+<div class="demo">
+  <div class="wrap"><b>Demo</b><span>Web de ejemplo hecha por Erigo para «la casa Dorita's». Contenido a confirmar con el bar. No es la web oficial.</span></div>
+</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="marca" href="#top">Dorita<span class="ap">'</span>s</a>
+    <nav class="navlinks" aria-label="Secciones">
+      <a href="#concepto">El concepto</a>
+      <a href="#platos">La cocina</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#locales">Los locales</a>
+    </nav>
+    <div class="nav-right">
+      <span class="mesapill" id="mesaPill" hidden>Mesa <b id="mesaPillN">—</b></span>
+      <button class="tema" id="tema" type="button" aria-label="Cambiar tema"><span id="temaTxt">Claro</span></button>
+      <button class="btn btn-brasa btn-sm" id="abrirCarta" type="button">Ver la carta <span class="fl" aria-hidden="true">→</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero">
+    <img class="herobg" src="hero.jpg" alt="" aria-hidden="true">
+    <span class="herotint" aria-hidden="true"></span>
+    <canvas id="embers" aria-hidden="true"></canvas>
+    <span class="grain" aria-hidden="true"></span>
+    <div class="wrap">
+      <p class="eyebrow" data-hero>La casa Dorita's · Granada</p>
+      <h1 class="wordmark" data-hero-mark aria-label="Dorita's">Dorita<span class="ap">'</span>s</h1>
+      <p class="lema" data-hero>Tapas de verdad, de las que llenan.</p>
+      <p class="sub" data-hero>Dos barras en Granada. La bebida con su tapa, bocadillos de 60 cm y una plancha que no para.</p>
+      <div class="cta" data-hero>
+        <button class="btn btn-brasa" id="abrirCarta2" type="button">Ver la carta y pedir desde la mesa <span class="fl" aria-hidden="true">→</span></button>
+        <a class="btn btn-fantasma" href="#locales">Cómo llegar</a>
+      </div>
+      <div class="facts" data-hero>
+        <div class="f"><div class="n">4,7 · 4,8</div><div class="l">En Google, los dos locales</div></div>
+        <div class="f"><div class="n">60 cm</div><div class="l">El bocadillo de lomo</div></div>
+        <div class="f"><div class="n">5,80 €</div><div class="l">«Te vas comido», según Ideal</div></div>
+      </div>
+    </div>
+    <div class="scrollhint" aria-hidden="true"><span>Baja</span><span class="dot"></span></div>
+  </section>
+
+  <section class="sec rule" id="concepto">
+    <div class="wrap">
+      <div class="conc">
+        <div>
+          <p class="eyebrow reveal">Cómo funciona</p>
+          <h2 class="tit split" data-split>Aquí la tapa va con la bebida</h2>
+          <p class="big reveal">Pides la bebida y la tapa va con ella; tú eliges cuál. Una jarra de media con dos tapas sale por 5,80 €, y si te quedas con hambre, la tapa suelta son 2,80 €.</p>
+          <p class="big reveal">De la plancha salen el choripán con chimichurri, el provolone y la milanesa. Al lado, hamburguesas, bagels, dürüm, wok o nachos. Y los bocadillos que no caben en el plato.</p>
+        </div>
+        <div class="pasos">
+          <div class="paso reveal"><span class="n">1</span><div><h3>Pides la bebida</h3><p>Una caña, un vino, un refresco. La tapa va con ella.</p></div></div>
+          <div class="paso reveal"><span class="n">2</span><div><h3>Eliges la tapa</h3><p>Dices cuál quieres de la pizarra y llega con lo que has pedido.</p></div></div>
+          <div class="paso reveal"><span class="n">3</span><div><h3>Repites</h3><p>Otra ronda, otra tapa. Así hasta que te vas comido por poco más de cinco euros.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec rule" id="platos">
+    <div class="wrap">
+      <p class="eyebrow reveal">La cocina</p>
+      <h2 class="tit split" data-split>Lo que la gente vuelve a pedir</h2>
+      <div class="platos">
+        <article class="plato reveal"><span class="tag">A la plancha</span><h3>Choripán con chimichurri</h3><p>Chorizo criollo, pan y una cucharada de chimichurri hecho en casa.</p></article>
+        <article class="plato reveal"><span class="tag">Del tamaño del plato</span><h3>Milanesa</h3><p>Filete empanado y frito. Sola, o metida en un bocadillo.</p></article>
+        <article class="plato reveal"><span class="tag">Para compartir</span><h3>Provolone</h3><p>Queso fundido a la plancha con orégano y un chorro de aceite.</p></article>
+        <article class="plato reveal"><span class="tag">Carta ancha</span><h3>Hamburguesas, bagels y dürüm</h3><p>La carta no se queda en la plancha: hamburguesas, bagels, dürüm, nachos, wok, falafel. Hay para todos.</p></article>
+        <article class="plato star reveal"><div class="cuerpo"><span class="tag">60 cm · salió en la prensa</span><h3>Bocadillo de lomo XXL</h3></div><p>Lomo dentro de un pan de sesenta centímetros. El que fotografió Ideal, y el que pide medio Instagram.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec rule" id="prueba">
+    <div class="wrap">
+      <p class="eyebrow reveal">Lo que dicen fuera</p>
+      <h2 class="tit split" data-split>No lo decimos nosotros</h2>
+      <div class="cifras">
+        <div class="cifra reveal"><div class="n">4,7 · 4,8</div><div class="l">En Google · los dos locales</div></div>
+        <div class="cifra reveal"><div class="n">5,80 €</div><div class="l">Te vas comido por · según Ideal</div></div>
+        <div class="cifra reveal"><div class="n">60 cm</div><div class="l">El bocadillo de lomo</div></div>
+      </div>
+      <div class="cita reveal">
+        <blockquote>«Te vas comido por 5,80 euros.»</blockquote>
+        <cite>Ideal · ideal.es · 9 de agosto de 2026</cite>
+      </div>
+      <div class="social reveal">
+        <span>En Instagram:</span>
+        <a href="https://www.instagram.com/doritas.bar/" target="_blank" rel="noopener">@doritas.bar</a>
+        <span class="seg">La cuenta del bar, activa y publicando.</span>
+        <span class="seg">Y prensa a favor: Ideal les dedicó un artículo este agosto.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec servicios" id="servicios">
+    <div class="wrap">
+      <p class="eyebrow reveal">Lo que Erigo puede hacer por Dorita's</p>
+      <h2 class="tit split" data-split>De un folio a llenar la barra</h2>
+      <p class="lede reveal">Empezamos por lo que ya tenéis delante y funcionando, y de ahí para arriba. Cada cosa resuelve un hueco concreto que hoy os cuesta clientes.</p>
+      <div class="serv-grid">
+        <div class="serv reveal"><div class="k"><h3>Carta digital con pedido a la barra</h3><span class="precio">150 € + 39/mes</span></div><p>La que tenéis delante: el cliente pide desde el móvil y la comanda sale en la barra. Menos colas, menos errores.</p></div>
+        <div class="serv reveal"><div class="k"><h3>Web de una página</h3><span class="precio">890 € + cuota</span></div><p>Esta misma web, en vuestro dominio, con la carta dentro y enlazada desde Google. Vuestra cara en internet. Cuota mensual desde 39 €.</p></div>
+        <div class="serv reveal"><div class="k"><h3>Ficha de Google e identidad</h3><span class="precio">260 €</span></div><p>Un solo nombre, un solo teléfono, un Instagram. Que quien os busca os encuentre a la primera.</p></div>
+        <div class="serv reveal"><div class="k"><h3>Reseñas con QR</h3><span class="precio">120 €</span></div><p>Gustáis más que los grandes y os ve menos gente. Un cartel en el mostrador que lleva a vuestra ficha de un toque. Incluido si lleva cuota.</p></div>
+        <div class="serv reveal"><div class="k"><h3>Poner en regla lo legal</h3><span class="precio">390 €</span></div><p>Aviso legal, privacidad y cookies como los pide la ley, si la web va a recoger datos.</p></div>
+        <div class="serv reveal"><div class="k"><h3>Agente de voz para reservas</h3><span class="precio">900 € + 149/mes</span></div><p>Un contestador con IA que coge la llamada cuando estáis a tope, para que no se os escape el teléfono lleno: toma la reserva y la apunta. 150 llamadas al mes incluidas. <a href="voz.html" target="_blank" rel="noopener" style="color:var(--oro);font-weight:600;white-space:nowrap">Probar la demo de voz →</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec rule" id="locales">
+    <div class="wrap">
+      <p class="eyebrow reveal">Los dos locales</p>
+      <h2 class="tit split" data-split>La misma casa, dos barras</h2>
+      <div class="locales">
+        <article class="local reveal">
+          <figure class="localfoto"><img src="hero.jpg" alt="Ejemplo de ambiente de un bar de tapas" loading="lazy"><figcaption>Imagen de ejemplo</figcaption></figure>
+          <div class="cuerpo"><p class="eyebrow" style="color:var(--humo)">Bar</p><h3>Dorita's Bar</h3><p class="dir">Calle Almenillas 1, 18003 Granada</p><a class="mapa" href="https://www.google.com/maps/search/?api=1&query=Dorita%27s%20Bar%2C%20Calle%20Almenillas%201%2C%2018003%20Granada" target="_blank" rel="noopener">Abrir en Google Maps <span aria-hidden="true">→</span></a></div>
+        </article>
+        <article class="local reveal">
+          <figure class="localfoto"><img src="meson.jpg" alt="Ejemplo de interior de un mesón" loading="lazy"><figcaption>Imagen de ejemplo</figcaption></figure>
+          <div class="cuerpo"><p class="eyebrow" style="color:var(--humo)">Mesón</p><h3>Mesón Dorita's</h3><p class="dir">Calle Santa Clotilde 35, Granada</p><a class="mapa" href="https://www.google.com/maps/search/?api=1&query=Mes%C3%B3n%20Dorita%27s%2C%20Calle%20Santa%20Clotilde%2035%2C%20Granada" target="_blank" rel="noopener">Abrir en Google Maps <span aria-hidden="true">→</span></a></div>
+        </article>
+      </div>
+      <div class="horario reveal"><span class="h">Martes a sábado, comidas y cenas.</span><span class="nota">Horario exacto por confirmar con el bar: las fuentes no coinciden.</span></div>
+    </div>
+  </section>
+
+  <section class="cierre" id="cierre">
+    <div class="wrap">
+      <p class="eyebrow reveal" style="justify-content:center;color:var(--oro)">Para el dueño de Dorita's</p>
+      <h2 class="reveal">Esto es una demo. La de verdad la montamos contigo.</h2>
+      <p class="reveal">La tuya llevaría tus fotos, tus horarios confirmados, tu dominio y el pedido desde la mesa funcionando en la barra. Cuando quieras, hablamos.</p>
+      <div class="cta reveal"><button class="btn btn-brasa" id="abrirCarta3" type="button">Probar el pedido desde la mesa <span class="fl" aria-hidden="true">→</span></button></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fm">Dorita<span class="ap">'</span>s</div>
+    <div class="figs">
+      <a href="https://www.instagram.com/doritas.bar/" target="_blank" rel="noopener">Instagram · @doritas.bar</a>
+      <a href="#barra">Vista de barra (demo)</a>
+      <a href="#qr">QR por mesa (demo)</a>
+    </div>
+    <p class="fn"><b>Demo hecha por Erigo.</b> Contenido de ejemplo, a confirmar con el bar. No es la web oficial de Dorita's.</p>
+  </div>
+</footer>
+
+<!-- vista barra -->
+<div id="barra" hidden>
+  <div class="barratop"><div><h2>Comandas · Dorita's</h2><div class="sub">Pantalla de barra · en vivo</div></div><div style="display:flex;gap:.5rem"><button class="link2" id="vaciarBarra" type="button" style="width:auto">Vaciar demo</button><button class="link2" id="volverWeb" style="width:auto">Volver a la web</button></div></div>
+  <div id="comandas" class="comandas"></div>
+  <div id="barramsg" class="barramsg" hidden></div>
+</div>
+
+<!-- vista QR por mesa -->
+<div id="qrpanel" hidden>
+  <div class="qrtop"><div><h2>QR por mesa · Dorita's</h2><div class="sub">Un código para cada mesa · demo</div></div><button class="link2" id="volverWebQR" style="width:auto">Volver a la web</button></div>
+  <div class="qrctl"><label for="qrNum">¿Cuántas mesas?</label><input id="qrNum" type="number" min="1" max="60" value="12"><button class="qb" id="qrGen" type="button" style="padding:.5rem 1rem">Generar</button><button class="qb" id="qrPrint" type="button" style="padding:.5rem 1rem">Imprimir</button></div>
+  <div class="qrgrid" id="qrGrid"></div>
+  <p class="qrnote">Cada QR abre la carta ya fijada a esa mesa: el cliente no elige nada, y la comanda llega a la barra con el número de mesa puesto. En el bar de verdad, cada código lleva a la carta en el dominio de Dorita's con <code>?mesa=N</code>. Aquí, en la demo, el botón «Abrir como Mesa N» te enseña el mismo efecto sin salir.</p>
+</div>
+
+<!-- cesta -->
+<div class="cesta" id="cesta" hidden>
+  <button type="button" id="verPedido"><span id="cestaTxt">Ver el pedido</span><span id="cestaTot">0,00 €</span></button>
+</div>
+
+<!-- overlay carta -->
+<div class="ov" id="ovCarta" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="La carta de Dorita's">
+    <div class="sheet-cab"><h2>La carta</h2><button class="cerrar" id="cerrarCarta" type="button" aria-label="Cerrar">✕</button></div>
+    <div class="sheet-cuerpo">
+      <div class="mecanica"><b>Cómo se pide</b><span>Elige la bebida y la tapa va con ella. Toca <strong>+</strong> en lo que quieras y envía el pedido a la barra. Las marcas «sin gluten» y «vegetariano» son orientativas y las confirma la cocina.</span></div>
+      <nav class="filtros" aria-label="Filtrar">
+        <button class="filtro" data-f="todo" aria-pressed="true" type="button">Toda la carta</button>
+        <button class="filtro" data-f="sg" aria-pressed="false" type="button">Sin gluten</button>
+        <button class="filtro" data-f="vg" aria-pressed="false" type="button">Vegetariano</button>
+      </nav>
+      <div id="secciones"></div>
+    </div>
+  </div>
+</div>
+
+<!-- overlay pedido -->
+<div class="ov" id="ovPedido" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="Tu pedido">
+    <div class="sheet-cab"><h2>Tu pedido</h2><button class="cerrar" id="cerrarPedido" type="button" aria-label="Cerrar">✕</button></div>
+    <div class="sheet-cuerpo">
+      <div id="pedidoItems"></div>
+      <div class="mesas" id="mesasManual"><h4>¿Desde qué mesa?</h4><div class="mesagrid" id="mesaGrid"></div></div>
+      <div class="mesafija" id="mesaFija" hidden><h4>Mesa</h4><div class="mfval" id="mesaFijaVal">—</div></div>
+      <div class="totl"><h4>Total orientativo</h4><span class="t" id="pedidoTotal">0,00 €</span></div>
+      <p class="avtot">La cuenta la cierra la barra: la tapa va incluida con la bebida y aquí se cuenta como suelta.</p>
+      <button class="enviar" id="enviarPedido" disabled>Enviar pedido a la barra</button>
+      <button class="link2" id="seguir">Seguir pidiendo</button>
+    </div>
+  </div>
+</div>
+
+<!-- overlay confirmación -->
+<div class="ov" id="ovConf" hidden>
+  <div class="sheet conf" role="dialog" aria-modal="true" aria-label="Pedido enviado">
+    <div class="ok">✓</div>
+    <h2>Pedido enviado a la barra</h2>
+    <p id="confMesa">Mesa —</p>
+    <p class="cn" id="confNum">Comanda #—</p>
+    <p id="confSync" style="margin-top:1rem"></p>
+    <button class="enviar" id="otro" style="margin-top:1.4rem">Hacer otro pedido</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+(function(){
+  var RM = false;
+  try { RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){}
+  var G = window.gsap, ST = window.ScrollTrigger;
+
+  /* ---------- tema ---------- */
+  (function(){
+    var root=document.documentElement, txt=document.getElementById("temaTxt");
+    function pref(){ try{ return matchMedia("(prefers-color-scheme: dark)").matches; }catch(e){ return false; } }
+    function act(){ var t=root.getAttribute("data-theme"); return t? t : (pref()?"dark":"light"); }
+    function pinta(){ txt.textContent = act()==="dark" ? "Claro" : "Oscuro"; }
+    try{ var g=localStorage.getItem("dor-tema"); if(g==="dark"||g==="light") root.setAttribute("data-theme",g); }catch(e){}
+    pinta();
+    document.getElementById("tema").addEventListener("click",function(){
+      var n=act()==="dark"?"light":"dark"; root.setAttribute("data-theme",n);
+      try{ localStorage.setItem("dor-tema",n); }catch(e){}
+      pinta(); if(ST) ST.refresh();
+    });
+  })();
+
+  /* ---------- brasas (canvas 2D, sutil) ---------- */
+  (function(){
+    var c=document.getElementById("embers"); if(!c) return;
+    var ctx; try{ ctx=c.getContext("2d"); }catch(e){ return; } if(!ctx) return;
+    var W,H,parts=[],raf=null,vis=true;
+    function size(){ var r=c.getBoundingClientRect(); W=c.width=Math.max(1,r.width*Math.min(2,devicePixelRatio||1)); H=c.height=Math.max(1,r.height*Math.min(2,devicePixelRatio||1)); }
+    function mk(){ return {x:Math.random()*W, y:H+Math.random()*H*.3, r:(Math.random()*2+.6)*(devicePixelRatio||1), s:(Math.random()*.5+.2)*(devicePixelRatio||1), a:Math.random()*.5+.2, d:Math.random()*.6+.2}; }
+    function init(){ size(); parts=[]; var n=Math.round(Math.min(70, W*H/45000)); for(var i=0;i<n;i++){ var p=mk(); p.y=Math.random()*H; parts.push(p);} }
+    function frame(){ if(!vis){ raf=null; return; } ctx.clearRect(0,0,W,H);
+      for(var i=0;i<parts.length;i++){ var p=parts[i]; p.y-=p.s; p.x+=Math.sin(p.y*.01+p.d)*.3; p.a-=0.0009;
+        if(p.y< -10 || p.a<=0){ parts[i]=mk(); continue; }
+        var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
+        g.addColorStop(0,"rgba(233,166,90,"+p.a+")"); g.addColorStop(.4,"rgba(224,116,59,"+(p.a*.6)+")"); g.addColorStop(1,"rgba(224,116,59,0)");
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,p.r*3,0,6.2832); ctx.fill();
+      }
+      raf=requestAnimationFrame(frame);
+    }
+    if(RM){ return; }
+    init();
+    raf=requestAnimationFrame(frame);
+    addEventListener("resize", function(){ init(); });
+    document.addEventListener("visibilitychange", function(){ vis=!document.hidden; if(vis && !raf) raf=requestAnimationFrame(frame); });
+  })();
+
+  /* ---------- animación (GSAP) ---------- */
+  if(G && !RM){
+    try{
+      if(ST) G.registerPlugin(ST);
+      // Intro del hero (el contenido ya es legible; se ordena la entrada)
+      var tl=G.timeline({defaults:{ease:"power3.out"}});
+      G.set("[data-hero]", {opacity:0, y:24});
+      G.set("[data-hero-mark]", {opacity:0, y:40, scale:.98});
+      tl.to("[data-hero-mark]", {opacity:1, y:0, scale:1, duration:1.0}, .1)
+        .to("[data-hero]", {opacity:1, y:0, duration:.8, stagger:.12}, "-=.6");
+      // Revelados de sección
+      G.utils.toArray(".reveal").forEach(function(el){
+        ST.create({trigger:el, start:"top 86%", once:true, onEnter:function(){ el.classList.add("in"); }});
+      });
+      // Titulares palabra por palabra
+      G.utils.toArray("[data-split]").forEach(function(h){
+        var txt=h.textContent; h.setAttribute("aria-label",txt); h.textContent="";
+        txt.split(" ").forEach(function(w,i,arr){
+          var s=document.createElement("span"); s.className="word"; s.setAttribute("aria-hidden","true"); s.textContent=w+(i<arr.length-1?" ":"");
+          h.appendChild(s);
+        });
+        G.set(h.querySelectorAll(".word"), {yPercent:110, opacity:0});
+        ST.create({trigger:h, start:"top 85%", once:true, onEnter:function(){
+          G.to(h.querySelectorAll(".word"), {yPercent:0, opacity:1, duration:.7, ease:"power3.out", stagger:.06});
+        }});
+      });
+      var refrescar=function(){ try{ ST.refresh(); }catch(_){} };
+      window.addEventListener("load", refrescar);
+      if(document.fonts && document.fonts.ready) document.fonts.ready.then(refrescar);
+      setTimeout(refrescar, 500);
+    }catch(e){ document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");}); try{ G.set("[data-hero],[data-hero-mark]",{opacity:1,y:0,scale:1}); G.set(".word",{opacity:1,yPercent:0}); }catch(_){} }
+  } else {
+    document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");});
+  }
+
+  /* ================= PEDIDO / COMANDAS ================= */
+  var MENU=[
+    {sec:"Bebidas",pie:"Todas llevan tapa salvo que se diga.",items:[
+      {n:"Jarra de ½ L con 2 tapas",d:"Una de la casa y otra a elegir",p:5.80},{n:"Jarra de ½ L con 1 tapa",d:"A elegir",p:3.80},
+      {n:"Tercio",p:3.70},{n:"Quinto",d:"Con tapa de la casa",p:2.50},{n:"Refresco",d:"Con tapa de la casa",p:3.20},
+      {n:"Copa de cerveza",p:3.00},{n:"Tinto de verano",p:3.00},{n:"Gitanillo Guille",p:3.00},{n:"Vino de la casa",p:3.00},
+      {n:"Vino Rioja, Ribera o blanco",p:3.80},{n:"Vermut",p:3.50},{n:"Licores, Baileys y Pacharán",p:3.50},
+      {n:"Copas y combinados",p:5.00},{n:"Copas premium",p:6.00}]},
+    {sec:"Tapas",pie:"Van con la bebida. Sueltas, 2,80 €.",suelta:2.80,items:[
+      {n:"Paninis variados",d:"Boloñesa o carbonara"},{n:"Albóndigas de pollo en salsa"},{n:"Hamburguesa con queso"},
+      {n:"Bagel especial",d:"Lomo, queso y alioli"},{n:"Bagel de lomo con roquefort"},{n:"Bagel de milanesa"},
+      {n:"Hot dog Dorita's"},{n:"Sándwich mixto"},{n:"Choripán con chimichurri"},{n:"Nuggets de pollo"},{n:"Dürüm"},
+      {n:"Patatas cheddar con bacon",sg:1},{n:"Patatas bravas",sg:1},{n:"Croquetas Dorita's"},{n:"Carne en salsa",d:"En bocadillo o en plato"},
+      {n:"Arroz con pollo al curry"},{n:"Spaghettis",d:"Carbonara, boloñesa o curry"},{n:"Wok de pollo con verduras"},
+      {n:"Nachos",d:"Guacamole, queso o bacon"},{n:"Menestra de verduras",vg:1,sg:1},{n:"Tortilla de patatas",vg:1,sg:1},
+      {n:"Hummus con zanahoria",vg:1,sg:1},{n:"Spaghettis chinos veganos",vg:1},{n:"Falafel",vg:1}]},
+    {sec:"Tapas XXL",pie:"Con la jarra, 5,80 €.",suelta:5.80,items:[
+      {n:"Spaghettis XXL",d:"Boloñesa, carbonara o curry"},{n:"Arroz con pollo al curry XXL"},{n:"Albóndigas con salsa XXL"},
+      {n:"Carne en salsa con patatas XXL"},{n:"Hamburguesa con queso XXL"},{n:"Falafel XXL",vg:1}]},
+    {sec:"Especialidades",pie:"Los bocadillos van con patatas.",items:[
+      {n:"Provolone con verduras",vg:1,p:8.00},{n:"Provolone con tomate",vg:1,p:7.50},{n:"Provolone con oliva y hierbas",vg:1,p:7.00},
+      {n:"Choripán especial",d:"Queso, tomate y verduras. Con copa",p:8.90},{n:"Bocadillo de milanesa",d:"Con copa",p:8.90},
+      {n:"Bocadillo de lomo XXL",d:"Lomo, queso, tomate, lechuga y bacon. Con copa",p:12.00},{n:"Medio bocadillo de lomo",d:"Con copa",p:9.90},
+      {n:"Hamburguesa especial",d:"Con copa",p:9.90},{n:"Ración de jamón asado con patatas",d:"En invierno",p:10.00}]},
+    {sec:"Ensaladas",pie:"Las dos van con copa.",items:[{n:"Ensalada mixta",sg:1,p:8.00},{n:"Ensalada de la casa",sg:1,p:10.00}]},
+    {sec:"Para picar",pie:"Con botella de vino, el precio entre paréntesis.",items:[
+      {n:"Tabla de quesos",d:"Con botella, 18 €",sg:1,p:12.50},{n:"Tabla de embutidos",d:"Con botella, 20 €",sg:1,p:14.50},{n:"Tabla mixta",d:"Con botella, 23 €",sg:1,p:16.50}]}
+  ];
+  var eur=function(n){ return n.toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"; };
+  var cat={}, cart={};
+  try{ var gc=localStorage.getItem("dor-cart"); if(gc) cart=JSON.parse(gc)||{}; }catch(e){}
+  var guarda=function(){ try{ localStorage.setItem("dor-cart",JSON.stringify(cart)); }catch(e){} };
+  var mesaSel=null;
+
+  // render carta
+  var cont=document.getElementById("secciones");
+  MENU.forEach(function(g,gi){
+    var base=function(it){ return typeof it.p==="number"?it.p:(g.suelta||0); };
+    var sec=document.createElement("div"); sec.className="grupo";
+    var h=document.createElement("h3"); h.textContent=g.sec; sec.appendChild(h);
+    if(g.pie){ var pp=document.createElement("p"); pp.className="pie"; pp.textContent=g.pie; sec.appendChild(pp); }
+    var ul=document.createElement("ul"); ul.className="lista";
+    g.items.forEach(function(it,ii){
+      var id="g"+gi+"i"+ii, precio=base(it); cat[id]={n:it.n,p:precio};
+      var li=document.createElement("li"); li.setAttribute("data-id",id); if(it.sg)li.setAttribute("data-sg",""); if(it.vg)li.setAttribute("data-vg","");
+      var t=document.createElement("span"); t.className="it"; t.appendChild(document.createTextNode(it.n));
+      if(it.d){ var d=document.createElement("span"); d.className="det"; d.textContent=it.d; t.appendChild(d); }
+      li.appendChild(t);
+      if(it.sg){ var m1=document.createElement("span"); m1.className="mk mk-sg"; m1.textContent="Sin gluten"; li.appendChild(m1); }
+      if(it.vg){ var m2=document.createElement("span"); m2.className="mk mk-vg"; m2.textContent="Veg"; li.appendChild(m2); }
+      var pr=document.createElement("span"); pr.className="pre"; pr.textContent=eur(precio); li.appendChild(pr);
+      var cc=document.createElement("span"); cc.className="cta-count"; cc.setAttribute("data-c",id); li.appendChild(cc);
+      var b=document.createElement("button"); b.className="add"; b.type="button"; b.textContent="+"; b.setAttribute("aria-label","Añadir "+it.n);
+      b.addEventListener("click",function(){ add(id); }); li.appendChild(b);
+      ul.appendChild(li);
+    });
+    sec.appendChild(ul); cont.appendChild(sec);
+  });
+
+  function add(id){ if(!cart[id]) cart[id]={n:cat[id].n,p:cat[id].p,q:0}; cart[id].q++; guarda(); pinta(); }
+  function menos(id){ if(!cart[id])return; cart[id].q--; if(cart[id].q<=0) delete cart[id]; guarda(); pinta(); }
+  function tot(){ var n=0,t=0; for(var k in cart){ n+=cart[k].q; t+=cart[k].q*cart[k].p; } return {n:n,t:t}; }
+  function pinta(){
+    var T=tot();
+    document.querySelectorAll("[data-c]").forEach(function(el){ var id=el.getAttribute("data-c"), q=cart[id]?cart[id].q:0; el.textContent=q?"×"+q:""; var li=el.closest("li"); if(li){ if(q) li.setAttribute("data-on",""); else li.removeAttribute("data-on"); } });
+    var cesta=document.getElementById("cesta");
+    if(T.n>0 && document.getElementById("barra").hidden){ cesta.hidden=false; document.getElementById("cestaTxt").textContent="Ver el pedido · "+T.n+(T.n===1?" artículo":" artículos"); document.getElementById("cestaTot").textContent=eur(T.t); }
+    else cesta.hidden=true;
+    if(!document.getElementById("ovPedido").hidden) pintaPedido();
+  }
+  function pintaPedido(){
+    var c=document.getElementById("pedidoItems"); c.textContent=""; var ids=Object.keys(cart);
+    if(!ids.length){ cierraPedido(); return; }
+    ids.forEach(function(id){ var it=cart[id]; var row=document.createElement("div"); row.className="pitem";
+      var pn=document.createElement("div"); pn.className="pn"; pn.appendChild(document.createTextNode(it.n)); var sm=document.createElement("small"); sm.textContent=eur(it.p)+" · unidad"; pn.appendChild(sm); row.appendChild(pn);
+      var st=document.createElement("div"); st.className="step";
+      var b1=document.createElement("button"); b1.type="button"; b1.textContent="−"; b1.setAttribute("aria-label","Quitar uno"); b1.addEventListener("click",function(){menos(id);});
+      var q=document.createElement("span"); q.className="q"; q.textContent=it.q;
+      var b2=document.createElement("button"); b2.type="button"; b2.textContent="+"; b2.setAttribute("aria-label","Añadir uno"); b2.addEventListener("click",function(){add(id);});
+      st.appendChild(b1); st.appendChild(q); st.appendChild(b2); row.appendChild(st);
+      var pp=document.createElement("span"); pp.className="pp"; pp.textContent=eur(it.p*it.q); row.appendChild(pp); c.appendChild(row);
+    });
+    document.getElementById("pedidoTotal").textContent=eur(tot().t);
+    var e=document.getElementById("enviarPedido"); e.disabled=!(mesaSel!=null); e.textContent=mesaSel!=null?("Enviar pedido a la barra · Mesa "+mesaSel):"Elige una mesa primero";
+  }
+  // mesas
+  var mg=document.getElementById("mesaGrid"); var ms=[]; for(var i=1;i<=12;i++) ms.push(String(i)); ms.push("Barra"); ms.push("Terraza");
+  ms.forEach(function(e){ var b=document.createElement("button"); b.className="mesab"; b.type="button"; b.textContent=e; b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",function(){ mesaSel=e; document.querySelectorAll(".mesab").forEach(function(o){o.setAttribute("aria-pressed",String(o===b));}); pintaPedido(); }); mg.appendChild(b); });
+
+  // overlays
+  function abreCarta(){ document.getElementById("ovCarta").hidden=false; document.body.style.overflow="hidden"; }
+  function cierraCarta(){ document.getElementById("ovCarta").hidden=true; document.body.style.overflow=""; }
+  function abrePedido(){ if(!tot().n)return; document.getElementById("ovPedido").hidden=false; document.body.style.overflow="hidden"; pintaPedido(); }
+  function cierraPedido(){ document.getElementById("ovPedido").hidden=true; document.body.style.overflow=""; }
+  ["abrirCarta","abrirCarta2","abrirCarta3"].forEach(function(id){ var el=document.getElementById(id); if(el) el.addEventListener("click",abreCarta); });
+  document.getElementById("cerrarCarta").addEventListener("click",cierraCarta);
+  document.getElementById("ovCarta").addEventListener("click",function(e){ if(e.target===this) cierraCarta(); });
+  document.getElementById("verPedido").addEventListener("click",abrePedido);
+  document.getElementById("cerrarPedido").addEventListener("click",cierraPedido);
+  document.getElementById("seguir").addEventListener("click",function(){ cierraPedido(); });
+  document.getElementById("ovPedido").addEventListener("click",function(e){ if(e.target===this) cierraPedido(); });
+
+  // filtros
+  var fbs=document.querySelectorAll(".filtro");
+  fbs.forEach(function(b){ b.addEventListener("click",function(){ var f=b.dataset.f; fbs.forEach(function(o){o.setAttribute("aria-pressed",String(o===b));}); if(f==="todo") document.body.removeAttribute("data-filtro"); else document.body.setAttribute("data-filtro",f); }); });
+
+  // comandas: localStorage + db en vivo
+  function leerC(){ try{ return JSON.parse(localStorage.getItem("dor-comandas")||"[]"); }catch(e){ return []; } }
+  function guardaC(a){ try{ localStorage.setItem("dor-comandas",JSON.stringify(a)); }catch(e){} }
+  var SBURL="https://voalqmfbzmvttrkivxqa.supabase.co", SBKEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvYWxxbWZiem12dHRya2l2eHFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkzMTI5MDgsImV4cCI6MjEwNDg4ODkwOH0.ELMumV1gv1aSNH5jDQ-qFHgV1iCAgvEmgH1pbAAbvs0";
+  var SB=null, sbCache=[], sbOn=false;
+  try{ if(window.supabase){ SB=window.supabase.createClient(SBURL, SBKEY); } }catch(e){ SB=null; }
+  function sbFetch(){ if(!SB) return; try{ SB.from("doritas_comandas").select("*").order("ts",{ascending:false}).limit(80).then(function(r){ if(r && !r.error && r.data){ sbCache=r.data; sbOn=true; if(!document.getElementById("barra").hidden) pintaBarra(); } }); }catch(e){} }
+  if(SB){ sbFetch(); try{ SB.channel("doritas_comandas_rt").on("postgres_changes",{event:"*",schema:"public",table:"doritas_comandas"},function(){ sbFetch(); }).subscribe(); }catch(e){} }
+  function comandas(){ return sbOn ? sbCache.slice() : leerC().slice().reverse(); }
+
+  document.getElementById("enviarPedido").addEventListener("click",function(){
+    if(mesaSel==null || !tot().n) return;
+    var items=Object.keys(cart).map(function(id){ return {n:cart[id].n,p:cart[id].p,q:cart[id].q}; });
+    var total=tot().t, num=Math.floor(Math.random()*900)+100;
+    var com={id:"c"+Date.now()+"-"+num,numero:num,mesa:mesaSel,items:items,total:total,estado:"nueva",ts:Date.now()};
+    var a=leerC(); a.push(com); if(a.length>80) a=a.slice(-80); guardaC(a);
+    if(SB){ try{ SB.from("doritas_comandas").insert([com]).then(function(){},function(){}); }catch(e){} }
+    cart={}; guarda(); pinta(); cierraPedido();
+    document.getElementById("confMesa").textContent="Mesa "+com.mesa;
+    document.getElementById("confNum").textContent="Comanda #"+num;
+    document.getElementById("confSync").textContent="Recibida en la barra. Ábrela en «vista de barra» para verla en pantalla.";
+    document.getElementById("ovConf").hidden=false; document.body.style.overflow="hidden";
+  });
+  document.getElementById("otro").addEventListener("click",function(){ document.getElementById("ovConf").hidden=true; document.body.style.overflow=""; if(mesaURL!=null){ mesaSel=mesaURL; } else { mesaSel=null; document.querySelectorAll(".mesab").forEach(function(o){o.setAttribute("aria-pressed","false");}); } });
+
+  function pintaBarra(){
+    var lista=comandas(), c=document.getElementById("comandas"), msg=document.getElementById("barramsg"); c.textContent="";
+    if(!lista.length){ msg.hidden=false; msg.textContent="Aún no hay comandas. Haz un pedido desde la carta y aparecerá aquí."; return; }
+    msg.hidden=true;
+    lista.forEach(function(x){
+      var card=document.createElement("div"); card.className="comanda"+(x.estado==="servida"?" servida":"");
+      var ch=document.createElement("div"); ch.className="ch"; var m=document.createElement("span"); m.className="mesa"; m.textContent="Mesa "+(x.mesa||"—"); var ho=document.createElement("span"); ho.className="hora"; try{ ho.textContent=new Date(x.ts).toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"}); }catch(e){} ch.appendChild(m); ch.appendChild(ho); card.appendChild(ch);
+      var ul=document.createElement("ul"); (x.items||[]).forEach(function(it){ var li=document.createElement("li"); var b=document.createElement("b"); b.textContent=(it.q||1)+"×"; var s=document.createElement("span"); s.textContent=it.n; s.style.flex="1 1 auto"; s.style.padding="0 .5rem"; li.appendChild(b); li.appendChild(s); ul.appendChild(li); }); card.appendChild(ul);
+      var ct=document.createElement("div"); ct.className="ct"; var cl=document.createElement("span"); cl.textContent="#"+(x.numero||""); var cr=document.createElement("span"); cr.textContent=eur(x.total||0); ct.appendChild(cl); ct.appendChild(cr); card.appendChild(ct);
+      var acc=document.createElement("div"); acc.className="acc";
+      if(x.estado!=="servida"){ var bs=document.createElement("button"); bs.className="bserv"; bs.type="button"; bs.textContent="Marcar servida"; bs.addEventListener("click",function(){ var a=leerC(); a.forEach(function(y){ if(y.id===x.id) y.estado="servida"; }); guardaC(a); if(SB){ try{ SB.from("doritas_comandas").update({estado:"servida"}).eq("id",x.id).then(function(){},function(){}); }catch(e){} } pintaBarra(); }); acc.appendChild(bs); }
+      var bq=document.createElement("button"); bq.className="bquit"; bq.type="button"; bq.textContent="Quitar"; bq.addEventListener("click",function(){ guardaC(leerC().filter(function(y){return y.id!==x.id;})); if(SB){ try{ SB.from("doritas_comandas").delete().eq("id",x.id).then(function(){},function(){}); }catch(e){} } pintaBarra(); }); acc.appendChild(bq);
+      card.appendChild(acc); c.appendChild(card);
+    });
+  }
+  addEventListener("storage",function(e){ if(e.key==="dor-comandas" && !document.getElementById("barra").hidden) pintaBarra(); });
+
+  // paneles a pantalla completa (barra / qr)
+  function mostrarPanel(which){
+    var barra=document.getElementById("barra"), qr=document.getElementById("qrpanel");
+    barra.hidden = which!=="barra";
+    if(qr) qr.hidden = which!=="qr";
+    var oculto=!!which;
+    document.querySelectorAll("main, header.nav, footer, .demo").forEach(function(el){ el.hidden=oculto; });
+    document.getElementById("cesta").hidden = oculto || !tot().n;
+    document.body.style.overflow="";
+    if(which==="barra") pintaBarra();
+    if(which==="qr") pintaQR();
+    if(ST){ try{ if(oculto){ ST.disable&&ST.disable(); } else { ST.enable&&ST.enable(); } }catch(_){} }
+  }
+  document.getElementById("volverWeb").addEventListener("click",function(){ location.hash=""; });
+  var vbar=document.getElementById("vaciarBarra"); if(vbar) vbar.addEventListener("click",function(){ try{ localStorage.removeItem("dor-comandas"); localStorage.removeItem("dor-cart"); }catch(e){} if(SB){ try{ SB.from("doritas_comandas").delete().neq("id","").then(function(){},function(){}); }catch(e){} } cart={}; guarda(); pinta(); pintaBarra(); });
+  var vwq=document.getElementById("volverWebQR"); if(vwq) vwq.addEventListener("click",function(){ location.hash=""; });
+
+  // mesa desde la URL: ?mesa=N en el dominio real; #mesa=N en la demo
+  var mesaURL=null;
+  function mesaDesdeBusqueda(){ try{ var p=new URLSearchParams(location.search); var v=p.get("mesa"); return (v!=null && v!=="")?v:null; }catch(e){ return null; } }
+  function mesaDesdeHash(){ var m=location.hash.replace(/^#/,"").match(/(?:^|[&;])mesa=([^&;]+)/i); return m?decodeURIComponent(m[1]):null; }
+  function aplicarMesa(v){
+    if(v==null) return; mesaURL=v; mesaSel=v;
+    var pill=document.getElementById("mesaPill"); if(pill){ document.getElementById("mesaPillN").textContent=v; pill.hidden=false; }
+    var mm=document.getElementById("mesasManual"); if(mm) mm.hidden=true;
+    var mf=document.getElementById("mesaFija"); if(mf){ document.getElementById("mesaFijaVal").textContent="Mesa "+v; mf.hidden=false; }
+    if(!document.getElementById("ovPedido").hidden) pintaPedido();
+  }
+
+  // QR por mesa
+  function baseCarta(){ return location.origin+location.pathname; }
+  function pintaQR(){
+    var grid=document.getElementById("qrGrid"); if(!grid) return; grid.textContent="";
+    var inp=document.getElementById("qrNum"); var n=inp?parseInt(inp.value,10):12; if(!(n>0)) n=12; if(n>60) n=60;
+    for(var i=1;i<=n;i++){ (function(k){
+      var card=document.createElement("div"); card.className="qrcard";
+      var lbl=document.createElement("div"); lbl.className="ql"; lbl.textContent="Mesa "+k; card.appendChild(lbl);
+      var box=document.createElement("div"); box.className="qrbox"; card.appendChild(box);
+      try{ if(window.QRCode) new QRCode(box,{text:baseCarta()+"?mesa="+k, width:120, height:120, correctLevel:QRCode.CorrectLevel.M}); else box.textContent="Mesa "+k; }catch(e){ box.textContent="Mesa "+k; }
+      var b=document.createElement("button"); b.className="qb"; b.type="button"; b.textContent="Abrir como Mesa "+k; b.addEventListener("click",function(){ location.hash="mesa="+k; }); card.appendChild(b);
+      grid.appendChild(card);
+    })(i); }
+  }
+  var qg=document.getElementById("qrGen"); if(qg) qg.addEventListener("click",pintaQR);
+  var qp=document.getElementById("qrPrint"); if(qp) qp.addEventListener("click",function(){ try{ window.print(); }catch(e){} });
+
+  // enrutado por hash
+  function router(){
+    var h=location.hash.replace(/^#/,"");
+    var mh=mesaDesdeHash();
+    if(mh!=null){ aplicarMesa(mh); mostrarPanel(null); abreCarta(); return; }
+    if(/(?:^|[&;])barra\b/i.test(h)){ mostrarPanel("barra"); return; }
+    if(/(?:^|[&;])qr\b/i.test(h)){ mostrarPanel("qr"); return; }
+    mostrarPanel(null);
+  }
+  addEventListener("hashchange", router);
+
+  pinta();
+  var mesaIni=mesaDesdeBusqueda();
+  if(mesaIni){ aplicarMesa(mesaIni); }
+  router();
+  if(mesaIni && mesaDesdeHash()==null){ abreCarta(); }
+})();
+</script>

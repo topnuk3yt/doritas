@@ -1,0 +1,309 @@
+<title>Recepción Dorita's · agente de voz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500&display=swap">
+
+<style>
+  :root{
+    --papel:#F3F1E9; --papel-alto:#FBFAF4; --tinta:#181712; --tinta-2:rgba(24,23,18,.72);
+    --humo:#6E6A5C; --linea:rgba(24,23,18,.14); --linea-2:rgba(24,23,18,.07);
+    --verde:#4C6B2F; --verde-2:rgba(76,107,47,.12); --brasa:#C2481C; --brasa-2:rgba(194,72,28,.12);
+    --oro:#D98A3D; --noche:#120E0A; --sobre-noche:#F1E7D8; --sobre-noche-2:rgba(241,231,216,.66);
+    --disp:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+    --serif:"Newsreader",Georgia,serif;
+    --sombra:0 1px 2px rgba(24,23,18,.05), 0 20px 44px -30px rgba(24,23,18,.4);
+  }
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+    --papel:#120E0A; --papel-alto:#1B140D; --tinta:#F1E7D8; --tinta-2:rgba(241,231,216,.72);
+    --humo:#9C927E; --linea:rgba(241,231,216,.16); --linea-2:rgba(241,231,216,.08);
+    --verde:#93B368; --verde-2:rgba(147,179,104,.16); --brasa:#E0743B; --brasa-2:rgba(224,116,59,.16); --oro:#E9A65A;
+    --sombra:0 1px 2px rgba(0,0,0,.5), 0 24px 52px -30px rgba(0,0,0,.8);
+  }}
+  :root[data-theme="dark"]{
+    --papel:#120E0A; --papel-alto:#1B140D; --tinta:#F1E7D8; --tinta-2:rgba(241,231,216,.72);
+    --humo:#9C927E; --linea:rgba(241,231,216,.16); --linea-2:rgba(241,231,216,.08);
+    --verde:#93B368; --verde-2:rgba(147,179,104,.16); --brasa:#E0743B; --brasa-2:rgba(224,116,59,.16); --oro:#E9A65A;
+    --sombra:0 1px 2px rgba(0,0,0,.5), 0 24px 52px -30px rgba(0,0,0,.8);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--serif);font-size:1.05rem;line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:var(--disp);margin:0;letter-spacing:-.02em;line-height:1.05}
+  p{margin:0} button{font-family:var(--disp)} :focus-visible{outline:2.5px solid var(--brasa);outline-offset:2px;border-radius:6px}
+
+  .demo{background:var(--noche);color:var(--sobre-noche)}
+  .demo .wrap{max-width:56rem;margin:0 auto;padding:.6rem 1.1rem;display:flex;gap:.7rem 1rem;align-items:center;flex-wrap:wrap;font-family:var(--disp);font-size:.76rem}
+  .demo b{background:var(--brasa);color:#fff;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .5rem;border-radius:5px}
+  .demo span{color:var(--sobre-noche-2)}
+
+  .app{max-width:56rem;margin:0 auto;padding:1.2rem 1.1rem 3rem;display:grid;gap:1.2rem;grid-template-columns:1fr}
+  @media (min-width:820px){ .app{grid-template-columns:1.5fr 1fr;align-items:start} }
+
+  .fono{background:var(--papel-alto);border:1px solid var(--linea-2);border-radius:18px;box-shadow:var(--sombra);overflow:hidden;display:flex;flex-direction:column;min-height:60vh}
+  .fono-cab{background:linear-gradient(150deg,#3a1c0d,var(--noche));color:var(--sobre-noche);padding:1.1rem 1.3rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .fono-cab .quien{display:flex;align-items:center;gap:.8rem}
+  .fono-cab .av{width:2.7rem;height:2.7rem;border-radius:100px;background:var(--brasa);display:grid;place-items:center;font-size:1.3rem;flex:none}
+  .fono-cab .n{font-family:var(--disp);font-weight:800;font-size:1.12rem}
+  .fono-cab .st{font-family:var(--disp);font-size:.74rem;letter-spacing:.04em;color:var(--sobre-noche-2);display:flex;align-items:center;gap:.4rem;margin-top:.15rem}
+  .dotlive{width:.5rem;height:.5rem;border-radius:100px;background:#57d06a;display:inline-block}
+  @media (prefers-reduced-motion:no-preference){ .dotlive{animation:lat 1.4s ease-in-out infinite} }
+  @keyframes lat{0%,100%{opacity:.35}50%{opacity:1}}
+  .sonido{background:rgba(241,231,216,.12);border:1px solid rgba(241,231,216,.28);color:var(--sobre-noche);border-radius:100px;padding:.4rem .8rem;font-size:.78rem;font-weight:600;cursor:pointer;white-space:nowrap}
+
+  .charla{flex:1;overflow-y:auto;padding:1.2rem 1.1rem;display:flex;flex-direction:column;gap:.7rem;background:var(--papel)}
+  .b{max-width:82%;padding:.7rem .95rem;border-radius:16px;font-size:1.02rem;line-height:1.4;white-space:pre-wrap}
+  .b.ag{align-self:flex-start;background:var(--papel-alto);border:1px solid var(--linea-2);border-bottom-left-radius:5px}
+  .b.cl{align-self:flex-end;background:var(--brasa);color:#fff;border-bottom-right-radius:5px}
+  .b .qui{display:block;font-family:var(--disp);font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.65;margin-bottom:.2rem}
+  .typing{align-self:flex-start;display:inline-flex;gap:.25rem;padding:.8rem 1rem;background:var(--papel-alto);border:1px solid var(--linea-2);border-radius:16px;border-bottom-left-radius:5px}
+  .typing i{width:.42rem;height:.42rem;border-radius:100px;background:var(--humo);display:inline-block}
+  @media (prefers-reduced-motion:no-preference){ .typing i{animation:tp 1s infinite} .typing i:nth-child(2){animation-delay:.15s} .typing i:nth-child(3){animation-delay:.3s} }
+  @keyframes tp{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+
+  .entrada{border-top:1px solid var(--linea-2);padding:.85rem 1.1rem 1rem;background:var(--papel-alto)}
+  .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.7rem}
+  .chip{font-family:var(--disp);font-weight:600;font-size:.9rem;padding:.5rem .9rem;border-radius:100px;border:1.5px solid var(--brasa);background:transparent;color:var(--brasa);cursor:pointer;transition:background .12s,color .12s}
+  .chip:hover{background:var(--brasa);color:#fff}
+  .fila{display:flex;gap:.5rem;align-items:center}
+  .fila input{flex:1;font:inherit;font-family:var(--serif);padding:.7rem .9rem;border:1.5px solid var(--linea);border-radius:12px;background:var(--papel);color:var(--tinta)}
+  .ib{flex:none;width:2.9rem;height:2.9rem;border-radius:12px;border:0;cursor:pointer;display:grid;place-items:center;font-size:1.15rem}
+  .bsend{background:var(--brasa);color:#fff}
+  .bmic{background:transparent;border:1.5px solid var(--linea);color:var(--tinta)}
+  .bmic.on{background:var(--verde);border-color:var(--verde);color:#fff}
+  .bmic[hidden]{display:none}
+  .pista{font-family:var(--disp);font-size:.72rem;color:var(--humo);margin-top:.55rem}
+
+  .lado{display:flex;flex-direction:column;gap:1.2rem}
+  .panel{background:var(--papel-alto);border:1px solid var(--linea-2);border-radius:16px;box-shadow:var(--sombra);padding:1.2rem 1.3rem}
+  .panel h3{font-family:var(--disp);font-weight:800;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--humo);margin-bottom:.8rem}
+  .agenda{display:flex;flex-direction:column;gap:.6rem}
+  .agenda .vacia{color:var(--humo);font-style:italic;font-size:.96rem}
+  .resv{border:1px solid var(--linea-2);border-left:4px solid var(--verde);border-radius:11px;padding:.75rem .9rem;background:var(--papel)}
+  .resv .r1{display:flex;align-items:baseline;justify-content:space-between;gap:.6rem}
+  .resv .nom{font-family:var(--disp);font-weight:800;font-size:1.05rem}
+  .resv .pax{font-family:var(--disp);font-weight:700;color:var(--verde);font-size:.9rem;white-space:nowrap}
+  .resv .r2{color:var(--tinta-2);font-size:.95rem;margin-top:.15rem}
+  .resv .x{float:right;background:none;border:0;color:var(--humo);cursor:pointer;font-size:.85rem;text-decoration:underline;font-family:var(--disp)}
+  .como{font-size:.96rem;color:var(--tinta-2);line-height:1.5}
+  .como b{color:var(--tinta);font-family:var(--disp);font-weight:700}
+  .como ul{margin:.5rem 0 0;padding-left:1.1rem} .como li{margin:.2rem 0}
+  .rearrancar{margin-top:.9rem;width:100%;border:1.5px solid var(--linea);background:transparent;color:var(--tinta);font-weight:600;font-size:.9rem;border-radius:100px;padding:.6rem;cursor:pointer}
+  .pie{max-width:56rem;margin:0 auto;padding:0 1.1rem 2.5rem;color:var(--humo);font-size:.88rem;line-height:1.5}
+  .pie b{color:var(--tinta-2)}
+</style>
+
+<div class="demo"><div class="wrap"><b>Demo</b><span>Simulación del agente de voz de Erigo para Dorita's. La voz es sintética; en el servicio real contesta el teléfono del bar. No graba nada.</span></div></div>
+
+<div class="app">
+  <section class="fono">
+    <div class="fono-cab">
+      <div class="quien">
+        <div class="av" aria-hidden="true">☎️</div>
+        <div><div class="n">Dorita's · recepción</div><div class="st"><span class="dotlive" aria-hidden="true"></span> En llamada · agente automático</div></div>
+      </div>
+      <button class="sonido" id="sonido" type="button" aria-pressed="true">🔊 Voz: sí</button>
+    </div>
+    <div class="charla" id="charla" aria-live="polite"></div>
+    <div class="entrada">
+      <div class="chips" id="chips"></div>
+      <div class="fila">
+        <input id="txt" type="text" autocomplete="off" placeholder="Escribe tu respuesta…" aria-label="Tu respuesta">
+        <button class="ib bmic" id="mic" type="button" aria-label="Hablar" title="Hablar">🎤</button>
+        <button class="ib bsend" id="send" type="button" aria-label="Enviar">➤</button>
+      </div>
+      <p class="pista" id="pista">Responde con los botones, escribiendo, o pulsa el micrófono para hablar.</p>
+    </div>
+  </section>
+
+  <aside class="lado">
+    <div class="panel">
+      <h3>Agenda del bar · reservas de hoy</h3>
+      <div class="agenda" id="agenda"></div>
+      <button class="rearrancar" id="vaciarAgenda" type="button" style="margin-top:.9rem">Vaciar la agenda (demo)</button>
+    </div>
+    <div class="panel como">
+      <h3>Qué estás viendo</h3>
+      Esto es lo que haría el agente cuando el bar está lleno y nadie coge el teléfono: <b>contesta, entiende y apunta la reserva</b>. Pruébalo tú:
+      <ul>
+        <li>Dile <b>«reservar»</b> y sigue lo que te pregunta.</li>
+        <li>Responde con los botones o hablando por el micrófono.</li>
+        <li>La reserva aparece a la izquierda, en la agenda del bar.</li>
+      </ul>
+      <button class="rearrancar" id="reiniciar" type="button">↻ Empezar la llamada de nuevo</button>
+    </div>
+  </aside>
+</div>
+
+<p class="pie"><b>Lo que es y lo que no.</b> Es una maqueta del comportamiento del agente para enseñarlo en una reunión: la conversación y la voz corren aquí, en el navegador, sin llamada real y sin guardar datos fuera de este dispositivo. El servicio de verdad contesta el número del bar, se conecta con su agenda y entrega un registro de cada llamada; recibir llamadas (el cliente llama) no tiene traba comercial. Precio de referencia: alta 900 € + 149 €/mes, 150 llamadas incluidas.</p>
+
+<script>
+"use strict";
+(function(){
+  var RM=false; try{ RM=matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){}
+
+  // ---- tema (sigue el del sistema; sin botón, coherente con la web) ----
+
+  // ---- voz (TTS) ----
+  var sonido=true, voces=[];
+  function cargaVoces(){ try{ voces=speechSynthesis.getVoices()||[]; }catch(e){ voces=[]; } }
+  if("speechSynthesis" in window){ cargaVoces(); try{ speechSynthesis.onvoiceschanged=cargaVoces; }catch(e){} }
+  function hablar(txt){
+    if(!sonido || !("speechSynthesis" in window)) return;
+    try{
+      speechSynthesis.cancel();
+      var u=new SpeechSynthesisUtterance(txt); u.lang="es-ES"; u.rate=1.03; u.pitch=1;
+      var v=voces.filter(function(x){return /es[-_]ES/i.test(x.lang);})[0] || voces.filter(function(x){return /^es/i.test(x.lang);})[0];
+      if(v) u.voice=v;
+      speechSynthesis.speak(u);
+    }catch(e){}
+  }
+  var btnSon=document.getElementById("sonido");
+  btnSon.addEventListener("click",function(){ sonido=!sonido; btnSon.setAttribute("aria-pressed",String(sonido)); btnSon.textContent=sonido?"🔊 Voz: sí":"🔇 Voz: no"; if(!sonido){ try{ speechSynthesis.cancel(); }catch(e){} } });
+  // desbloquear la voz en el primer gesto (política de autoplay del navegador)
+  var ttsCebado=false;
+  function cebarTTS(){ if(ttsCebado) return; ttsCebado=true; if(!("speechSynthesis" in window)) return; try{ var u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); }catch(e){} }
+  document.addEventListener("pointerdown", cebarTTS, {once:true});
+  document.addEventListener("keydown", cebarTTS, {once:true});
+
+  // ---- reconocimiento de voz (opcional) ----
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition, rec=null, escuchando=false;
+  var micBtn=document.getElementById("mic");
+  if(SR){
+    try{
+      rec=new SR(); rec.lang="es-ES"; rec.interimResults=false; rec.maxAlternatives=1;
+      rec.onresult=function(e){ var t=e.results[0][0].transcript; document.getElementById("txt").value=t; setTimeout(enviar, 250); };
+      rec.onend=function(){ escuchando=false; micBtn.classList.remove("on"); };
+      rec.onerror=function(){ escuchando=false; micBtn.classList.remove("on"); };
+    }catch(e){ rec=null; }
+  }
+  if(!rec){ micBtn.hidden=true; }
+  micBtn.addEventListener("click",function(){
+    if(!rec) return;
+    if(escuchando){ try{ rec.stop(); }catch(e){} return; }
+    try{ rec.start(); escuchando=true; micBtn.classList.add("on"); }catch(e){ escuchando=false; micBtn.classList.remove("on"); }
+  });
+
+  // ---- charla ----
+  var charla=document.getElementById("charla"), chipsBox=document.getElementById("chips"), txt=document.getElementById("txt");
+  function scroll(){ charla.scrollTop=charla.scrollHeight; }
+  function burbuja(txto, quien){
+    var b=document.createElement("div"); b.className="b "+(quien==="ag"?"ag":"cl");
+    var q=document.createElement("span"); q.className="qui"; q.textContent=quien==="ag"?"Recepción":"Tú"; b.appendChild(q);
+    b.appendChild(document.createTextNode(txto)); charla.appendChild(b); scroll();
+  }
+  function cliente(t){ burbuja(t,"cl"); }
+  var typingEl=null;
+  function typingOn(){ typingOff(); typingEl=document.createElement("div"); typingEl.className="typing"; typingEl.innerHTML="<i></i><i></i><i></i>"; charla.appendChild(typingEl); scroll(); }
+  function typingOff(){ if(typingEl&&typingEl.parentNode){ typingEl.parentNode.removeChild(typingEl); } typingEl=null; }
+  var agTimer=null;
+  function cancelaAgente(){ if(agTimer){ clearTimeout(agTimer); agTimer=null; } typingOff(); }
+  function agente(t, chips){
+    cancelaAgente(); typingOn();
+    var esperar=RM?250:Math.min(1100, 350+t.length*11);
+    agTimer=setTimeout(function(){ agTimer=null; typingOff(); burbuja(t,"ag"); hablar(t); pintaChips(chips||[]); }, esperar);
+  }
+  function pintaChips(arr){
+    chipsBox.textContent="";
+    arr.forEach(function(c){ var b=document.createElement("button"); b.className="chip"; b.type="button"; b.textContent=c.t; b.addEventListener("click",function(){ manejar(c.v!=null?c.v:c.t, c.t); }); chipsBox.appendChild(b); });
+  }
+
+  // ---- máquina de estados ----
+  var estado="inicio", reserva={local:null,personas:null,dia:null,hora:null,nombre:null};
+  function reset(){ reserva={local:null,personas:null,dia:null,hora:null,nombre:null}; }
+  var PALN={uno:1,una:1,dos:2,tres:3,cuatro:4,cinco:5,seis:6,siete:7,ocho:8,nueve:9,diez:10,once:11,doce:12};
+  var num=function(s){ var m=String(s).match(/\d+/); if(m) return parseInt(m[0],10); var w=String(s).toLowerCase().match(/\b(uno|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce)\b/); return w?PALN[w[1]]:null; };
+  var esSi=function(s){ return /\b(s[ií]|vale|correcto|confirm|perfecto|claro|ok|de acuerdo|eso es)\b/i.test(s); };
+  var esNo=function(s){ return /\b(no|cambiar|cambia|mal|otra vez)\b/i.test(s); };
+
+  function empezar(){
+    cancelaAgente(); charla.textContent=""; estado="inicio"; reset();
+    agente("Dorita's, buenas tardes. Soy la recepción automática. ¿Quiere reservar una mesa?",
+      [{t:"Sí, reservar",v:"reservar"},{t:"¿Qué horario tenéis?",v:"horario"},{t:"¿Dónde estáis?",v:"donde"}]);
+  }
+
+  function manejar(entrada, mostrado){
+    var val=String(entrada||"").trim(); if(!val) return;
+    cancelaAgente(); cliente(mostrado||val);
+    txt.value=""; pintaChips([]);
+    setTimeout(function(){ procesar(val); }, 120);
+  }
+
+  function procesar(val){
+    if(estado==="inicio"){
+      if(/reserv/i.test(val)){ estado="local"; return agente("Con mucho gusto. ¿En cuál prefiere: el bar, en la calle Almenillas, o el mesón, en Santa Clotilde?", [{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}]); }
+      if(/horar/i.test(val)){ return agente("Solemos abrir de martes a sábado, a mediodía y por la noche, pero el horario exacto se lo confirma el bar. ¿Quiere reservar?", [{t:"Sí, reservar",v:"reservar"},{t:"No, gracias",v:"colgar"}]); }
+      if(/d[oó]nde|direcci|sitio/i.test(val)){ return agente("Tenemos dos casas: el bar en la calle Almenillas 1 y el mesón en Santa Clotilde 35, en Granada. ¿Le reservo mesa?", [{t:"Sí, reservar",v:"reservar"},{t:"No, gracias",v:"colgar"}]); }
+      if(/no|gracias|colgar/i.test(val)){ estado="fin"; return agente("Gracias por llamar a Dorita's. ¡Hasta pronto!", []); }
+      return agente("Puedo tomarle una reserva. ¿Quiere que le reserve una mesa?", [{t:"Sí, reservar",v:"reservar"},{t:"Solo el horario",v:"horario"}]);
+    }
+    if(estado==="local"){
+      reserva.local = /mes[oó]n|clotilde/i.test(val) ? "Mesón" : (/bar|almenill/i.test(val) ? "Bar" : val);
+      estado="personas";
+      return agente("Perfecto, en el "+reserva.local+". ¿Para cuántas personas?", [{t:"2"},{t:"3"},{t:"4"},{t:"6"},{t:"8"}]);
+    }
+    if(estado==="personas"){
+      var n=num(val); if(!n){ return agente("¿Para cuántas personas sería? Dígame un número.", [{t:"2"},{t:"3"},{t:"4"},{t:"6"}]); }
+      reserva.personas=n; estado="dia";
+      return agente("Perfecto, "+n+(n===1?" persona":" personas")+". ¿Para qué día?", [{t:"Hoy"},{t:"Mañana"},{t:"Viernes"},{t:"Sábado"}]);
+    }
+    if(estado==="dia"){
+      reserva.dia=val; estado="hora";
+      return agente("¿Y a qué hora?", [{t:"14:00"},{t:"14:30"},{t:"21:00"},{t:"21:30"}]);
+    }
+    if(estado==="hora"){
+      reserva.hora=val; estado="nombre";
+      txt.setAttribute("placeholder","Tu nombre…");
+      return agente("Muy bien. ¿A nombre de quién pongo la reserva?", []);
+    }
+    if(estado==="nombre"){
+      reserva.nombre=val.replace(/^(soy|me llamo|a nombre de)\s+/i,"").trim()||val; estado="confirmar";
+      txt.setAttribute("placeholder","Escribe tu respuesta…");
+      return agente("Le confirmo: mesa en el "+reserva.local+" para "+reserva.personas+(reserva.personas===1?" persona":" personas")+" el "+reserva.dia+" a las "+reserva.hora+", a nombre de "+reserva.nombre+". ¿Es correcto?",
+        [{t:"Sí, confírmalo",v:"si"},{t:"No, cámbialo",v:"no"}]);
+    }
+    if(estado==="confirmar"){
+      if(esSi(val)){
+        guardarReserva(); estado="hecho";
+        return agente("¡Reserva confirmada! Le esperamos en Dorita's, "+reserva.nombre+". ¿Necesita algo más?", [{t:"Otra reserva",v:"reservar"},{t:"No, gracias",v:"colgar"}]);
+      }
+      if(esNo(val)){ estado="local"; reset(); return agente("Sin problema, empezamos de nuevo. ¿En el bar o en el mesón?", [{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}]); }
+      return agente("Perdone, ¿le confirmo la reserva? Dígame sí o no.", [{t:"Sí, confírmalo",v:"si"},{t:"No, cámbialo",v:"no"}]);
+    }
+    if(estado==="hecho"){
+      if(/reserv|otra|s[ií]/i.test(val)){ estado="local"; reset(); return agente("Claro. ¿En el bar o en el mesón?", [{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}]); }
+      estado="fin"; return agente("Gracias por llamar a Dorita's. ¡Que tenga buen día!", []);
+    }
+    // estado fin u otro: reofrecer
+    estado="inicio";
+    return agente("¿Quiere que le tome una reserva?", [{t:"Sí, reservar",v:"reservar"}]);
+  }
+
+  // ---- agenda (localStorage) ----
+  function leerR(){ try{ return JSON.parse(localStorage.getItem("dor-reservas")||"[]"); }catch(e){ return []; } }
+  function guardaR(a){ try{ localStorage.setItem("dor-reservas",JSON.stringify(a)); }catch(e){} }
+  function guardarReserva(){
+    var a=leerR(); a.push({id:"r"+Date.now(),local:reserva.local,personas:reserva.personas,dia:reserva.dia,hora:reserva.hora,nombre:reserva.nombre,ts:Date.now()});
+    if(a.length>40) a=a.slice(-40); guardaR(a); pintaAgenda();
+  }
+  function pintaAgenda(){
+    var box=document.getElementById("agenda"), a=leerR().slice().reverse(); box.textContent="";
+    if(!a.length){ var v=document.createElement("div"); v.className="vacia"; v.textContent="Aún no hay reservas. Haz una desde la llamada y aparecerá aquí."; box.appendChild(v); return; }
+    a.forEach(function(r){
+      var c=document.createElement("div"); c.className="resv";
+      var x=document.createElement("button"); x.className="x"; x.type="button"; x.textContent="quitar"; x.addEventListener("click",function(){ guardaR(leerR().filter(function(y){return y.id!==r.id;})); pintaAgenda(); }); c.appendChild(x);
+      var r1=document.createElement("div"); r1.className="r1"; var nom=document.createElement("span"); nom.className="nom"; nom.textContent=r.nombre||"—"; var pax=document.createElement("span"); pax.className="pax"; pax.textContent=(r.personas||"?")+" pax"; r1.appendChild(nom); r1.appendChild(pax); c.appendChild(r1);
+      var r2=document.createElement("div"); r2.className="r2"; r2.textContent=(r.local?r.local+" · ":"")+(r.dia||"")+" · "+(r.hora||""); c.appendChild(r2);
+      box.appendChild(c);
+    });
+  }
+
+  // ---- envío ----
+  function enviar(){ var v=txt.value.trim(); if(!v) return; manejar(v); }
+  document.getElementById("send").addEventListener("click",enviar);
+  txt.addEventListener("keydown",function(e){ if(e.key==="Enter"){ e.preventDefault(); enviar(); } });
+  document.getElementById("reiniciar").addEventListener("click",function(){ try{ speechSynthesis.cancel(); }catch(e){} empezar(); });
+  var va=document.getElementById("vaciarAgenda"); if(va) va.addEventListener("click",function(){ guardaR([]); pintaAgenda(); });
+
+  pintaAgenda();
+  empezar();
+})();
+</script>
