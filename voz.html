@@ -146,21 +146,53 @@
   var sonido=true, voces=[];
   function cargaVoces(){ try{ voces=speechSynthesis.getVoices()||[]; }catch(e){ voces=[]; } }
   if("speechSynthesis" in window){ cargaVoces(); try{ speechSynthesis.onvoiceschanged=cargaVoces; }catch(e){} }
-  function hablar(txt){
-    if(!sonido || !("speechSynthesis" in window)) return;
-    try{
-      speechSynthesis.cancel();
-      var u=new SpeechSynthesisUtterance(txt); u.lang="es-ES"; u.rate=1.03; u.pitch=1;
+  // audios de la recepción (voz de calidad); el TTS del navegador es solo de reserva
+  var AUD={
+    "Dorita's, buenas tardes. Soy la recepción automática. ¿Quiere reservar una mesa?":"g0",
+    "Con mucho gusto. ¿En cuál prefiere: el bar, en la calle Almenillas, o el mesón, en Santa Clotilde?":"g1",
+    "Solemos abrir de martes a sábado, a mediodía y por la noche, pero el horario exacto se lo confirma el bar. ¿Quiere reservar?":"g2",
+    "Tenemos dos casas: el bar en la calle Almenillas, y el mesón en Santa Clotilde, en Granada. ¿Le reservo mesa?":"g3",
+    "Gracias por llamar a Dorita's. ¡Hasta pronto!":"g4",
+    "Con gusto le tomo una reserva. ¿Quiere que le reserve una mesa?":"g5",
+    "Perfecto. ¿Para cuántas personas?":"g6",
+    "¿Para cuántas personas sería? Dígame un número.":"g7",
+    "Muy bien. ¿Para qué día?":"g8",
+    "¿Y a qué hora?":"g9",
+    "Estupendo. ¿A nombre de quién pongo la reserva?":"g10",
+    "Se lo confirmo con los datos en pantalla. ¿Es todo correcto?":"g11",
+    "¡Reserva confirmada! Le esperamos en Dorita's. ¿Necesita algo más?":"g12",
+    "Empezamos de nuevo. ¿En el bar o en el mesón?":"g13",
+    "Perdone, no la he entendido. ¿Le confirmo la reserva, sí o no?":"g14",
+    "Gracias por llamar a Dorita's. ¡Que tenga un buen día!":"g15"
+  };
+  var audios={}, audioAct=null;
+  try{ for(var _k in AUD){ var _a=new Audio("audio/"+AUD[_k]+".mp3"); _a.preload="auto"; audios[AUD[_k]]=_a; } }catch(e){}
+  function pararAudio(){ try{ if(audioAct){ audioAct.pause(); audioAct.currentTime=0; audioAct=null; } }catch(e){} }
+  function hablarTTS(txt){
+    if(!("speechSynthesis" in window)) return;
+    try{ speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(txt); u.lang="es-ES"; u.rate=1.03; u.pitch=1;
       var v=voces.filter(function(x){return /es[-_]ES/i.test(x.lang);})[0] || voces.filter(function(x){return /^es/i.test(x.lang);})[0];
-      if(v) u.voice=v;
-      speechSynthesis.speak(u);
-    }catch(e){}
+      if(v) u.voice=v; speechSynthesis.speak(u); }catch(e){}
+  }
+  function hablar(txt){
+    if(!sonido) return;
+    var id=AUD[txt];
+    if(id && audios[id]){
+      try{ speechSynthesis.cancel(); }catch(e){}
+      pararAudio();
+      var a=audios[id]; audioAct=a;
+      try{ a.currentTime=0; var p=a.play(); if(p&&p.catch){ p.catch(function(){ hablarTTS(txt); }); } return; }catch(e){}
+    }
+    hablarTTS(txt);
   }
   var btnSon=document.getElementById("sonido");
-  btnSon.addEventListener("click",function(){ sonido=!sonido; btnSon.setAttribute("aria-pressed",String(sonido)); btnSon.textContent=sonido?"🔊 Voz: sí":"🔇 Voz: no"; if(!sonido){ try{ speechSynthesis.cancel(); }catch(e){} } });
-  // desbloquear la voz en el primer gesto (política de autoplay del navegador)
+  btnSon.addEventListener("click",function(){ sonido=!sonido; btnSon.setAttribute("aria-pressed",String(sonido)); btnSon.textContent=sonido?"🔊 Voz: sí":"🔇 Voz: no"; if(!sonido){ try{ speechSynthesis.cancel(); }catch(e){} pararAudio(); } });
+  // desbloquear voz y audio en el primer gesto (política de autoplay del navegador)
   var ttsCebado=false;
-  function cebarTTS(){ if(ttsCebado) return; ttsCebado=true; if(!("speechSynthesis" in window)) return; try{ var u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); }catch(e){} }
+  function cebarTTS(){ if(ttsCebado) return; ttsCebado=true;
+    if("speechSynthesis" in window){ try{ var u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); }catch(e){} }
+    try{ var a=audios["g0"]; if(a){ a.muted=true; var p=a.play(); if(p&&p.then){ p.then(function(){ a.pause(); a.currentTime=0; a.muted=false; }, function(){ a.muted=false; }); } } }catch(e){}
+  }
   document.addEventListener("pointerdown", cebarTTS, {once:true});
   document.addEventListener("keydown", cebarTTS, {once:true});
 
@@ -196,10 +228,10 @@
   function typingOff(){ if(typingEl&&typingEl.parentNode){ typingEl.parentNode.removeChild(typingEl); } typingEl=null; }
   var agTimer=null;
   function cancelaAgente(){ if(agTimer){ clearTimeout(agTimer); agTimer=null; } typingOff(); }
-  function agente(t, chips){
+  function agente(t, chips, spoken){
     cancelaAgente(); typingOn();
     var esperar=RM?250:Math.min(1100, 350+t.length*11);
-    agTimer=setTimeout(function(){ agTimer=null; typingOff(); burbuja(t,"ag"); hablar(t); pintaChips(chips||[]); }, esperar);
+    agTimer=setTimeout(function(){ agTimer=null; typingOff(); burbuja(t,"ag"); hablar(spoken||t); pintaChips(chips||[]); }, esperar);
   }
   function pintaChips(arr){
     chipsBox.textContent="";
@@ -231,19 +263,19 @@
     if(estado==="inicio"){
       if(/reserv/i.test(val)){ estado="local"; return agente("Con mucho gusto. ¿En cuál prefiere: el bar, en la calle Almenillas, o el mesón, en Santa Clotilde?", [{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}]); }
       if(/horar/i.test(val)){ return agente("Solemos abrir de martes a sábado, a mediodía y por la noche, pero el horario exacto se lo confirma el bar. ¿Quiere reservar?", [{t:"Sí, reservar",v:"reservar"},{t:"No, gracias",v:"colgar"}]); }
-      if(/d[oó]nde|direcci|sitio/i.test(val)){ return agente("Tenemos dos casas: el bar en la calle Almenillas 1 y el mesón en Santa Clotilde 35, en Granada. ¿Le reservo mesa?", [{t:"Sí, reservar",v:"reservar"},{t:"No, gracias",v:"colgar"}]); }
+      if(/d[oó]nde|direcci|sitio/i.test(val)){ return agente("Tenemos dos casas: el bar en la calle Almenillas, y el mesón en Santa Clotilde, en Granada. ¿Le reservo mesa?", [{t:"Sí, reservar",v:"reservar"},{t:"No, gracias",v:"colgar"}]); }
       if(/no|gracias|colgar/i.test(val)){ estado="fin"; return agente("Gracias por llamar a Dorita's. ¡Hasta pronto!", []); }
-      return agente("Puedo tomarle una reserva. ¿Quiere que le reserve una mesa?", [{t:"Sí, reservar",v:"reservar"},{t:"Solo el horario",v:"horario"}]);
+      return agente("Con gusto le tomo una reserva. ¿Quiere que le reserve una mesa?", [{t:"Sí, reservar",v:"reservar"},{t:"Solo el horario",v:"horario"}]);
     }
     if(estado==="local"){
       reserva.local = /mes[oó]n|clotilde/i.test(val) ? "Mesón" : (/bar|almenill/i.test(val) ? "Bar" : val);
       estado="personas";
-      return agente("Perfecto, en el "+reserva.local+". ¿Para cuántas personas?", [{t:"2"},{t:"3"},{t:"4"},{t:"6"},{t:"8"}]);
+      return agente("Perfecto. ¿Para cuántas personas?", [{t:"2"},{t:"3"},{t:"4"},{t:"6"},{t:"8"}]);
     }
     if(estado==="personas"){
       var n=num(val); if(!n){ return agente("¿Para cuántas personas sería? Dígame un número.", [{t:"2"},{t:"3"},{t:"4"},{t:"6"}]); }
       reserva.personas=n; estado="dia";
-      return agente("Perfecto, "+n+(n===1?" persona":" personas")+". ¿Para qué día?", [{t:"Hoy"},{t:"Mañana"},{t:"Viernes"},{t:"Sábado"}]);
+      return agente("Muy bien. ¿Para qué día?", [{t:"Hoy"},{t:"Mañana"},{t:"Viernes"},{t:"Sábado"}]);
     }
     if(estado==="dia"){
       reserva.dia=val; estado="hora";
@@ -252,25 +284,25 @@
     if(estado==="hora"){
       reserva.hora=val; estado="nombre";
       txt.setAttribute("placeholder","Tu nombre…");
-      return agente("Muy bien. ¿A nombre de quién pongo la reserva?", []);
+      return agente("Estupendo. ¿A nombre de quién pongo la reserva?", []);
     }
     if(estado==="nombre"){
       reserva.nombre=val.replace(/^(soy|me llamo|a nombre de)\s+/i,"").trim()||val; estado="confirmar";
       txt.setAttribute("placeholder","Escribe tu respuesta…");
       return agente("Le confirmo: mesa en el "+reserva.local+" para "+reserva.personas+(reserva.personas===1?" persona":" personas")+" el "+reserva.dia+" a las "+reserva.hora+", a nombre de "+reserva.nombre+". ¿Es correcto?",
-        [{t:"Sí, confírmalo",v:"si"},{t:"No, cámbialo",v:"no"}]);
+        [{t:"Sí, confírmalo",v:"si"},{t:"No, cámbialo",v:"no"}], "Se lo confirmo con los datos en pantalla. ¿Es todo correcto?");
     }
     if(estado==="confirmar"){
       if(esSi(val)){
         guardarReserva(); estado="hecho";
-        return agente("¡Reserva confirmada! Le esperamos en Dorita's, "+reserva.nombre+". ¿Necesita algo más?", [{t:"Otra reserva",v:"reservar"},{t:"No, gracias",v:"colgar"}]);
+        return agente("¡Reserva confirmada! Le esperamos en Dorita's, "+reserva.nombre+". ¿Necesita algo más?", [{t:"Otra reserva",v:"reservar"},{t:"No, gracias",v:"colgar"}], "¡Reserva confirmada! Le esperamos en Dorita's. ¿Necesita algo más?");
       }
-      if(esNo(val)){ estado="local"; reset(); return agente("Sin problema, empezamos de nuevo. ¿En el bar o en el mesón?", [{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}]); }
-      return agente("Perdone, ¿le confirmo la reserva? Dígame sí o no.", [{t:"Sí, confírmalo",v:"si"},{t:"No, cámbialo",v:"no"}]);
+      if(esNo(val)){ estado="local"; reset(); return agente("Empezamos de nuevo. ¿En el bar o en el mesón?", [{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}]); }
+      return agente("Perdone, no la he entendido. ¿Le confirmo la reserva, sí o no?", [{t:"Sí, confírmalo",v:"si"},{t:"No, cámbialo",v:"no"}]);
     }
     if(estado==="hecho"){
-      if(/reserv|otra|s[ií]/i.test(val)){ estado="local"; reset(); return agente("Claro. ¿En el bar o en el mesón?", [{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}]); }
-      estado="fin"; return agente("Gracias por llamar a Dorita's. ¡Que tenga buen día!", []);
+      if(/reserv|otra|s[ií]/i.test(val)){ estado="local"; reset(); return agente("Empezamos de nuevo. ¿En el bar o en el mesón?", [{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}]); }
+      estado="fin"; return agente("Gracias por llamar a Dorita's. ¡Que tenga un buen día!", []);
     }
     // estado fin u otro: reofrecer
     estado="inicio";
