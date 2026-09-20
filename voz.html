@@ -162,11 +162,12 @@
     "Se lo confirmo con los datos en pantalla. ¿Es todo correcto?":"g11",
     "¡Reserva confirmada! Le esperamos en Dorita's. ¿Necesita algo más?":"g12",
     "Empezamos de nuevo. ¿En el bar o en el mesón?":"g13",
-    "Perdone, no la he entendido. ¿Le confirmo la reserva, sí o no?":"g14",
-    "Gracias por llamar a Dorita's. ¡Que tenga un buen día!":"g15"
+    "Perdone, no he entendido bien. ¿Le confirmo la reserva, sí o no?":"g14",
+    "Gracias por llamar a Dorita's. ¡Que tenga un buen día!":"g15",
+    "¿Quiere que le tome una reserva?":"g16"
   };
   var audios={}, audioAct=null;
-  var AUDV="g1";
+  var AUDV="g2";
   try{ for(var _k in AUD){ var _a=new Audio("audio/"+AUD[_k]+".mp3?v="+AUDV); _a.preload="auto"; audios[AUD[_k]]=_a; } }catch(e){}
   function pararAudio(){ try{ if(audioAct){ audioAct.pause(); audioAct.currentTime=0; audioAct=null; } }catch(e){} }
   function hablarTTS(txt){
@@ -192,7 +193,8 @@
   var ttsCebado=false;
   function cebarTTS(){ if(ttsCebado) return; ttsCebado=true;
     if("speechSynthesis" in window){ try{ var u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); }catch(e){} }
-    try{ var a=audios["g0"]; if(a){ a.muted=true; var p=a.play(); if(p&&p.then){ p.then(function(){ a.pause(); a.currentTime=0; a.muted=false; }, function(){ a.muted=false; }); } } }catch(e){}
+    // ceba con un elemento desechable: tocar audios["g0"] aqui puede dejar mudo el saludo
+    try{ var src=(audios["g0"]&&audios["g0"].src)||""; if(src){ var a=new Audio(src); a.muted=true; var p=a.play(); if(p&&p.then){ p.then(function(){ a.pause(); a.src=""; }, function(){}); } } }catch(e){}
   }
   document.addEventListener("pointerdown", cebarTTS, {once:true});
   document.addEventListener("keydown", cebarTTS, {once:true});
@@ -299,7 +301,7 @@
         return agente("¡Reserva confirmada! Le esperamos en Dorita's, "+reserva.nombre+". ¿Necesita algo más?", [{t:"Otra reserva",v:"reservar"},{t:"No, gracias",v:"colgar"}], "¡Reserva confirmada! Le esperamos en Dorita's. ¿Necesita algo más?");
       }
       if(esNo(val)){ estado="local"; reset(); return agente("Empezamos de nuevo. ¿En el bar o en el mesón?", [{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}]); }
-      return agente("Perdone, no la he entendido. ¿Le confirmo la reserva, sí o no?", [{t:"Sí, confírmalo",v:"si"},{t:"No, cámbialo",v:"no"}]);
+      return agente("Perdone, no he entendido bien. ¿Le confirmo la reserva, sí o no?", [{t:"Sí, confírmalo",v:"si"},{t:"No, cámbialo",v:"no"}]);
     }
     if(estado==="hecho"){
       if(/reserv|otra|s[ií]/i.test(val)){ estado="local"; reset(); return agente("Empezamos de nuevo. ¿En el bar o en el mesón?", [{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}]); }
