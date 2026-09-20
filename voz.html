@@ -166,7 +166,8 @@
     "Gracias por llamar a Dorita's. ¡Que tenga un buen día!":"g15"
   };
   var audios={}, audioAct=null;
-  try{ for(var _k in AUD){ var _a=new Audio("audio/"+AUD[_k]+".mp3"); _a.preload="auto"; audios[AUD[_k]]=_a; } }catch(e){}
+  var AUDV="es2";
+  try{ for(var _k in AUD){ var _a=new Audio("audio/"+AUD[_k]+".mp3?v="+AUDV); _a.preload="auto"; audios[AUD[_k]]=_a; } }catch(e){}
   function pararAudio(){ try{ if(audioAct){ audioAct.pause(); audioAct.currentTime=0; audioAct=null; } }catch(e){} }
   function hablarTTS(txt){
     if(!("speechSynthesis" in window)) return;
