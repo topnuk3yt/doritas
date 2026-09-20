@@ -167,10 +167,11 @@
     "¿Quiere que le tome una reserva?":"g16"
   };
   var audios={}, audioAct=null;
-  var AUDV="g2";
+  var AUDV="g3";
   try{ for(var _k in AUD){ var _a=new Audio("audio/"+AUD[_k]+".mp3?v="+AUDV); _a.preload="auto"; audios[AUD[_k]]=_a; } }catch(e){}
   function pararAudio(){ try{ if(audioAct){ audioAct.pause(); audioAct.currentTime=0; audioAct=null; } }catch(e){} }
   function hablarTTS(txt){
+    if(!sonido) return;
     if(!("speechSynthesis" in window)) return;
     try{ speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(txt); u.lang="es-ES"; u.rate=1.03; u.pitch=1;
       var v=voces.filter(function(x){return /es[-_]ES/i.test(x.lang);})[0] || voces.filter(function(x){return /^es/i.test(x.lang);})[0];
@@ -183,7 +184,14 @@
       try{ speechSynthesis.cancel(); }catch(e){}
       pararAudio();
       var a=audios[id]; audioAct=a;
-      try{ a.currentTime=0; var p=a.play(); if(p&&p.catch){ p.catch(function(){ hablarTTS(txt); }); } return; }catch(e){}
+      // si la reproduccion se corta a proposito (otra frase, o el boton de silencio)
+      // el navegador rechaza la promesa: ahi NO hay que recurrir a la voz sintetica,
+      // o se oye leyendo la frase anterior por encima de la nueva
+      try{ a.currentTime=0; var p=a.play(); if(p&&p.catch){ p.catch(function(err){
+        if(err && err.name==="AbortError") return;
+        if(audioAct!==a) return;
+        hablarTTS(txt);
+      }); } return; }catch(e){}
     }
     hablarTTS(txt);
   }
