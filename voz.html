@@ -166,7 +166,7 @@
     "Gracias por llamar a Dorita's. ¡Que tenga un buen día!":"g15",
     "¿Quiere que le tome una reserva?":"g16"
   };
-  var audios={}, audioAct=null;
+  var audios={}, audioAct=null, pendiente=null;
   var AUDV="g3";
   try{ for(var _k in AUD){ var _a=new Audio("audio/"+AUD[_k]+".mp3?v="+AUDV); _a.preload="auto"; audios[AUD[_k]]=_a; } }catch(e){}
   function pararAudio(){ try{ if(audioAct){ audioAct.pause(); audioAct.currentTime=0; audioAct=null; } }catch(e){} }
@@ -190,6 +190,9 @@
       try{ a.currentTime=0; var p=a.play(); if(p&&p.catch){ p.catch(function(err){
         if(err && err.name==="AbortError") return;
         if(audioAct!==a) return;
+        // autoplay bloqueado antes del primer gesto: se aplaza y se dice con la
+        // voz buena al primer toque; tras el cebado se cae a la sintetica, como siempre
+        if(err && err.name==="NotAllowedError" && !gestoHecho){ pendiente=txt; return; }
         hablarTTS(txt);
       }); } return; }catch(e){}
     }
@@ -198,14 +201,28 @@
   var btnSon=document.getElementById("sonido");
   btnSon.addEventListener("click",function(){ sonido=!sonido; btnSon.setAttribute("aria-pressed",String(sonido)); btnSon.textContent=sonido?"🔊 Voz: sí":"🔇 Voz: no"; if(!sonido){ try{ speechSynthesis.cancel(); }catch(e){} pararAudio(); } });
   // desbloquear voz y audio en el primer gesto (política de autoplay del navegador)
-  var ttsCebado=false;
-  function cebarTTS(){ if(ttsCebado) return; ttsCebado=true;
+  var ttsCebado=false, gestoHecho=false;
+  function cebarTTS(e){
+    if(e && e.type==="keydown" && e.key==="Escape") return; // Esc no otorga activacion
+    gestoHecho=true;
+    if(ttsCebado){ soltarPendiente(e); return; }
+    ttsCebado=true;
     if("speechSynthesis" in window){ try{ var u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); }catch(e){} }
     // ceba con un elemento desechable: tocar audios["g0"] aqui puede dejar mudo el saludo
     try{ var src=(audios["g0"]&&audios["g0"].src)||""; if(src){ var a=new Audio(src); a.muted=true; var p=a.play(); if(p&&p.then){ p.then(function(){ a.pause(); a.src=""; }, function(){}); } } }catch(e){}
+    soltarPendiente(e);
   }
-  document.addEventListener("pointerdown", cebarTTS, {once:true});
-  document.addEventListener("keydown", cebarTTS, {once:true});
+  // el saludo aplazado solo se suelta en un gesto neutro: sobre un chip o el boton
+  // de silencio se descarta (la conversacion ya avanza, o el usuario pidio callar)
+  function soltarPendiente(e){
+    if(!pendiente) return;
+    var t=pendiente; pendiente=null;
+    var sobreControl=!!(e && e.target && e.target.closest && e.target.closest("button,a,input,textarea"));
+    if(sonido && !sobreControl) hablar(t);
+  }
+  // click y keydown si otorgan activacion de usuario; pointerdown en tactil NO
+  document.addEventListener("click", cebarTTS);
+  document.addEventListener("keydown", cebarTTS);
 
   // ---- reconocimiento de voz (opcional) ----
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition, rec=null, escuchando=false;
