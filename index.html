@@ -1,12 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dorita's · Granada</title>
+<meta name="description" content="Tapas en Granada: la bebida con su tapa, bocadillos de 60 cm y la carta con pedido desde la mesa. Dorita's Tapas Bar y Mesón Dorita's.">
+<meta property="og:title" content="Dorita's · Tapas en Granada">
+<meta property="og:description" content="La carta con pedido desde la mesa a la barra. Demo preparada por Erigo.">
+<meta property="og:image" content="https://topnuk3yt.github.io/doritas/og.jpg?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="Dorita's, tapas en Granada">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Dorita's · demo de Erigo">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://topnuk3yt.github.io/doritas/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#120E0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120E0A'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-weight='900' font-size='40' text-anchor='middle' fill='%23F1E7D8'%3ED%3C/text%3E%3Crect x='44' y='12' width='6' height='14' fill='%23C2481C'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Newsreader:ital,wght@0,400..600;1,400&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Newsreader:ital,wght@0,400..600;1,400&display=swap"></noscript>
 <script>document.documentElement.classList.add("js");</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
   :root{
@@ -18,43 +35,52 @@
     --disp:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
     --serif:"Newsreader",Georgia,"Times New Roman",serif;
     --w:1180px; --r:16px;
+    --sobre-acento:#fff; --brasa-txt:#A93E17; --serv-bg:#120E0A; --serv-bg-2:#1C140D;
+    color-scheme:light;
   }
+  html{scroll-padding-top:4.75rem}
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
     --papel:#120E0A; --papel-alto:#1B140D; --tinta:#F1E7D8; --tinta-2:rgba(241,231,216,.72);
     --humo:#9C927E; --linea:rgba(241,231,216,.16); --linea-2:rgba(241,231,216,.08);
     --verde:#93B368; --verde-2:rgba(147,179,104,.16); --brasa:#E0743B; --brasa-2:rgba(224,116,59,.16);
     --oro:#E9A65A; --sombra:0 1px 2px rgba(0,0,0,.5), 0 26px 56px -30px rgba(0,0,0,.8);
+    --sobre-acento:#120E0A; --brasa-txt:#E0743B; --serv-bg:#1C140D; --serv-bg-2:#241A11;
+    color-scheme:dark;
   }}
   :root[data-theme="dark"]{
     --papel:#120E0A; --papel-alto:#1B140D; --tinta:#F1E7D8; --tinta-2:rgba(241,231,216,.72);
     --humo:#9C927E; --linea:rgba(241,231,216,.16); --linea-2:rgba(241,231,216,.08);
     --verde:#93B368; --verde-2:rgba(147,179,104,.16); --brasa:#E0743B; --brasa-2:rgba(224,116,59,.16);
     --oro:#E9A65A; --sombra:0 1px 2px rgba(0,0,0,.5), 0 26px 56px -30px rgba(0,0,0,.8);
+    --sobre-acento:#120E0A; --brasa-txt:#E0743B; --serv-bg:#1C140D; --serv-bg-2:#241A11;
+    color-scheme:dark;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--serif);font-size:1.06rem;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
   h1,h2,h3{font-family:var(--disp);margin:0;line-height:1.02;letter-spacing:-.025em;text-wrap:balance}
   p{margin:0} a{color:inherit} img{max-width:100%;display:block}
-  .wrap{max-width:var(--w);margin:0 auto;padding:0 clamp(1.15rem,4vw,2.75rem)}
-  .eyebrow{font-family:var(--disp);font-weight:600;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brasa);display:inline-flex;align-items:center;gap:.7rem;margin:0}
+  .wrap{max-width:var(--w);margin:0 auto;padding:0 max(clamp(1.15rem,4vw,2.75rem),env(safe-area-inset-right,0px)) 0 max(clamp(1.15rem,4vw,2.75rem),env(safe-area-inset-left,0px))}
+  .eyebrow{font-family:var(--disp);font-weight:600;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--brasa-txt);display:inline-flex;align-items:center;gap:.7rem;margin:0;text-wrap:balance}
   .eyebrow::before{content:"";width:26px;height:1.5px;background:currentColor;display:inline-block}
   :focus-visible{outline:2.5px solid var(--brasa);outline-offset:3px;border-radius:5px}
 
   /* reveal: visible sin JS; con .js empieza oculto y sube; reduced-motion cancela */
   .js .reveal{opacity:0;transform:translateY(22px)}
+  .js [data-hero],.js [data-hero-mark]{opacity:0}
+  .sinanim [data-hero],.sinanim [data-hero-mark]{opacity:1}
   .reveal.in{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
-  @media (prefers-reduced-motion:reduce){ .js .reveal{opacity:1;transform:none} html{scroll-behavior:auto} }
+  @media (prefers-reduced-motion:reduce){ .js .reveal,.js [data-hero],.js [data-hero-mark]{opacity:1;transform:none} html{scroll-behavior:auto} }
   .word{display:inline-block;will-change:transform}
 
   /* barra demo */
   .demo{background:var(--noche);color:var(--sobre-noche);position:relative;z-index:60}
-  .demo .wrap{display:flex;gap:.7rem 1rem;align-items:center;flex-wrap:wrap;padding:.6rem 0;font-family:var(--disp);font-size:.76rem;letter-spacing:.02em}
-  .demo b{background:var(--brasa);color:#fff;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .5rem;border-radius:5px}
+  .demo .wrap{display:flex;gap:.7rem 1rem;align-items:center;flex-wrap:wrap;padding-block:.6rem;font-family:var(--disp);font-size:.76rem;letter-spacing:.02em}
+  .demo b{background:var(--brasa);color:var(--sobre-acento);font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .5rem;border-radius:5px}
   .demo span{color:var(--sobre-noche-2)}
 
   /* header */
   header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--papel) 82%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--linea-2)}
-  header.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem 0}
+  header.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.6rem}
   .marca{font-family:var(--disp);font-weight:800;font-size:1.4rem;letter-spacing:-.03em;text-decoration:none}
   .marca .ap{color:var(--brasa)}
   .navlinks{display:flex;gap:clamp(.9rem,2.3vw,1.9rem)}
@@ -62,36 +88,55 @@
   .navlinks a:hover{color:var(--tinta);border-color:var(--verde)}
   @media (max-width:820px){.navlinks{display:none}}
   .nav-right{display:flex;align-items:center;gap:.6rem}
-  .tema{font-family:var(--disp);font-weight:600;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--tinta-2);border:1px solid var(--linea);border-radius:100px;padding:.42rem .8rem;cursor:pointer;transition:border-color .18s,color .18s}
+  .tema{font-family:var(--disp);font-weight:600;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--tinta-2);border:1px solid var(--linea);border-radius:100px;padding:0 .8rem;min-height:2.75rem;min-width:2.75rem;cursor:pointer;transition:border-color .18s,color .18s}
   .tema:hover{border-color:var(--verde);color:var(--tinta)}
-  .btn{font-family:var(--disp);font-weight:600;font-size:.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 1.4rem;border-radius:100px;border:1.5px solid transparent;cursor:pointer;transition:transform .16s,background .18s,border-color .18s,color .18s;line-height:1}
+  .btn{font-family:var(--disp);font-weight:600;font-size:.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 1.4rem;min-height:44px;border-radius:100px;border:1.5px solid transparent;cursor:pointer;transition:transform .16s,background .18s,border-color .18s,color .18s;line-height:1;text-wrap:balance}
   .btn .fl{transition:transform .16s} .btn:hover .fl{transform:translateX(3px)}
-  .btn-brasa{background:var(--brasa);color:#fff} .btn-brasa:hover{transform:translateY(-1px)}
+  .btn-brasa{background:var(--brasa);color:var(--sobre-acento)} .btn-brasa:hover{transform:translateY(-1px)}
   .btn-linea{background:transparent;color:var(--tinta);border-color:var(--linea)} .btn-linea:hover{border-color:var(--verde);color:var(--verde)}
   .btn-fantasma{background:transparent;color:var(--sobre-noche);border-color:rgba(241,231,216,.32)} .btn-fantasma:hover{border-color:rgba(241,231,216,.7)}
-  .btn-sm{padding:.55rem 1rem;font-size:.86rem}
+  .btn-sm{padding:0 1rem;min-height:2.75rem;font-size:.86rem;white-space:nowrap}
+  .navmovil{display:none}
+  @media (max-width:820px){
+    .navmovil{display:block;background:var(--papel);border-bottom:1px solid var(--linea-2)}
+    .navmovil .wrap{display:flex;gap:1.4rem;overflow-x:auto;scrollbar-width:none}
+    .navmovil .wrap::-webkit-scrollbar{display:none}
+    .navmovil a{font-family:var(--disp);font-weight:500;font-size:.88rem;color:var(--tinta-2);text-decoration:none;white-space:nowrap;min-height:2.75rem;display:inline-flex;align-items:center}
+  }
+  @media (max-width:380px){ .navmovil .wrap{gap:.9rem} }
+  @media (max-width:420px){
+    header.nav .wrap{gap:.6rem} .nav-right{gap:.4rem}
+    .btn-sm{padding:0 .85rem} .btn-sm .fl{display:none}
+    .mesapill{padding:.42rem .65rem}
+  }
+  @media (max-width:374px){ body.conmesa .tema{display:none} }
+  @media (max-width:350px){ .marca{font-size:1.25rem} }
+  @media (max-height:500px){ header.nav .wrap{padding-block:.3rem} .marca{font-size:1.15rem} .demo .wrap{padding-block:.4rem} }
 
   /* HERO — panel plancha oscuro en los dos temas */
   .hero{position:relative;background:radial-gradient(120% 90% at 78% 6%, #3a1c0d 0%, var(--noche-2) 42%, var(--noche) 100%);color:var(--sobre-noche);overflow:hidden;isolation:isolate}
   .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.9}
+  .hero .herotag{position:absolute;right:.6rem;bottom:.6rem;z-index:3;font-family:var(--disp);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(18,14,10,.72);color:var(--sobre-noche);padding:.2rem .5rem;border-radius:5px;pointer-events:none}
   .hero .herobg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.55;pointer-events:none}
   .hero .herotint{position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(18,14,10,.5),rgba(18,14,10,.8) 55%,rgba(18,14,10,.95))}
   .localfoto{margin:0;position:relative;aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--linea);background:var(--brasa-2)}
   .localfoto img{width:100%;height:100%;object-fit:cover;display:block}
-  .localfoto figcaption{position:absolute;left:.6rem;bottom:.6rem;font-family:var(--disp);font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(18,14,10,.72);color:var(--sobre-noche);padding:.2rem .5rem;border-radius:5px}
+  .localfoto figcaption{position:absolute;left:.6rem;bottom:.6rem;font-family:var(--disp);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(18,14,10,.72);color:var(--sobre-noche);padding:.2rem .5rem;border-radius:5px}
   .hero .grain{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  .hero .wrap{position:relative;z-index:2;padding:clamp(3rem,8vh,6rem) 0 clamp(3rem,7vh,5.5rem);min-height:min(88vh,760px);display:flex;flex-direction:column;justify-content:center}
-  .hero .eyebrow{color:var(--oro)}
-  .wordmark{font-family:var(--disp);font-weight:800;letter-spacing:-.05em;line-height:.86;font-size:clamp(4.2rem,20vw,14rem);margin:1rem 0 0;color:var(--sobre-noche)}
+  .hero .wrap{position:relative;z-index:2;padding-block:clamp(3rem,8vh,6rem) clamp(3rem,7vh,5.5rem);min-height:min(88vh,760px);display:flex;flex-direction:column;justify-content:center}
+  .hero .eyebrow{color:var(--oro);text-shadow:0 1px 8px rgba(0,0,0,.55)}
+  .wordmark{font-family:var(--disp);font-weight:800;letter-spacing:-.04em;line-height:.86;font-size:clamp(4.2rem,20vw,14rem);margin:1rem 0 0;color:var(--sobre-noche)}
   .wordmark .ap{color:var(--brasa)}
-  .hero .lema{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,3.6vw,2.3rem);line-height:1.2;max-width:20ch;margin:1.2rem 0 0;color:var(--sobre-noche)}
+  .hero .lema{font-family:var(--serif);font-style:italic;font-size:clamp(1.4rem,3.6vw,2.3rem);line-height:1.2;max-width:20ch;margin:1.2rem 0 0;color:var(--sobre-noche);text-wrap:balance}
   .hero .sub{margin:1.1rem 0 0;max-width:48ch;color:var(--sobre-noche-2);font-size:1.14rem}
   .hero .cta{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.1rem}
   .hero .facts{display:flex;flex-wrap:wrap;gap:0 2.4rem;margin-top:2.6rem;border-top:1px solid rgba(241,231,216,.16);padding-top:1.4rem}
   .hero .facts .f{padding-right:1.4rem}
   .hero .facts .n{font-family:var(--disp);font-weight:800;font-size:1.5rem;color:var(--sobre-noche)}
-  .hero .facts .l{font-family:var(--disp);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sobre-noche-2);margin-top:.25rem}
+  .hero .facts .l{font-family:var(--disp);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--sobre-noche-2);margin-top:.25rem}
+  @media (max-width:560px){ .hero .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:.9rem} .hero .facts .f{padding-right:0;min-width:0} .hero .facts .n{font-size:1.2rem} .hero .facts .l{font-size:.68rem;letter-spacing:.04em;line-height:1.35} }
   .scrollhint{position:absolute;left:50%;bottom:1.1rem;transform:translateX(-50%);z-index:2;font-family:var(--disp);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sobre-noche-2);display:flex;flex-direction:column;align-items:center;gap:.4rem}
+  @media (max-width:700px),(max-height:560px){.scrollhint{display:none}}
   .scrollhint .dot{width:1px;height:26px;background:linear-gradient(var(--oro),transparent)}
   @media (prefers-reduced-motion:no-preference){.scrollhint .dot{animation:drip 1.8s ease-in-out infinite}}
   @keyframes drip{0%,100%{transform:scaleY(.4);transform-origin:top;opacity:.5}50%{transform:scaleY(1);opacity:1}}
@@ -107,6 +152,7 @@
   @media (min-width:860px){.conc{grid-template-columns:.85fr 1.15fr}}
   .conc .big{font-family:var(--serif);font-size:clamp(1.3rem,2.4vw,1.6rem);line-height:1.5;max-width:36ch}
   .conc .big + .big{margin-top:1rem}
+  .conc h2 + .big{margin-top:1.2rem}
   .pasos{display:grid;gap:1rem}
   .paso{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;align-items:baseline;padding:1.2rem 1.35rem;background:var(--papel-alto);border:1px solid var(--linea-2);border-left:3px solid var(--brasa);border-radius:var(--r);box-shadow:var(--sombra)}
   .paso .n{font-family:var(--disp);font-weight:800;font-size:1.6rem;color:var(--brasa);font-variant-numeric:tabular-nums;line-height:1}
@@ -118,11 +164,11 @@
   @media (min-width:720px){.platos{grid-template-columns:1fr 1fr}.plato.star{grid-column:1/-1}}
   .plato{background:var(--papel-alto);border:1px solid var(--linea-2);border-radius:var(--r);padding:1.5rem 1.6rem;box-shadow:var(--sombra);display:flex;flex-direction:column;gap:.4rem;transition:transform .25s cubic-bezier(.22,.61,.36,1),border-color .25s}
   .plato:hover{transform:translateY(-3px);border-color:var(--brasa-2)}
-  .plato .tag{align-self:flex-start;font-family:var(--disp);font-weight:600;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);background:var(--verde-2);padding:.28rem .6rem;border-radius:100px}
+  .plato .tag{align-self:flex-start;font-family:var(--disp);font-weight:600;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--verde);background:var(--verde-2);padding:.28rem .6rem;border-radius:100px}
   .plato h3{font-family:var(--disp);font-weight:700;font-size:1.42rem;margin-top:.3rem}
   .plato p{color:var(--tinta-2);font-size:1.04rem}
   .plato.star{border-color:var(--brasa);border-left:3px solid var(--brasa);background:linear-gradient(150deg,var(--brasa-2),transparent 55%),var(--papel-alto)}
-  .plato.star .tag{color:var(--brasa);background:var(--brasa-2)}
+  .plato.star .tag{color:var(--brasa-txt);background:var(--brasa-2)}
   .plato.star h3{font-size:clamp(1.6rem,4vw,2.2rem)}
   @media (min-width:720px){.plato.star{flex-direction:row;align-items:center;gap:1.6rem;flex-wrap:wrap}.plato.star .cuerpo{flex:1 1 24ch}}
 
@@ -133,27 +179,29 @@
   .cifra .n{font-family:var(--disp);font-weight:800;letter-spacing:-.03em;font-size:clamp(2.6rem,6vw,3.6rem);line-height:1;color:var(--brasa);font-variant-numeric:tabular-nums}
   .cifra .l{margin-top:.7rem;font-family:var(--disp);font-weight:600;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--humo);line-height:1.4}
   .cita{margin-top:2.2rem}
-  .cita blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,4.4vw,2.4rem);line-height:1.26;max-width:22ch}
-  .cita cite{display:block;margin-top:.7rem;font-style:normal;font-family:var(--disp);font-weight:600;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--humo)}
+  .cita blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,4.4vw,2.4rem);line-height:1.26;max-width:24ch;text-wrap:balance}
+  .cita cite{display:block;margin-top:.7rem;font-style:normal;font-family:var(--disp);font-weight:600;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--humo);text-wrap:balance}
   .social{margin-top:2rem;padding-top:1.4rem;border-top:1px solid var(--linea-2);display:flex;flex-wrap:wrap;gap:.6rem 1.6rem;align-items:center;color:var(--tinta-2)}
   .social a{color:var(--verde);text-decoration:none;font-weight:500;border-bottom:1.5px solid var(--verde-2)}
   .social a:hover{border-color:var(--verde)}
   .social .seg{color:var(--humo);font-family:var(--disp);font-size:.86rem}
 
   /* servicios (Erigo) */
-  .servicios{background:var(--noche);color:var(--sobre-noche)}
+  .servicios{background:var(--serv-bg);color:var(--sobre-noche)}
   .servicios .eyebrow{color:var(--oro)}
   .servicios h2.tit{color:var(--sobre-noche)}
   .servicios .lede{color:var(--sobre-noche-2)}
   .serv-grid{display:grid;grid-template-columns:1fr;gap:1px;background:rgba(241,231,216,.12);border:1px solid rgba(241,231,216,.12);border-radius:var(--r);overflow:hidden;margin-top:2.2rem}
   @media (min-width:720px){.serv-grid{grid-template-columns:1fr 1fr}}
-  .serv{background:var(--noche);padding:1.5rem 1.6rem;display:flex;flex-direction:column;gap:.4rem;transition:background .2s}
-  .serv:hover{background:var(--noche-2)}
+  .serv{background:var(--serv-bg);padding:1.5rem 1.6rem;display:flex;flex-direction:column;gap:.4rem;transition:background .2s}
+  .serv:hover{background:var(--serv-bg-2)}
   .serv .k{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
   .serv h3{font-family:var(--disp);font-weight:700;font-size:1.16rem;color:var(--sobre-noche)}
   .serv .precio{font-family:var(--disp);font-weight:800;font-size:1rem;color:var(--oro);white-space:nowrap;font-variant-numeric:tabular-nums}
   .serv p{color:var(--sobre-noche-2);font-size:.98rem}
   .serv .free{color:var(--verde)}
+  @media (max-width:480px){ .serv .k{flex-direction:column;align-items:flex-start;gap:.2rem} .serv .precio{font-size:1.05rem} }
+  .tactil{position:relative} .tactil::after{content:"";position:absolute;inset:-14px -4px}
 
   /* locales */
   .locales{display:grid;grid-template-columns:1fr;gap:1.3rem;margin-top:2.2rem}
@@ -165,40 +213,55 @@
   .local h3{font-family:var(--disp);font-weight:800;font-size:1.5rem}
   .local .dir{color:var(--tinta-2);font-size:1.04rem}
   .local .mapa{margin-top:.5rem;align-self:flex-start;font-family:var(--disp);font-weight:600;font-size:.9rem;text-decoration:none;color:var(--verde);display:inline-flex;gap:.4rem;border-bottom:1.5px solid var(--verde-2);padding-bottom:2px}
-  .horario{margin-top:1.6rem;display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem .9rem;padding:1.1rem 1.35rem;border:1px solid var(--linea-2);border-radius:var(--r);background:var(--papel-alto)}
+  .local .tel{font-family:var(--disp);font-size:.92rem;color:var(--tinta-2)} .local .tel a{color:var(--verde);font-weight:700;text-decoration:none;border-bottom:1.5px solid var(--verde-2);white-space:nowrap}
+  .local .hor{margin-top:.55rem;font-family:var(--disp);font-weight:600;font-size:.92rem;line-height:1.5;color:var(--tinta)}
+  .nw{white-space:nowrap}
+  .horario{margin-top:1.1rem}
   .horario .h{font-family:var(--disp);font-weight:700;font-size:1.06rem}
   .horario .nota{color:var(--humo);font-style:italic;font-size:.95rem}
 
   /* CTA final */
   .cierre{background:linear-gradient(160deg,#3a1c0d,var(--noche));color:var(--sobre-noche);text-align:center}
-  .cierre .wrap{padding:clamp(3.4rem,8vw,6rem) 0}
+  .cierre .wrap{padding-block:clamp(3.4rem,8vw,6rem)}
   .cierre h2{font-family:var(--disp);font-weight:800;font-size:clamp(1.9rem,5vw,3rem);max-width:20ch;margin:.6rem auto 0;color:var(--sobre-noche)}
   .cierre p{max-width:46ch;margin:1.1rem auto 0;color:var(--sobre-noche-2);font-size:1.1rem}
   .cierre .cta{justify-content:center;margin-top:2rem}
+  .cierre .eyebrow{display:flex;justify-content:center;text-align:center;letter-spacing:.14em} .cierre .eyebrow::before{display:none}
+  .cierre .contacto{margin:2rem auto 0;padding-top:1.4rem;border-top:1px solid rgba(241,231,216,.16);max-width:40ch}
+  .cierre .contacto b{color:var(--sobre-noche)}
+  .cierre .contacto a,footer .fn a{color:var(--oro);font-weight:600;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
 
   footer{background:var(--noche);color:var(--sobre-noche);border-top:1px solid rgba(241,231,216,.1)}
-  footer .wrap{padding:2.6rem 0;display:flex;flex-wrap:wrap;gap:1.4rem 2rem;justify-content:space-between;align-items:flex-start}
+  footer .wrap{padding-block:2.6rem;display:flex;flex-wrap:wrap;gap:1.4rem 2rem;justify-content:space-between;align-items:flex-start}
   footer .fm{font-family:var(--disp);font-weight:800;font-size:1.5rem} footer .fm .ap{color:var(--brasa)}
-  footer .figs{display:flex;flex-direction:column;gap:.35rem} footer .figs a{color:var(--sobre-noche-2);text-decoration:none;font-size:1.02rem} footer .figs a:hover{color:var(--oro)}
+  footer .figs{display:flex;flex-direction:column;gap:0} footer .figs a{color:var(--sobre-noche-2);text-decoration:none;font-size:1.02rem;display:inline-block;padding-block:.55rem} footer .figs a:hover{color:var(--oro)}
   footer .fn{color:var(--sobre-noche-2);font-size:.86rem;max-width:36ch;line-height:1.5} footer .fn b{color:var(--sobre-noche)}
+  body.concesta footer .wrap{padding-bottom:calc(2.6rem + 5.5rem + env(safe-area-inset-bottom,0px))}
 
   /* ============ CARTA / PEDIDO (overlay) ============ */
-  .cesta{position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;justify-content:center;padding:.8rem 1rem 1.1rem;pointer-events:none}
-  .cesta button{pointer-events:auto;width:100%;max-width:26rem;border:0;border-radius:14px;cursor:pointer;background:var(--brasa);color:#fff;font-family:var(--disp);font-weight:800;font-size:1rem;padding:1rem 1.3rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 10px 30px rgba(194,72,28,.4)}
+  .cesta{position:fixed;left:0;right:0;bottom:0;z-index:85;display:flex;justify-content:center;padding:.8rem 1rem calc(1.1rem + env(safe-area-inset-bottom,0px));pointer-events:none}
+  .cesta button{pointer-events:auto;width:100%;max-width:26rem;border:0;border-radius:14px;cursor:pointer;background:var(--brasa);color:var(--sobre-acento);font-family:var(--disp);font-weight:800;font-size:1rem;padding:1rem 1.3rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 10px 30px rgba(194,72,28,.4)}
+  #cestaTot{white-space:nowrap;flex:none} #cestaTxt{text-align:left}
+  [hidden]{display:none!important}
+  body.enpedido .cesta{display:none}
+  #ovCarta .sheet-cuerpo{padding-bottom:calc(6.5rem + env(safe-area-inset-bottom,0px))}
   .cesta[hidden]{display:none}
   .ov{position:fixed;inset:0;z-index:80;background:rgba(10,7,5,.55);display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
   .ov[hidden]{display:none}
   .sheet{width:100%;max-width:34rem;max-height:92vh;overflow-y:auto;background:var(--papel);color:var(--tinta);border-radius:20px 20px 0 0;box-shadow:0 -12px 50px rgba(0,0,0,.4)}
-  .sheet-cab{position:sticky;top:0;background:color-mix(in srgb,var(--papel) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--linea-2);padding:1.1rem 1.35rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;z-index:2}
+  .sheet-cab{position:sticky;top:0;background:color-mix(in srgb,var(--papel) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--linea-2);height:4.5rem;padding:0 1.35rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;z-index:2}
+  .sheet:focus{outline:none}
   .sheet-cab h2{font-family:var(--disp);font-weight:800;font-size:1.35rem}
-  .cerrar{background:transparent;border:1px solid var(--linea);border-radius:100px;width:2.2rem;height:2.2rem;cursor:pointer;color:var(--tinta);font-size:1.1rem;line-height:1}
-  .sheet-cuerpo{padding:0 1.35rem 1.5rem}
+  .cerrar{position:relative;background:transparent;border:1px solid var(--linea);border-radius:100px;width:2.2rem;height:2.2rem;cursor:pointer;color:var(--tinta);font-size:1.1rem;line-height:1}
+  .cerrar::after,.add::after,.step button::after{content:"";position:absolute;inset:-7px;border-radius:inherit}
+  .sheet-cuerpo{padding:0 1.35rem calc(1.5rem + env(safe-area-inset-bottom,0px))}
   .mecanica{display:grid;gap:.5rem;margin:1.1rem 0;padding:1rem 1.15rem;background:var(--papel-alto);border:1px solid var(--linea-2);border-left:3px solid var(--verde);border-radius:12px;font-size:.96rem}
   .mecanica b{color:var(--verde);font-family:var(--disp);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
-  .filtros{position:sticky;top:3.6rem;z-index:1;background:var(--papel);margin:0 -1.35rem;padding:.7rem 1.35rem;display:flex;gap:.5rem;overflow-x:auto;border-bottom:1px solid var(--linea-2)}
+  .filtros{position:sticky;top:4.5rem;z-index:1;background:var(--papel);margin:0 -1.35rem;padding:.7rem 1.35rem;display:flex;gap:.5rem;overflow-x:auto;border-bottom:1px solid var(--linea-2)}
   .filtros::-webkit-scrollbar{display:none} .filtros{scrollbar-width:none}
-  .filtro{font-family:var(--disp);font-size:.82rem;font-weight:600;white-space:nowrap;padding:.42rem .85rem;border:1px solid var(--linea);border-radius:100px;background:var(--papel-alto);color:var(--tinta);cursor:pointer}
-  .filtro[aria-pressed=true]{background:var(--verde);border-color:var(--verde);color:#fff}
+  .fnota{color:var(--humo);font-size:.84rem;margin:.6rem 0 0}
+  .filtro{font-family:var(--disp);font-size:.82rem;font-weight:600;white-space:nowrap;padding:0 .95rem;min-height:2.75rem;border:1px solid var(--linea);border-radius:100px;background:var(--papel-alto);color:var(--tinta);cursor:pointer}
+  .filtro[aria-pressed=true]{background:var(--verde);border-color:var(--verde);color:var(--sobre-acento)}
   .grupo{margin-top:1.8rem}
   .grupo h3{font-family:var(--disp);font-weight:800;font-size:1.05rem;letter-spacing:.06em;text-transform:uppercase;margin:0 0 .2rem}
   .grupo .pie{color:var(--humo);font-size:.9rem;margin:0 0 .8rem}
@@ -206,43 +269,55 @@
   ul.lista li{display:flex;align-items:center;gap:.6rem;padding:.65rem 0;border-bottom:1px solid var(--linea-2)}
   ul.lista li:last-child{border-bottom:0}
   .it{flex:1 1 auto;min-width:0} .it .det{display:block;font-size:.85rem;color:var(--humo)}
+  .it .mk{display:inline-block;margin:.3rem .35rem 0 0;vertical-align:middle}
   .mk{font-family:var(--disp);font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.12rem .4rem;border-radius:4px;white-space:nowrap;flex:none}
   .mk-sg{background:var(--verde-2);color:var(--verde);border:1px solid var(--verde)}
   .mk-vg{background:transparent;color:var(--brasa);border:1px solid var(--brasa)}
   .pre{font-family:var(--disp);font-weight:600;font-variant-numeric:tabular-nums;flex:none;color:var(--tinta)}
   .inc{font-family:var(--disp);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--humo);flex:none}
   .cta-count{font-family:var(--disp);font-weight:800;color:var(--brasa);min-width:1.4rem;text-align:center;flex:none;font-variant-numeric:tabular-nums}
-  .add{flex:none;width:2rem;height:2rem;border-radius:100px;border:1.5px solid var(--brasa);background:transparent;color:var(--brasa);font-family:var(--disp);font-size:1.3rem;font-weight:800;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0;transition:background .12s,color .12s,transform .08s}
-  .add:hover{background:var(--brasa);color:#fff} .add:active{transform:scale(.9)}
-  li[data-on]{background:var(--brasa-2);margin:0 -.5rem;padding-left:.5rem;padding-right:.5rem;border-radius:8px;border-bottom-color:transparent}
+  .add{position:relative;flex:none;width:2rem;height:2rem;border-radius:100px;border:1.5px solid var(--brasa);background:transparent;color:var(--brasa);font-family:var(--disp);font-size:1.3rem;font-weight:800;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0;transition:background .12s,color .12s,transform .08s}
+  .add.nd{visibility:hidden}
+  .add:hover{background:var(--brasa);color:var(--sobre-acento)} .add:active{transform:scale(.9)}
+  ul.lista li[data-on]{background:var(--brasa-2);margin:0 -.5rem;padding:.65rem .5rem;border-radius:8px;border-bottom-color:transparent}
   body[data-filtro=sg] ul.lista li:not([data-sg]),body[data-filtro=vg] ul.lista li:not([data-vg]){display:none}
 
   /* pedido detalle */
   .pitem{display:flex;align-items:center;gap:.75rem;padding:.7rem 0;border-bottom:1px solid var(--linea-2)}
+  .pinc .pp{color:var(--verde)}
   .pitem .pn{flex:1 1 auto;min-width:0} .pitem .pn small{display:block;color:var(--humo);font-family:var(--disp);font-size:.74rem}
   .step{display:flex;align-items:center;gap:.5rem;flex:none}
-  .step button{width:1.9rem;height:1.9rem;border-radius:100px;border:1.5px solid var(--linea);background:var(--papel-alto);color:var(--tinta);font-family:var(--disp);font-size:1.1rem;font-weight:800;cursor:pointer;display:grid;place-items:center}
+  .step button{position:relative;width:1.9rem;height:1.9rem;border-radius:100px;border:1.5px solid var(--linea);background:var(--papel-alto);color:var(--tinta);font-family:var(--disp);font-size:1.1rem;font-weight:800;cursor:pointer;display:grid;place-items:center}
   .step .q{min-width:1.2rem;text-align:center;font-family:var(--disp);font-weight:800;font-variant-numeric:tabular-nums}
   .pp{font-family:var(--disp);font-weight:600;font-variant-numeric:tabular-nums;min-width:3.6rem;text-align:right;flex:none}
   .mesas h4,.totl h4{font-family:var(--disp);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--humo);margin:0 0 .6rem}
   .mesas{margin-top:1.4rem} .mesagrid{display:flex;flex-wrap:wrap;gap:.5rem}
-  .mesab{font-family:var(--disp);font-weight:700;font-size:.92rem;padding:.5rem .85rem;border-radius:10px;border:1.5px solid var(--linea);background:var(--papel-alto);color:var(--tinta);cursor:pointer}
-  .mesab[aria-pressed=true]{background:var(--verde);border-color:var(--verde);color:#fff}
+  .mesab{font-family:var(--disp);font-weight:700;font-size:.92rem;padding:0 .85rem;min-height:2.75rem;min-width:2.75rem;border-radius:10px;border:1.5px solid var(--linea);background:var(--papel-alto);color:var(--tinta);cursor:pointer}
+  .mesab[aria-pressed=true]{background:var(--verde);border-color:var(--verde);color:var(--sobre-acento)}
   .totl{display:flex;align-items:baseline;justify-content:space-between;margin:1.5rem 0 .3rem}
   .totl .t{font-family:var(--disp);font-weight:800;font-size:1.6rem;color:var(--brasa);font-variant-numeric:tabular-nums}
   .avtot{font-size:.82rem;color:var(--humo);margin:0 0 1.2rem}
-  .enviar{width:100%;border:0;border-radius:14px;cursor:pointer;background:var(--brasa);color:#fff;font-family:var(--disp);font-weight:800;font-size:1.05rem;padding:1rem;margin-top:.2rem}
+  .faltan{margin:1rem 0 0;padding:.7rem .9rem;border-radius:10px;border:1px solid var(--brasa);background:var(--brasa-2);color:var(--tinta);font-size:.95rem}
+  .notaped{margin-top:1.4rem} .notaped label{display:block;font-family:var(--disp);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--humo);margin:0 0 .5rem}
+  .notaped textarea{display:block;width:100%;font:inherit;font-size:1rem;line-height:1.4;padding:.6rem .75rem;border:1.5px solid var(--linea);border-radius:10px;background:var(--papel-alto);color:var(--tinta);resize:vertical;min-height:3.2rem}
+  .notaped textarea:focus{border-color:var(--verde);outline:none}
+  .enviar{width:100%;border:0;border-radius:14px;cursor:pointer;background:var(--brasa);color:var(--sobre-acento);font-family:var(--disp);font-weight:800;font-size:1.05rem;padding:1rem;margin-top:.2rem}
   .enviar[disabled]{opacity:.45;cursor:not-allowed}
-  .link2{display:block;width:100%;text-align:center;margin-top:.85rem;background:none;border:0;color:var(--humo);font:inherit;font-size:.92rem;cursor:pointer;text-decoration:underline}
-  .conf{text-align:center;padding:2.5rem 1.35rem}
-  .conf .ok{width:4.4rem;height:4.4rem;margin:0 auto 1.2rem;border-radius:100px;background:var(--verde);color:#fff;display:grid;place-items:center;font-size:2.3rem}
+  .link2{display:block;width:100%;text-align:center;margin-top:.5rem;padding:.7rem .5rem;background:none;border:0;color:var(--humo);font:inherit;font-size:.92rem;cursor:pointer;text-decoration:underline}
+  .link2.armado{color:var(--brasa-txt);font-weight:600}
+  .conf{text-align:center;padding:2.5rem 1.35rem calc(2.5rem + env(safe-area-inset-bottom,0px))}
+  .conf .ok{width:4.4rem;height:4.4rem;margin:0 auto 1.2rem;border-radius:100px;background:var(--verde);color:var(--sobre-acento);display:grid;place-items:center;font-size:2.3rem}
+  .conf .ok.ko{background:var(--brasa)}
   .conf h2{font-family:var(--disp);font-weight:800;font-size:1.7rem;margin:0 0 .4rem}
+  .enviar.sec{background:transparent;color:var(--brasa-txt);border:1.5px solid var(--brasa)}
   .conf p{color:var(--humo);margin:.2rem 0} .conf .cn{font-family:var(--disp);font-weight:800;color:var(--tinta);font-size:1.15rem}
 
   /* vista barra */
   #barra{max-width:46rem;margin:0 auto;padding:1.5rem 1.35rem 4rem}
-  .barratop{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid var(--tinta)}
-  .barratop h2{font-family:var(--disp);font-weight:800;font-size:1.5rem}
+  .barratop{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.4rem 1rem;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid var(--tinta)}
+  .barratop h2{font-family:var(--disp);font-weight:800;font-size:1.5rem;white-space:nowrap}
+  .barratop .link2,.qrtop .link2{white-space:nowrap;margin-top:0}
+  .barrapie{margin-top:1.6rem;text-align:center} .barrapie .link2{display:inline-block;width:auto}
   .barratop .sub{font-family:var(--disp);font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--humo)}
   .barramsg{color:var(--humo);font-family:var(--disp);text-align:center;padding:2rem 0}
   .comandas{display:grid;gap:.9rem;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr))}
@@ -251,13 +326,17 @@
   .comanda .ch{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;margin-bottom:.55rem}
   .comanda .mesa{font-family:var(--disp);font-weight:800;font-size:1.1rem} .comanda .hora{font-family:var(--disp);font-size:.74rem;color:var(--humo);font-variant-numeric:tabular-nums}
   .comanda ul{list-style:none;margin:0 0 .7rem;padding:0;font-size:.95rem}
-  .comanda ul li{display:flex;gap:.5rem;padding:.15rem 0;border:0} .comanda ul li b{font-family:var(--disp);color:var(--brasa);flex:none}
+  .comanda ul li{display:flex;gap:.5rem;padding:.15rem 0;border:0} .comanda ul li b{font-family:var(--disp);color:var(--brasa);flex:none;min-width:2.2em;text-align:right;font-variant-numeric:tabular-nums}
+  .comanda ul li.lcasa{font-style:italic;color:var(--humo)}
+  .comanda .cinc{display:flex;justify-content:space-between;gap:.5rem;font-family:var(--disp);font-size:.8rem;color:var(--humo);font-variant-numeric:tabular-nums}
   .comanda .ct{display:flex;justify-content:space-between;margin:.3rem 0 .8rem;font-family:var(--disp);font-weight:800;font-variant-numeric:tabular-nums}
-  .comanda .acc{display:flex;gap:.5rem} .comanda .acc button{flex:1;border:0;border-radius:9px;font-family:var(--disp);font-weight:700;font-size:.85rem;padding:.5rem;cursor:pointer}
-  .bserv{background:var(--verde);color:#fff} .bquit{background:transparent;border:1.5px solid var(--linea)!important;color:var(--humo)}
+  .comanda .acc{display:flex;gap:.75rem} .comanda .acc button{flex:1;min-height:44px;border:0;border-radius:9px;font-family:var(--disp);font-weight:700;font-size:.85rem;padding:.5rem;cursor:pointer;line-height:1.2}
+  .bserv{background:var(--verde);color:var(--sobre-acento)} .bquit{background:transparent;border:1.5px solid var(--linea)!important;color:var(--humo)} .bquit.armado{border-color:var(--brasa)!important;color:var(--brasa-txt)}
+  .comanda .cnota{margin:-.3rem 0 .7rem;padding:.45rem .6rem;border-radius:8px;background:var(--brasa-2);font-size:.9rem;color:var(--tinta);overflow-wrap:anywhere}
+  .comanda .cnota b{font-family:var(--disp);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--brasa-txt);margin-right:.35rem}
 
   /* indicador de mesa + mesa fija + QR por mesa */
-  .mesapill{font-family:var(--disp);font-weight:700;font-size:.8rem;letter-spacing:.03em;background:var(--verde);color:#fff;padding:.42rem .8rem;border-radius:100px;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
+  .mesapill{font-family:var(--disp);font-weight:700;font-size:.8rem;letter-spacing:.03em;background:var(--verde);color:var(--sobre-acento);padding:.42rem .8rem;border-radius:100px;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap}
   .mesapill b{font-weight:800}
   .mesafija{margin-top:1.4rem} .mesafija h4{font-family:var(--disp);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--humo);margin:0 0 .5rem}
   .mesafija .mfval{font-family:var(--disp);font-weight:800;font-size:1.15rem;color:var(--verde);background:var(--verde-2);border:1px solid var(--verde);border-radius:10px;padding:.55rem .9rem;display:inline-block}
@@ -267,24 +346,35 @@
   .qrtop .sub{font-family:var(--disp);font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--humo)}
   .qrctl{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;margin:1rem 0 1.4rem;font-family:var(--disp)}
   .qrctl label{font-size:.9rem;color:var(--tinta-2)}
+  .qrctl .qb{font-family:var(--disp);font-weight:700;font-size:.9rem;line-height:1.2;min-height:2.75rem;padding:.5rem 1.1rem;border-radius:100px;border:1.5px solid var(--brasa);background:transparent;color:var(--brasa);cursor:pointer}
+  .qrctl #qrGen{background:var(--brasa);color:var(--sobre-acento)}
+  .qrctl .qrlim{font-size:.85rem;color:var(--humo);flex-basis:100%}
+  .qrctl .qrlim.aviso{color:var(--brasa-txt);font-weight:600}
   .qrctl input{width:4.5rem;font:inherit;font-weight:700;padding:.4rem .6rem;border:1.5px solid var(--linea);border-radius:8px;background:var(--papel-alto);color:var(--tinta)}
   .qrgrid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(9.5rem,1fr))}
   .qrcard{border:1px solid var(--linea-2);border-radius:12px;background:#fff;padding:1rem .8rem;text-align:center;color:#171A13}
   .qrcard .qrbox{display:flex;justify-content:center;align-items:center;min-height:120px;margin-bottom:.6rem}
   .qrcard .qrbox img,.qrcard .qrbox canvas{width:120px!important;height:120px!important}
   .qrcard .ql{font-family:var(--disp);font-weight:800;font-size:1rem;margin-bottom:.5rem}
-  .qrcard .qb{font-family:var(--disp);font-weight:600;font-size:.78rem;border:1.5px solid var(--brasa);color:var(--brasa);background:transparent;border-radius:100px;padding:.35rem .7rem;cursor:pointer}
+  .qrcard .qb{position:relative;font-family:var(--disp);font-weight:600;font-size:.78rem;border:1.5px solid #C2481C;color:#C2481C;background:transparent;border-radius:100px;padding:.35rem .7rem;cursor:pointer}
+  .qrcard .qb::after{content:"";position:absolute;inset:-8px 0}
+  .qrerr{color:var(--brasa-txt);font-family:var(--disp);font-weight:600;margin:0 0 1rem}
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .qrnote{color:var(--humo);font-size:.92rem;margin:1.2rem 0 0;max-width:60ch}
-  @media print{ header.nav,footer,.demo,.cesta,.qrtop,.qrctl,.qrnote,.qrcard .qb{display:none!important} #qrpanel{padding:0} .qrgrid{gap:.4rem} .qrcard{break-inside:avoid;border:1px solid #999} body{background:#fff} }
+  @media (orientation:landscape) and (max-height:500px){ .sheet-cab{height:3.25rem} .filtros{position:static;padding-block:.45rem} .sheet .mecanica{display:none} .fnota{margin-top:.35rem} }
+  @media print{ header.nav,.navmovil,footer,.demo,.cesta,.qrtop,.qrctl,.qrnote,.qrerr,.qrcard .qb{display:none!important} #qrpanel{padding:0} .qrgrid{gap:.4rem} .qrcard{break-inside:avoid;border:1px solid #999} body{background:#fff} }
+  .contacto .wa{margin:.6rem 0 .2rem;display:inline-flex}
 </style>
+</head>
+<body>
 
 <div class="demo">
-  <div class="wrap"><b>Demo</b><span>Web de ejemplo hecha por Erigo para «la casa Dorita's». Contenido a confirmar con el bar. No es la web oficial.</span></div>
+  <div class="wrap"><b>Demo</b><span>Web de ejemplo hecha por Erigo para Dorita's. No es la web oficial.</span></div>
 </div>
 
 <header class="nav">
   <div class="wrap">
-    <a class="marca" href="#top">Dorita<span class="ap">'</span>s</a>
+    <a class="marca tactil" href="#top">Dorita<span class="ap">'</span>s</a>
     <nav class="navlinks" aria-label="Secciones">
       <a href="#concepto">El concepto</a>
       <a href="#platos">La cocina</a>
@@ -292,16 +382,24 @@
       <a href="#locales">Los locales</a>
     </nav>
     <div class="nav-right">
-      <span class="mesapill" id="mesaPill" hidden>Mesa <b id="mesaPillN">—</b></span>
-      <button class="tema" id="tema" type="button" aria-label="Cambiar tema"><span id="temaTxt">Claro</span></button>
+      <span class="mesapill" id="mesaPill" hidden><span id="mesaPillP">Mesa</span><b id="mesaPillN">—</b></span>
+      <button class="tema" id="tema" type="button" aria-label="Cambiar tema"><span id="temaTxt" aria-hidden="true">☾</span></button>
       <button class="btn btn-brasa btn-sm" id="abrirCarta" type="button">Ver la carta <span class="fl" aria-hidden="true">→</span></button>
     </div>
   </div>
 </header>
+<nav class="navmovil" aria-label="Secciones">
+  <div class="wrap">
+    <a href="#concepto">El concepto</a>
+    <a href="#platos">La cocina</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#locales">Los locales</a>
+  </div>
+</nav>
 
 <main id="top">
   <section class="hero" id="hero">
-    <img class="herobg" src="hero.jpg" alt="" aria-hidden="true">
+    <img class="herobg" src="hero.jpg" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
     <span class="herotint" aria-hidden="true"></span>
     <canvas id="embers" aria-hidden="true"></canvas>
     <span class="grain" aria-hidden="true"></span>
@@ -315,11 +413,12 @@
         <a class="btn btn-fantasma" href="#locales">Cómo llegar</a>
       </div>
       <div class="facts" data-hero>
-        <div class="f"><div class="n">4,7 · 4,8</div><div class="l">En Google, los dos locales</div></div>
+        <div class="f"><div class="n">4,7 · 4,8</div><div class="l">En Google · el bar y el mesón</div></div>
         <div class="f"><div class="n">60 cm</div><div class="l">El bocadillo de lomo</div></div>
-        <div class="f"><div class="n">5,80 €</div><div class="l">«Te vas comido», según Ideal</div></div>
+        <div class="f"><div class="n">5,80 €</div><div class="l">La jarra con sus dos tapas</div></div>
       </div>
     </div>
+    <span class="herotag">Imagen de ejemplo</span>
     <div class="scrollhint" aria-hidden="true"><span>Baja</span><span class="dot"></span></div>
   </section>
 
@@ -329,13 +428,13 @@
         <div>
           <p class="eyebrow reveal">Cómo funciona</p>
           <h2 class="tit split" data-split>Aquí la tapa va con la bebida</h2>
-          <p class="big reveal">Pides la bebida y la tapa va con ella; tú eliges cuál. Una jarra de media con dos tapas sale por 5,80 €, y si te quedas con hambre, la tapa suelta son 2,80 €.</p>
-          <p class="big reveal">De la plancha salen el choripán con chimichurri, el provolone y la milanesa. Al lado, hamburguesas, bagels, dürüm, wok o nachos. Y los bocadillos que no caben en el plato.</p>
+          <p class="big reveal">Una jarra de medio litro con dos tapas, una de la casa y otra a elegir, sale por 5,80 €. Y si te quedas con hambre, la tapa suelta son 2,80 €.</p>
+          <p class="big reveal">De la plancha salen el choripán con chimichurri, el provolone y el bocadillo de milanesa. Y los bocadillos que no caben en el plato.</p>
         </div>
         <div class="pasos">
-          <div class="paso reveal"><span class="n">1</span><div><h3>Pides la bebida</h3><p>Una caña, un vino, un refresco. La tapa va con ella.</p></div></div>
-          <div class="paso reveal"><span class="n">2</span><div><h3>Eliges la tapa</h3><p>Dices cuál quieres de la pizarra y llega con lo que has pedido.</p></div></div>
-          <div class="paso reveal"><span class="n">3</span><div><h3>Repites</h3><p>Otra ronda, otra tapa. Así hasta que te vas comido por poco más de cinco euros.</p></div></div>
+          <div class="paso reveal"><span class="n">1</span><div><h3>Pides la bebida</h3><p>Una jarra, un vino, un refresco: cada bebida trae su tapa.</p></div></div>
+          <div class="paso reveal"><span class="n">2</span><div><h3>Eliges la tapa</h3><p>Con el quinto o el refresco llega la de la casa; con el resto de bebidas, la eliges tú.</p></div></div>
+          <div class="paso reveal"><span class="n">3</span><div><h3>Repites</h3><p>Otra ronda, otra tapa. Con dos jarras ya has cenado.</p></div></div>
         </div>
       </div>
     </div>
@@ -344,13 +443,13 @@
   <section class="sec rule" id="platos">
     <div class="wrap">
       <p class="eyebrow reveal">La cocina</p>
-      <h2 class="tit split" data-split>Lo que la gente vuelve a pedir</h2>
+      <h2 class="tit split" data-split>Qué se come aquí</h2>
       <div class="platos">
-        <article class="plato reveal"><span class="tag">A la plancha</span><h3>Choripán con chimichurri</h3><p>Chorizo criollo, pan y una cucharada de chimichurri hecho en casa.</p></article>
-        <article class="plato reveal"><span class="tag">Del tamaño del plato</span><h3>Milanesa</h3><p>Filete empanado y frito. Sola, o metida en un bocadillo.</p></article>
-        <article class="plato reveal"><span class="tag">Para compartir</span><h3>Provolone</h3><p>Queso fundido a la plancha con orégano y un chorro de aceite.</p></article>
-        <article class="plato reveal"><span class="tag">Carta ancha</span><h3>Hamburguesas, bagels y dürüm</h3><p>La carta no se queda en la plancha: hamburguesas, bagels, dürüm, nachos, wok, falafel. Hay para todos.</p></article>
-        <article class="plato star reveal"><div class="cuerpo"><span class="tag">60 cm · salió en la prensa</span><h3>Bocadillo de lomo XXL</h3></div><p>Lomo dentro de un pan de sesenta centímetros. El que fotografió Ideal, y el que pide medio Instagram.</p></article>
+        <article class="plato reveal"><span class="tag">A la plancha</span><h3>Choripán con chimichurri</h3><p>El de siempre, o el especial con queso, tomate y verduras.</p></article>
+        <article class="plato reveal"><span class="tag">Del tamaño del plato</span><h3>Milanesa</h3><p>En bocadillo, con su copa, o dentro de un bagel.</p></article>
+        <article class="plato reveal"><span class="tag">Para compartir</span><h3>Provolone</h3><p>Queso a la plancha, con verduras, con tomate o con oliva y hierbas.</p></article>
+        <article class="plato reveal"><span class="tag">Además</span><h3>Hamburguesas, bagels y dürüm</h3><p>También hay nachos y wok, y falafel o hummus para quien no come carne.</p></article>
+        <article class="plato star reveal"><div class="cuerpo"><span class="tag">60 cm · salió en Ideal</span><h3>Bocadillo de lomo XXL</h3></div><p>Lomo, queso, tomate, lechuga y bacon en un pan de sesenta centímetros, con su copa.</p></article>
       </div>
     </div>
   </section>
@@ -359,36 +458,30 @@
     <div class="wrap">
       <p class="eyebrow reveal">Lo que dicen fuera</p>
       <h2 class="tit split" data-split>No lo decimos nosotros</h2>
-      <div class="cifras">
-        <div class="cifra reveal"><div class="n">4,7 · 4,8</div><div class="l">En Google · los dos locales</div></div>
-        <div class="cifra reveal"><div class="n">5,80 €</div><div class="l">Te vas comido por · según Ideal</div></div>
-        <div class="cifra reveal"><div class="n">60 cm</div><div class="l">El bocadillo de lomo</div></div>
-      </div>
       <div class="cita reveal">
         <blockquote>«Te vas comido por 5,80 euros.»</blockquote>
         <cite>Ideal · ideal.es · 9 de agosto de 2026</cite>
       </div>
       <div class="social reveal">
         <span>En Instagram:</span>
-        <a href="https://www.instagram.com/doritas.bar/" target="_blank" rel="noopener">@doritas.bar</a>
-        <span class="seg">La cuenta del bar, activa y publicando.</span>
-        <span class="seg">Y prensa a favor: Ideal les dedicó un artículo este agosto.</span>
+        <a class="tactil" href="https://www.instagram.com/doritas.bar/" target="_blank" rel="noopener">@doritas.bar</a>
+        <span class="seg">Ahí suben los platos de cada semana.</span>
       </div>
     </div>
   </section>
 
   <section class="sec servicios" id="servicios">
     <div class="wrap">
-      <p class="eyebrow reveal">Lo que Erigo puede hacer por Dorita's</p>
-      <h2 class="tit split" data-split>De un folio a llenar la barra</h2>
-      <p class="lede reveal">Empezamos por lo que ya tenéis delante y funcionando, y de ahí para arriba. Cada cosa resuelve un hueco concreto que hoy os cuesta clientes.</p>
+      <p class="eyebrow reveal">Lo que Erigo puede hacer</p>
+      <h2 class="tit split" data-split>De la carta en papel a la barra llena</h2>
+      <p class="lede reveal">Se empieza por lo que ya tienes delante funcionando y, si te convence, se añade lo demás. Cada pieza va por separado. Los precios son sin IVA y valen para los dos locales: una carta para los dos, una pantalla de barra en cada uno y un solo número para el agente de voz. Esta parte es solo para ti: no saldría en tu web.</p>
       <div class="serv-grid">
-        <div class="serv reveal"><div class="k"><h3>Carta digital con pedido a la barra</h3><span class="precio">150 € + 39/mes</span></div><p>La que tenéis delante: el cliente pide desde el móvil y la comanda sale en la barra. Menos colas, menos errores.</p></div>
-        <div class="serv reveal"><div class="k"><h3>Web de una página</h3><span class="precio">890 € + cuota</span></div><p>Esta misma web, en vuestro dominio, con la carta dentro y enlazada desde Google. Vuestra cara en internet. Cuota mensual desde 39 €.</p></div>
-        <div class="serv reveal"><div class="k"><h3>Ficha de Google e identidad</h3><span class="precio">260 €</span></div><p>Un solo nombre, un solo teléfono, un Instagram. Que quien os busca os encuentre a la primera.</p></div>
-        <div class="serv reveal"><div class="k"><h3>Reseñas con QR</h3><span class="precio">120 €</span></div><p>Gustáis más que los grandes y os ve menos gente. Un cartel en el mostrador que lleva a vuestra ficha de un toque. Incluido si lleva cuota.</p></div>
-        <div class="serv reveal"><div class="k"><h3>Poner en regla lo legal</h3><span class="precio">390 €</span></div><p>Aviso legal, privacidad y cookies como los pide la ley, si la web va a recoger datos.</p></div>
-        <div class="serv reveal"><div class="k"><h3>Agente de voz para reservas</h3><span class="precio">900 € + 149/mes</span></div><p>Un contestador con IA que coge la llamada cuando estáis a tope, para que no se os escape el teléfono lleno: toma la reserva y la apunta. 150 llamadas al mes incluidas. <a href="voz.html" target="_blank" rel="noopener" style="color:var(--oro);font-weight:600;white-space:nowrap">Probar la demo de voz →</a></p></div>
+        <div class="serv reveal"><div class="k"><h3>Carta digital con pedido a la barra</h3><span class="precio">150 € + 39 €/mes</span></div><p>La que tienes delante: el cliente escanea el QR de su mesa, pide desde el móvil y la comanda sale en la pantalla de la barra. Vale el móvil o la tablet que ya tengas en la barra y no toca tu caja: cobras como siempre. Si cambias un precio o un plato, nos lo mandas y ese mismo día está en todas las mesas; va incluido en la cuota. Los 150 € incluyen dejarlo montado y los QR de cada mesa listos para imprimir. La cuota va sin permanencia.</p></div>
+        <div class="serv reveal"><div class="k"><h3>Web de una página</h3><span class="precio">890 €</span></div><p>Esta misma web en tu propio dominio, con tus fotos, la carta dentro, los textos legales y enlazada desde Google. Si tienes la carta, sus 39 €/mes cubren también la web. Si solo quieres la web, el dominio y el alojamiento se pagan aparte; te damos la cifra antes de empezar.</p></div>
+        <div class="serv reveal"><div class="k"><h3>Ficha de Google e identidad</h3><span class="precio">260 €</span></div><p>Hoy tu carta impresa da un teléfono y Google otro. Lo dejamos igual en todas partes: cada local con su teléfono, el mismo en la carta, en Google y en Instagram, con las dos fichas al día y fotos de cada local.</p></div>
+        <div class="serv reveal"><div class="k"><h3>Reseñas con QR</h3><span class="precio">120 €</span></div><p>Tienes un 4,7 y un 4,8 en Google; lo que falta es que más clientes lo digan. Un cartel en la barra lleva a tu ficha de un toque. Gratis con cualquiera de las cuotas.</p></div>
+        <div class="serv reveal"><div class="k"><h3>Poner en regla lo legal</h3><span class="precio">390 €</span></div><p>Aviso legal, privacidad y banner de cookies como los pide la ley. Ya van incluidos en la web de 890 €.</p></div>
+        <div class="serv reveal"><div class="k"><h3>Agente de voz para reservas</h3><span class="precio">900 € + 149 €/mes</span></div><p>Coge el teléfono cuando estás a tope de gente, toma la reserva y te la deja apuntada. 150 llamadas al mes incluidas y sin permanencia. <a class="tactil" href="voz.html" style="color:var(--oro);font-weight:600;white-space:nowrap">Probar la demo de voz →</a></p></div>
       </div>
     </div>
   </section>
@@ -399,24 +492,25 @@
       <h2 class="tit split" data-split>La misma casa, dos barras</h2>
       <div class="locales">
         <article class="local reveal">
-          <figure class="localfoto"><img src="hero.jpg" alt="Ejemplo de ambiente de un bar de tapas" loading="lazy"><figcaption>Imagen de ejemplo</figcaption></figure>
-          <div class="cuerpo"><p class="eyebrow" style="color:var(--humo)">Bar</p><h3>Dorita's Bar</h3><p class="dir">Calle Almenillas 1, 18003 Granada</p><a class="mapa" href="https://www.google.com/maps/search/?api=1&query=Dorita%27s%20Bar%2C%20Calle%20Almenillas%201%2C%2018003%20Granada" target="_blank" rel="noopener">Abrir en Google Maps <span aria-hidden="true">→</span></a></div>
+          <figure class="localfoto"><img src="hero.jpg" alt="Ejemplo de ambiente de un bar de tapas" loading="lazy"><figcaption>Imagen de ejemplo · aquí van tus fotos</figcaption></figure>
+          <div class="cuerpo"><p class="eyebrow" style="color:var(--humo)">Bar</p><h3>Dorita's Tapas Bar</h3><p class="dir">Calle Almenillas 1, 18003 Granada</p><p class="hor">Martes a sábado, <span class="nw">13:00–16:00</span> y <span class="nw">20:00–24:00</span><br>Lunes y domingo, cerrado</p><p class="tel">Teléfono en Google: <a class="tactil" href="tel:+34614454073">614 45 40 73</a></p><a class="mapa tactil" href="https://www.google.com/maps/search/?api=1&query=Dorita%27s%20Tapas%20Bar%2C%20C.%20Almenillas%201%2C%2018003%20Granada" target="_blank" rel="noopener">Abrir en Google Maps <span aria-hidden="true">→</span></a></div>
         </article>
         <article class="local reveal">
-          <figure class="localfoto"><img src="meson.jpg" alt="Ejemplo de interior de un mesón" loading="lazy"><figcaption>Imagen de ejemplo</figcaption></figure>
-          <div class="cuerpo"><p class="eyebrow" style="color:var(--humo)">Mesón</p><h3>Mesón Dorita's</h3><p class="dir">Calle Santa Clotilde 35, Granada</p><a class="mapa" href="https://www.google.com/maps/search/?api=1&query=Mes%C3%B3n%20Dorita%27s%2C%20Calle%20Santa%20Clotilde%2035%2C%20Granada" target="_blank" rel="noopener">Abrir en Google Maps <span aria-hidden="true">→</span></a></div>
+          <figure class="localfoto"><img src="meson.jpg" alt="Ejemplo de interior de un mesón" loading="lazy"><figcaption>Imagen de ejemplo · aquí van tus fotos</figcaption></figure>
+          <div class="cuerpo"><p class="eyebrow" style="color:var(--humo)">Mesón</p><h3>Mesón Dorita's · Tapas y Cuchara</h3><p class="dir">Calle Santa Clotilde 35, 18003 Granada</p><p class="hor">Lunes a sábado, <span class="nw">8:00–23:00</span><br>Domingo, cerrado</p><p class="tel">Teléfono en Google: <a class="tactil" href="tel:+34722168632">722 16 86 32</a></p><a class="mapa tactil" href="https://www.google.com/maps/search/?api=1&query=Mes%C3%B3n%20Dorita%27s%20Tapas%20y%20Cuchara%2C%20C.%20Sta.%20Clotilde%2035%2C%2018003%20Granada" target="_blank" rel="noopener">Abrir en Google Maps <span aria-hidden="true">→</span></a></div>
         </article>
       </div>
-      <div class="horario reveal"><span class="h">Martes a sábado, comidas y cenas.</span><span class="nota">Horario exacto por confirmar con el bar: las fuentes no coinciden.</span></div>
+      <p class="horario reveal"><span class="nota">Horarios y teléfonos sacados de Google: falta que nos los confirmes.</span></p>
     </div>
   </section>
 
   <section class="cierre" id="cierre">
     <div class="wrap">
-      <p class="eyebrow reveal" style="justify-content:center;color:var(--oro)">Para el dueño de Dorita's</p>
-      <h2 class="reveal">Esto es una demo. La de verdad la montamos contigo.</h2>
-      <p class="reveal">La tuya llevaría tus fotos, tus horarios confirmados, tu dominio y el pedido desde la mesa funcionando en la barra. Cuando quieras, hablamos.</p>
+      <p class="eyebrow reveal" style="color:var(--oro)">Para el dueño de Dorita's</p>
+      <h2 class="reveal">La tuya, hecha a tu medida.</h2>
+      <p class="reveal">Con tus fotos, tu dominio y el pedido desde la mesa funcionando en tu barra. Para empezar basta la carta con QR: 150 € de puesta en marcha y 39 €/mes, sin permanencia.</p>
       <div class="cta reveal"><button class="btn btn-brasa" id="abrirCarta3" type="button">Probar el pedido desde la mesa <span class="fl" aria-hidden="true">→</span></button></div>
+      <div class="contacto reveal"><p><b>¿Empezamos?</b> Escríbeme por WhatsApp y lo hablamos: Miguel, de Erigo.</p><p><a class="btn btn-brasa wa" href="https://wa.me/34600342501?text=Hola%20Miguel%2C%20he%20visto%20la%20demo%20de%20Dorita%27s" target="_blank" rel="noopener">WhatsApp · 600 34 25 01</a></p><p>O por correo: <a href="mailto:hola@erigoestudio.com">hola@erigoestudio.com</a> · <a href="https://erigoestudio.com" target="_blank" rel="noopener">erigoestudio.com</a></p></div>
     </div>
   </section>
 </main>
@@ -426,44 +520,48 @@
     <div class="fm">Dorita<span class="ap">'</span>s</div>
     <div class="figs">
       <a href="https://www.instagram.com/doritas.bar/" target="_blank" rel="noopener">Instagram · @doritas.bar</a>
-      <a href="#barra">Vista de barra (demo)</a>
-      <a href="#qr">QR por mesa (demo)</a>
+      <a href="#barra">Vista de barra</a>
+      <a href="#qr">QR por mesa</a>
     </div>
-    <p class="fn"><b>Demo hecha por Erigo.</b> Contenido de ejemplo, a confirmar con el bar. No es la web oficial de Dorita's.</p>
+    <div class="fn"><p><b>Demo hecha por Erigo.</b> No es la web oficial de Dorita's. El contenido es de ejemplo: lo confirmamos contigo.</p><p style="margin-top:.7rem">Erigo · WhatsApp <a href="https://wa.me/34600342501?text=Hola%20Miguel%2C%20he%20visto%20la%20demo%20de%20Dorita%27s" target="_blank" rel="noopener">600 34 25 01</a> · <a href="mailto:hola@erigoestudio.com">hola@erigoestudio.com</a> · <a href="https://erigoestudio.com" target="_blank" rel="noopener">erigoestudio.com</a></p></div>
   </div>
 </footer>
 
 <!-- vista barra -->
 <div id="barra" hidden>
-  <div class="barratop"><div><h2>Comandas · Dorita's</h2><div class="sub">Pantalla de barra · en vivo</div></div><div style="display:flex;gap:.5rem"><button class="link2" id="vaciarBarra" type="button" style="width:auto">Vaciar demo</button><button class="link2" id="volverWeb" style="width:auto">Volver a la web</button></div></div>
+  <div class="barratop"><div><h2>Comandas · Dorita's</h2><div class="sub" id="barraSub">Pantalla de barra · en vivo · toca la pantalla para activar el sonido</div></div><button class="link2" id="volverWeb" type="button" style="width:auto">Volver a la web</button></div>
   <div id="comandas" class="comandas"></div>
   <div id="barramsg" class="barramsg" hidden></div>
+  <div class="barrapie"><button class="link2" id="vaciarBarra" type="button">Vaciar demo</button></div>
 </div>
 
 <!-- vista QR por mesa -->
 <div id="qrpanel" hidden>
-  <div class="qrtop"><div><h2>QR por mesa · Dorita's</h2><div class="sub">Un código para cada mesa · demo</div></div><button class="link2" id="volverWebQR" style="width:auto">Volver a la web</button></div>
-  <div class="qrctl"><label for="qrNum">¿Cuántas mesas?</label><input id="qrNum" type="number" min="1" max="60" value="12"><button class="qb" id="qrGen" type="button" style="padding:.5rem 1rem">Generar</button><button class="qb" id="qrPrint" type="button" style="padding:.5rem 1rem">Imprimir</button></div>
+  <div class="qrtop"><div><h2>QR por mesa · Dorita's</h2><div class="sub">Un código para cada mesa · demo</div></div><button class="link2" id="volverWebQR" type="button" style="width:auto">Volver a la web</button></div>
+  <div class="qrctl"><label for="qrNum">¿Cuántas mesas?</label><input id="qrNum" type="number" min="1" max="12" value="12"><button class="qb" id="qrGen" type="button">Generar</button><button class="qb" id="qrPrint" type="button">Imprimir</button><span class="qrlim" id="qrLim">En la demo, hasta 12 mesas.</span></div>
+  <p class="qrerr" id="qrErr" role="status" hidden>No se han podido generar los códigos QR. Revisa la conexión y toca «Generar».</p>
   <div class="qrgrid" id="qrGrid"></div>
-  <p class="qrnote">Cada QR abre la carta ya fijada a esa mesa: el cliente no elige nada, y la comanda llega a la barra con el número de mesa puesto. En el bar de verdad, cada código lleva a la carta en el dominio de Dorita's con <code>?mesa=N</code>. Aquí, en la demo, el botón «Abrir como Mesa N» te enseña el mismo efecto sin salir.</p>
+  <p class="qrnote">Cada QR abre la carta ya fijada a esa mesa: el cliente no elige nada, y la comanda llega a la barra con el número de mesa puesto. En el bar de verdad, cada código lleva a la carta en el dominio de Dorita's con el número de su mesa. Aquí, en la demo, el botón «Abrir como Mesa N» te enseña el mismo efecto sin salir. Con dos locales, cada uno tiene sus QR y su propia pantalla de barra: los pedidos del mesón no salen en el bar. En tu bar, solo tu barra ve y gestiona las comandas.</p>
 </div>
 
 <!-- cesta -->
 <div class="cesta" id="cesta" hidden>
   <button type="button" id="verPedido"><span id="cestaTxt">Ver el pedido</span><span id="cestaTot">0,00 €</span></button>
 </div>
+<div class="sr" id="avisoSR" role="status" aria-live="polite"></div>
 
 <!-- overlay carta -->
 <div class="ov" id="ovCarta" hidden>
-  <div class="sheet" role="dialog" aria-modal="true" aria-label="La carta de Dorita's">
+  <div class="sheet" id="sheetCarta" tabindex="-1" role="dialog" aria-modal="true" aria-label="La carta de Dorita's">
     <div class="sheet-cab"><h2>La carta</h2><button class="cerrar" id="cerrarCarta" type="button" aria-label="Cerrar">✕</button></div>
     <div class="sheet-cuerpo">
-      <div class="mecanica"><b>Cómo se pide</b><span>Elige la bebida y la tapa va con ella. Toca <strong>+</strong> en lo que quieras y envía el pedido a la barra. Las marcas «sin gluten» y «vegetariano» son orientativas y las confirma la cocina.</span></div>
+      <div class="mecanica"><b>Cómo se pide</b><span>Elige la bebida y la tapa va con ella. Toca <strong>+</strong> en lo que quieras y envía el pedido a la barra.</span></div>
       <nav class="filtros" aria-label="Filtrar">
         <button class="filtro" data-f="todo" aria-pressed="true" type="button">Toda la carta</button>
         <button class="filtro" data-f="sg" aria-pressed="false" type="button">Sin gluten</button>
         <button class="filtro" data-f="vg" aria-pressed="false" type="button">Vegetariano</button>
       </nav>
+      <p class="fnota" id="fnota">Marcado según los asteriscos de tu carta. Los alérgenos los confirma la cocina.</p>
       <div id="secciones"></div>
     </div>
   </div>
@@ -471,14 +569,17 @@
 
 <!-- overlay pedido -->
 <div class="ov" id="ovPedido" hidden>
-  <div class="sheet" role="dialog" aria-modal="true" aria-label="Tu pedido">
+  <div class="sheet" id="sheetPedido" tabindex="-1" role="dialog" aria-modal="true" aria-label="Tu pedido">
     <div class="sheet-cab"><h2>Tu pedido</h2><button class="cerrar" id="cerrarPedido" type="button" aria-label="Cerrar">✕</button></div>
     <div class="sheet-cuerpo">
       <div id="pedidoItems"></div>
       <div class="mesas" id="mesasManual"><h4>¿Desde qué mesa?</h4><div class="mesagrid" id="mesaGrid"></div></div>
-      <div class="mesafija" id="mesaFija" hidden><h4>Mesa</h4><div class="mfval" id="mesaFijaVal">—</div></div>
+      <div class="mesafija" id="mesaFija" hidden><h4>Tu sitio</h4><div class="mfval" id="mesaFijaVal">—</div></div>
+      <div class="notaped"><label for="notaPed">¿Algo para la cocina? (alergias, sin cebolla…)</label><textarea id="notaPed" maxlength="140" rows="2"></textarea></div>
+      <p class="faltan" id="faltaTapa" role="status" hidden></p>
+      <p class="faltan" id="xxlSola" role="status" hidden></p>
       <div class="totl"><h4>Total orientativo</h4><span class="t" id="pedidoTotal">0,00 €</span></div>
-      <p class="avtot">La cuenta la cierra la barra: la tapa va incluida con la bebida y aquí se cuenta como suelta.</p>
+      <p class="avtot">La tapa que va con cada bebida no se cobra. La cuenta final la cierra la barra.</p>
       <button class="enviar" id="enviarPedido" disabled>Enviar pedido a la barra</button>
       <button class="link2" id="seguir">Seguir pidiendo</button>
     </div>
@@ -487,13 +588,15 @@
 
 <!-- overlay confirmación -->
 <div class="ov" id="ovConf" hidden>
-  <div class="sheet conf" role="dialog" aria-modal="true" aria-label="Pedido enviado">
-    <div class="ok">✓</div>
-    <h2>Pedido enviado a la barra</h2>
+  <div class="sheet conf" id="sheetConf" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="confTit">
+    <div class="ok" id="confOk" aria-hidden="true">✓</div>
+    <h2 id="confTit">Pedido enviado a la barra</h2>
     <p id="confMesa">Mesa —</p>
     <p class="cn" id="confNum">Comanda #—</p>
     <p id="confSync" style="margin-top:1rem"></p>
-    <button class="enviar" id="otro" style="margin-top:1.4rem">Hacer otro pedido</button>
+    <button class="enviar" id="reintentar" type="button" style="margin-top:1.4rem" hidden>Reintentar ahora</button>
+    <button class="enviar sec" id="verBarra" type="button" style="margin-top:1.4rem">Ver cómo llega a la barra →</button>
+    <button class="enviar" id="otro" type="button" style="margin-top:.7rem">Hacer otro pedido</button>
   </div>
 </div>
 
@@ -502,14 +605,16 @@
 (function(){
   var RM = false;
   try { RM = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){}
-  var G = window.gsap, ST = window.ScrollTrigger;
+  var G = null, ST = null;
+  // carga un script externo sin bloquear la página; ordenado=true respeta el orden de inserción
+  function carga(src,ok,ko,ordenado){ var s=document.createElement("script"); s.src=src; s.async=!ordenado; s.onload=function(){ if(ok) ok(); }; s.onerror=function(){ if(ko) ko(); }; document.head.appendChild(s); }
 
   /* ---------- tema ---------- */
   (function(){
     var root=document.documentElement, txt=document.getElementById("temaTxt");
     function pref(){ try{ return matchMedia("(prefers-color-scheme: dark)").matches; }catch(e){ return false; } }
     function act(){ var t=root.getAttribute("data-theme"); return t? t : (pref()?"dark":"light"); }
-    function pinta(){ txt.textContent = act()==="dark" ? "Claro" : "Oscuro"; }
+    function pinta(){ var d=act()==="dark"; txt.textContent = d ? "☀" : "☾"; document.getElementById("tema").setAttribute("aria-label", d ? "Pasar a modo claro" : "Pasar a modo oscuro"); }
     try{ var g=localStorage.getItem("dor-tema"); if(g==="dark"||g==="light") root.setAttribute("data-theme",g); }catch(e){}
     pinta();
     document.getElementById("tema").addEventListener("click",function(){
@@ -543,10 +648,12 @@
     document.addEventListener("visibilitychange", function(){ vis=!document.hidden; if(vis && !raf) raf=requestAnimationFrame(frame); });
   })();
 
-  /* ---------- animación (GSAP) ---------- */
-  if(G && !RM){
+  /* ---------- animación (GSAP, cargado sin bloquear la página) ---------- */
+  var animHecha=false;
+  function sinAnim(){ if(animHecha) return; animHecha=true; document.documentElement.classList.add("sinanim"); document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");}); }
+  function initAnim(){
     try{
-      if(ST) G.registerPlugin(ST);
+      G.registerPlugin(ST);
       // Intro del hero (el contenido ya es legible; se ordena la entrada)
       var tl=G.timeline({defaults:{ease:"power3.out"}});
       G.set("[data-hero]", {opacity:0, y:24});
@@ -555,7 +662,7 @@
         .to("[data-hero]", {opacity:1, y:0, duration:.8, stagger:.12}, "-=.6");
       // Revelados de sección
       G.utils.toArray(".reveal").forEach(function(el){
-        ST.create({trigger:el, start:"top 86%", once:true, onEnter:function(){ el.classList.add("in"); }});
+        ST.create({trigger:el, start:"top 95%", once:true, onEnter:function(){ el.classList.add("in"); }});
       });
       // Titulares palabra por palabra
       G.utils.toArray("[data-split]").forEach(function(h){
@@ -573,15 +680,26 @@
       window.addEventListener("load", refrescar);
       if(document.fonts && document.fonts.ready) document.fonts.ready.then(refrescar);
       setTimeout(refrescar, 500);
-    }catch(e){ document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");}); try{ G.set("[data-hero],[data-hero-mark]",{opacity:1,y:0,scale:1}); G.set(".word",{opacity:1,yPercent:0}); }catch(_){} }
-  } else {
-    document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");});
+    }catch(e){ document.documentElement.classList.add("sinanim"); document.querySelectorAll(".reveal").forEach(function(el){el.classList.add("in");}); try{ G.set("[data-hero],[data-hero-mark]",{opacity:1,y:0,scale:1}); G.set(".word",{opacity:1,yPercent:0}); }catch(_){} }
+  }
+  if(RM){ sinAnim(); }
+  else {
+    // si el CDN tarda más de 3 s o falla, la página se enseña entera y sin animación
+    var tAnim=setTimeout(sinAnim,3000);
+    var falloAnim=function(){ clearTimeout(tAnim); sinAnim(); };
+    carga("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js",null,falloAnim,true);
+    carga("https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js",function(){
+      clearTimeout(tAnim); if(animHecha) return;
+      G=window.gsap||null; ST=window.ScrollTrigger||null;
+      if(!G||!ST){ G=ST=null; sinAnim(); return; }
+      animHecha=true; initAnim();
+    },falloAnim,true);
   }
 
   /* ================= PEDIDO / COMANDAS ================= */
   var MENU=[
     {sec:"Bebidas",pie:"Todas llevan tapa salvo que se diga.",items:[
-      {n:"Jarra de ½ L con 2 tapas",d:"Una de la casa y otra a elegir",p:5.80},{n:"Jarra de ½ L con 1 tapa",d:"A elegir",p:3.80},
+      {n:"Jarra de ½ L con 2 tapas",p:5.80},{n:"Jarra de ½ L con 1 tapa",d:"A elegir",p:3.80},
       {n:"Tercio",p:3.70},{n:"Quinto",d:"Con tapa de la casa",p:2.50},{n:"Refresco",d:"Con tapa de la casa",p:3.20},
       {n:"Copa de cerveza",p:3.00},{n:"Tinto de verano",p:3.00},{n:"Gitanillo Guille",p:3.00},{n:"Vino de la casa",p:3.00},
       {n:"Vino Rioja, Ribera o blanco",p:3.80},{n:"Vermut",p:3.50},{n:"Licores, Baileys y Pacharán",p:3.50},
@@ -594,22 +712,26 @@
       {n:"Arroz con pollo al curry"},{n:"Spaghettis",d:"Carbonara, boloñesa o curry"},{n:"Wok de pollo con verduras"},
       {n:"Nachos",d:"Guacamole, queso o bacon"},{n:"Menestra de verduras",vg:1,sg:1},{n:"Tortilla de patatas",vg:1,sg:1},
       {n:"Hummus con zanahoria",vg:1,sg:1},{n:"Spaghettis chinos veganos",vg:1},{n:"Falafel",vg:1}]},
-    {sec:"Tapas XXL",pie:"Con la jarra, 5,80 €.",suelta:5.80,items:[
+    {sec:"Tapas XXL",pie:"Van con la jarra, en lugar de la tapa a elegir: jarra y XXL, 5,80 € en total. Sin jarra, pregunta en la barra.",suelta:5.80,items:[
       {n:"Spaghettis XXL",d:"Boloñesa, carbonara o curry"},{n:"Arroz con pollo al curry XXL"},{n:"Albóndigas con salsa XXL"},
       {n:"Carne en salsa con patatas XXL"},{n:"Hamburguesa con queso XXL"},{n:"Falafel XXL",vg:1}]},
     {sec:"Especialidades",pie:"Los bocadillos van con patatas.",items:[
       {n:"Provolone con verduras",vg:1,p:8.00},{n:"Provolone con tomate",vg:1,p:7.50},{n:"Provolone con oliva y hierbas",vg:1,p:7.00},
       {n:"Choripán especial",d:"Queso, tomate y verduras. Con copa",p:8.90},{n:"Bocadillo de milanesa",d:"Con copa",p:8.90},
       {n:"Bocadillo de lomo XXL",d:"Lomo, queso, tomate, lechuga y bacon. Con copa",p:12.00},{n:"Medio bocadillo de lomo",d:"Con copa",p:9.90},
-      {n:"Hamburguesa especial",d:"Con copa",p:9.90},{n:"Ración de jamón asado con patatas",d:"En invierno",p:10.00}]},
+      {n:"Hamburguesa especial",d:"Con copa",p:9.90},{n:"Ración de jamón asado con patatas",d:"Solo en invierno · se pide en la barra",p:10.00,nd:1}]},
     {sec:"Ensaladas",pie:"Las dos van con copa.",items:[{n:"Ensalada mixta",sg:1,p:8.00},{n:"Ensalada de la casa",sg:1,p:10.00}]},
-    {sec:"Para picar",pie:"Con botella de vino, el precio entre paréntesis.",items:[
-      {n:"Tabla de quesos",d:"Con botella, 18 €",sg:1,p:12.50},{n:"Tabla de embutidos",d:"Con botella, 20 €",sg:1,p:14.50},{n:"Tabla mixta",d:"Con botella, 23 €",sg:1,p:16.50}]}
+    {sec:"Para picar",pie:"Cada tabla, sola o con botella de vino.",items:[
+      {n:"Tabla de quesos",sg:1,p:12.50},{n:"Tabla de quesos con botella de vino",sg:1,p:18.00},
+      {n:"Tabla de embutidos",sg:1,p:14.50},{n:"Tabla de embutidos con botella de vino",sg:1,p:20.00},
+      {n:"Tabla mixta",sg:1,p:16.50},{n:"Tabla mixta con botella de vino",sg:1,p:23.00}]}
   ];
+  var CASA={}; // bebidas que llevan tapa de la casa (el aviso para cocina en la barra)
+  MENU[0].items.forEach(function(it){ if(/^con tapa de la casa/i.test(it.d||"") || /2 tapas/.test(it.n)) CASA[it.n]=1; });
   var eur=function(n){ return n.toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"; };
   var cat={}, cart={};
-  try{ var gc=localStorage.getItem("dor-cart"); if(gc) cart=JSON.parse(gc)||{}; }catch(e){}
-  var guarda=function(){ try{ localStorage.setItem("dor-cart",JSON.stringify(cart)); }catch(e){} };
+  try{ localStorage.removeItem("dor-cart"); var gc=localStorage.getItem("dor-cart-v2"); if(gc) cart=JSON.parse(gc)||{}; }catch(e){}
+  var guarda=function(){ try{ localStorage.setItem("dor-cart-v2",JSON.stringify(cart)); }catch(e){} };
   var mesaSel=null;
 
   // render carta
@@ -622,162 +744,405 @@
     var ul=document.createElement("ul"); ul.className="lista";
     g.items.forEach(function(it,ii){
       var id="g"+gi+"i"+ii, precio=base(it); cat[id]={n:it.n,p:precio};
+      if(g.sec==="Bebidas"){ cat[id].t=/^con tapa de la casa/i.test(it.d||"")?0:1; if(/^Jarra/.test(it.n)) cat[id].j=1; }
+      if(g.sec==="Tapas") cat[id].tapa=1;
+      if(g.sec==="Tapas XXL") cat[id].xxl=1;
       var li=document.createElement("li"); li.setAttribute("data-id",id); if(it.sg)li.setAttribute("data-sg",""); if(it.vg)li.setAttribute("data-vg","");
       var t=document.createElement("span"); t.className="it"; t.appendChild(document.createTextNode(it.n));
       if(it.d){ var d=document.createElement("span"); d.className="det"; d.textContent=it.d; t.appendChild(d); }
+      if(it.sg){ var m1=document.createElement("span"); m1.className="mk mk-sg"; m1.textContent="Sin gluten"; t.appendChild(m1); }
+      if(it.vg){ var m2=document.createElement("span"); m2.className="mk mk-vg"; m2.textContent="Veg"; t.appendChild(m2); }
       li.appendChild(t);
-      if(it.sg){ var m1=document.createElement("span"); m1.className="mk mk-sg"; m1.textContent="Sin gluten"; li.appendChild(m1); }
-      if(it.vg){ var m2=document.createElement("span"); m2.className="mk mk-vg"; m2.textContent="Veg"; li.appendChild(m2); }
       var pr=document.createElement("span"); pr.className="pre"; pr.textContent=eur(precio); li.appendChild(pr);
       var cc=document.createElement("span"); cc.className="cta-count"; cc.setAttribute("data-c",id); li.appendChild(cc);
-      var b=document.createElement("button"); b.className="add"; b.type="button"; b.textContent="+"; b.setAttribute("aria-label","Añadir "+it.n);
-      b.addEventListener("click",function(){ add(id); }); li.appendChild(b);
+      if(it.nd){ cat[id].nd=1; var sp=document.createElement("span"); sp.className="add nd"; sp.setAttribute("aria-hidden","true"); li.appendChild(sp); }
+      else { var b=document.createElement("button"); b.className="add"; b.type="button"; b.textContent="+"; b.setAttribute("aria-label","Añadir "+it.n);
+      b.addEventListener("click",function(){ add(id); }); li.appendChild(b); }
       ul.appendChild(li);
     });
     sec.appendChild(ul); cont.appendChild(sec);
   });
+  // un carrito guardado con otra versión de la carta: fuera las líneas que ya no casan
+  (function(){ var cambio=false; for(var k in cart){ var c=cat[k], it=cart[k]; if(!c || c.nd || !it || it.n!==c.n || it.p!==c.p || !(it.q>0)){ delete cart[k]; cambio=true; } } if(cambio) guarda(); })();
 
-  function add(id){ if(!cart[id]) cart[id]={n:cat[id].n,p:cat[id].p,q:0}; cart[id].q++; guarda(); pinta(); }
-  function menos(id){ if(!cart[id])return; cart[id].q--; if(cart[id].q<=0) delete cart[id]; guarda(); pinta(); }
-  function tot(){ var n=0,t=0; for(var k in cart){ n+=cart[k].q; t+=cart[k].q*cart[k].p; } return {n:n,t:t}; }
+  var avisoT=null;
+  function aviso(t){ var el=document.getElementById("avisoSR"); if(!el) return; el.textContent=""; clearTimeout(avisoT); avisoT=setTimeout(function(){ el.textContent=t; },60); }
+  function cuenta(){ var n=tot().n; return n+(n===1?" artículo":" artículos")+" en el pedido."; }
+  function add(id){ if(!cart[id]) cart[id]={n:cat[id].n,p:cat[id].p,q:0,t:cat[id].t||0,tapa:cat[id].tapa||0}; cart[id].q++; guarda(); pinta(); aviso("Añadido: "+cat[id].n+". "+cuenta()); }
+  function menos(id){ if(!cart[id])return; var nom=cart[id].n; cart[id].q--; if(cart[id].q<=0) delete cart[id]; guarda(); pinta(); aviso("Quitado: "+nom+". "+cuenta()); }
+  // Reglas de tapa: cada bebida con tapa a elegir da un «hueco». Una XXL ocupa el hueco de una jarra
+  // y jarra + XXL sale por JARRA_XXL; los huecos que quedan los llenan las tapas (van incluidas).
+  var JARRA_XXL=5.80;
+  function tot(){
+    var n=0,t=0,crJ=[],crO=0,tp=0,tpP=0,xq=0,xP=0;
+    for(var k in cart){ var it=cart[k], c=cat[k]||{}; n+=it.q; t+=it.q*it.p;
+      if(c.t){ if(c.j){ for(var r=0;r<it.q;r++) crJ.push(it.p); } else crO+=it.q*c.t; }
+      if(c.tapa){ tp+=it.q; tpP=it.p; }
+      if(c.xxl){ xq+=it.q; xP=it.p; } }
+    crJ.sort(function(a,b){ return b-a; });
+    var xinc=Math.min(xq,crJ.length), xdes=0;
+    for(var i=0;i<xinc;i++) xdes+=Math.max(0, xP-(JARRA_XXL-crJ[i]));
+    var libres=crJ.length-xinc+crO, inc=Math.min(tp,libres), tdes=inc*tpP, des=xdes+tdes;
+    return {n:n,t:Math.round((t-des)*100)/100,inc:inc,xinc:xinc,xsola:xq-xinc,des:des,tdes:tdes,xdes:xdes,faltan:libres-inc};
+  }
   function pinta(){
     var T=tot();
     document.querySelectorAll("[data-c]").forEach(function(el){ var id=el.getAttribute("data-c"), q=cart[id]?cart[id].q:0; el.textContent=q?"×"+q:""; var li=el.closest("li"); if(li){ if(q) li.setAttribute("data-on",""); else li.removeAttribute("data-on"); } });
     var cesta=document.getElementById("cesta");
-    if(T.n>0 && document.getElementById("barra").hidden){ cesta.hidden=false; document.getElementById("cestaTxt").textContent="Ver el pedido · "+T.n+(T.n===1?" artículo":" artículos"); document.getElementById("cestaTot").textContent=eur(T.t); }
+    if(T.n>0 && document.getElementById("barra").hidden && document.getElementById("qrpanel").hidden){ cesta.hidden=false; document.getElementById("cestaTxt").textContent="Ver el pedido · "+T.n+(T.n===1?" artículo":" artículos"); document.getElementById("cestaTot").textContent=eur(T.t); }
     else cesta.hidden=true;
+    syncCesta();
     if(!document.getElementById("ovPedido").hidden) pintaPedido();
   }
   function pintaPedido(){
     var c=document.getElementById("pedidoItems"); c.textContent=""; var ids=Object.keys(cart);
-    if(!ids.length){ cierraPedido(); return; }
+    if(!ids.length){ atrasPedido(); return; }
     ids.forEach(function(id){ var it=cart[id]; var row=document.createElement("div"); row.className="pitem";
       var pn=document.createElement("div"); pn.className="pn"; pn.appendChild(document.createTextNode(it.n)); var sm=document.createElement("small"); sm.textContent=eur(it.p)+" · unidad"; pn.appendChild(sm); row.appendChild(pn);
       var st=document.createElement("div"); st.className="step";
-      var b1=document.createElement("button"); b1.type="button"; b1.textContent="−"; b1.setAttribute("aria-label","Quitar uno"); b1.addEventListener("click",function(){menos(id);});
+      var b1=document.createElement("button"); b1.type="button"; b1.textContent="−"; b1.setAttribute("aria-label","Quitar uno de "+it.n); b1.addEventListener("click",function(){menos(id);});
       var q=document.createElement("span"); q.className="q"; q.textContent=it.q;
-      var b2=document.createElement("button"); b2.type="button"; b2.textContent="+"; b2.setAttribute("aria-label","Añadir uno"); b2.addEventListener("click",function(){add(id);});
+      var b2=document.createElement("button"); b2.type="button"; b2.textContent="+"; b2.setAttribute("aria-label","Añadir uno de "+it.n); b2.addEventListener("click",function(){add(id);});
       st.appendChild(b1); st.appendChild(q); st.appendChild(b2); row.appendChild(st);
       var pp=document.createElement("span"); pp.className="pp"; pp.textContent=eur(it.p*it.q); row.appendChild(pp); c.appendChild(row);
     });
-    document.getElementById("pedidoTotal").textContent=eur(tot().t);
-    var e=document.getElementById("enviarPedido"); e.disabled=!(mesaSel!=null); e.textContent=mesaSel!=null?("Enviar pedido a la barra · Mesa "+mesaSel):"Elige una mesa primero";
+    var TT=tot();
+    var filaInc=function(txt,sub,imp){ var rd=document.createElement("div"); rd.className="pitem pinc"; var rn=document.createElement("div"); rn.className="pn"; rn.textContent=txt; var rs=document.createElement("small"); rs.textContent=sub; rn.appendChild(rs); rd.appendChild(rn); var rp=document.createElement("span"); rp.className="pp"; rp.textContent="−"+eur(imp); rd.appendChild(rp); c.appendChild(rd); };
+    if(TT.xinc>0) filaInc(TT.xinc===1?"La XXL va con la jarra":"Las "+TT.xinc+" XXL van con sus jarras","En lugar de la tapa a elegir: jarra y XXL, "+eur(JARRA_XXL),TT.xdes);
+    if(TT.inc>0) filaInc((TT.inc===1?"1 tapa va":TT.inc+" tapas van")+" con la bebida","Incluida"+(TT.inc===1?"":"s")+", no se cobra"+(TT.inc===1?"":"n"),TT.tdes);
+    var ft=document.getElementById("faltaTapa");
+    if(TT.faltan>0){ ft.hidden=false; ft.textContent=TT.faltan===1?"Te falta elegir 1 tapa: la que va con tu bebida no se cobra.":"Te faltan por elegir "+TT.faltan+" tapas: las que van con tus bebidas no se cobran."; }
+    else { ft.hidden=true; ft.textContent=""; }
+    var fx=document.getElementById("xxlSola");
+    if(TT.xsola>0){ fx.hidden=false; fx.textContent=TT.xsola===1?"La XXL va con una jarra. Añade una jarra, o quita la XXL y pregúntala en la barra.":"Cada XXL va con su jarra: te faltan "+TT.xsola+" jarras. Añádelas, o quita las XXL que sobran y pregúntalas en la barra."; }
+    else { fx.hidden=true; fx.textContent=""; }
+    document.getElementById("pedidoTotal").textContent=eur(TT.t);
+    var e=document.getElementById("enviarPedido"); e.disabled=!(mesaSel!=null) || TT.xsola>0; e.textContent=mesaSel==null?"Elige una mesa primero":(TT.xsola>0?(TT.xsola===1?"Falta la jarra de la XXL":"Faltan las jarras de las XXL"):(mesaSel==="Barra"?"Enviar pedido · En la barra":"Enviar pedido a la barra · "+nomMesa(mesaSel)));
   }
   // mesas
+  function nomMesa(m){ if(m==="Barra") return "En la barra"; if(m==="Terraza") return "Terraza"; return "Mesa "+(m==null||m===""?"—":m); }
   var mg=document.getElementById("mesaGrid"); var ms=[]; for(var i=1;i<=12;i++) ms.push(String(i)); ms.push("Barra"); ms.push("Terraza");
   ms.forEach(function(e){ var b=document.createElement("button"); b.className="mesab"; b.type="button"; b.textContent=e; b.setAttribute("aria-pressed","false");
     b.addEventListener("click",function(){ mesaSel=e; document.querySelectorAll(".mesab").forEach(function(o){o.setAttribute("aria-pressed",String(o===b));}); pintaPedido(); }); mg.appendChild(b); });
 
-  // overlays
-  function abreCarta(){ document.getElementById("ovCarta").hidden=false; document.body.style.overflow="hidden"; }
-  function cierraCarta(){ document.getElementById("ovCarta").hidden=true; document.body.style.overflow=""; }
-  function abrePedido(){ if(!tot().n)return; document.getElementById("ovPedido").hidden=false; document.body.style.overflow="hidden"; pintaPedido(); }
-  function cierraPedido(){ document.getElementById("ovPedido").hidden=true; document.body.style.overflow=""; }
+  // overlays: foco, fondo inerte, Escape y botón «atrás» del móvil
+  var ovCarta=document.getElementById("ovCarta"), ovPedido=document.getElementById("ovPedido"), ovConf=document.getElementById("ovConf");
+  var FONDO="main, header.nav, .navmovil, footer, .demo";
+  function fijaInert(on){ document.querySelectorAll(FONDO).forEach(function(el){ el.inert=on; }); }
+  function syncCesta(){ document.body.classList.toggle("concesta", !document.getElementById("cesta").hidden); }
+  var pilaFoco=[];
+  function guardaFoco(){ pilaFoco.push(document.activeElement); }
+  function devuelveFoco(){ var el=pilaFoco.pop(); if(el && el.focus && document.body.contains(el) && el.getClientRects().length){ try{ el.focus({preventScroll:true}); }catch(e){} } }
+  function enfoca(id){ var el=document.getElementById(id); if(el){ try{ el.focus({preventScroll:true}); }catch(e){} } }
+  var ovDepth=0, saltarPop=false;
+  function empuja(ov){ try{ history.pushState({ov:ov},""); ovDepth++; }catch(e){} }
+  function estadoOv(){ try{ return history.state && history.state.ov; }catch(e){ return null; } }
+  function abreCarta(){ if(!ovCarta.hidden) return; guardaFoco(); ovCarta.hidden=false; document.body.style.overflow="hidden"; fijaInert(true); empuja("carta"); enfoca("sheetCarta"); getSB(function(){}); }
+  function cierraCarta(){ if(ovCarta.hidden) return; ovCarta.hidden=true; if(ovPedido.hidden && ovConf.hidden){ document.body.style.overflow=""; fijaInert(false); } devuelveFoco(); }
+  function abrePedido(){ if(!tot().n || !ovPedido.hidden) return; guardaFoco(); document.body.classList.add("enpedido"); ovPedido.hidden=false; ovCarta.inert=true; document.body.style.overflow="hidden"; fijaInert(true); empuja("pedido"); pintaPedido(); enfoca("sheetPedido"); }
+  function cierraPedido(){ if(ovPedido.hidden) return; document.body.classList.remove("enpedido"); ovPedido.hidden=true; ovCarta.inert=false; if(ovCarta.hidden && ovConf.hidden){ document.body.style.overflow=""; fijaInert(false); } devuelveFoco(); }
+  function atrasCarta(){ if(ovDepth>0 && estadoOv()==="carta") history.back(); else cierraCarta(); }
+  function atrasPedido(){ if(ovDepth>0 && estadoOv()==="pedido") history.back(); else cierraPedido(); }
+  // cierra carta y pedido de golpe; conHist=true quita del historial las entradas que abrieron
+  function cierraTodo(conHist){
+    var n=ovDepth; ovDepth=0; pilaFoco=[];
+    ovCarta.hidden=true; ovPedido.hidden=true; ovCarta.inert=false; document.body.classList.remove("enpedido");
+    if(ovConf.hidden){ fijaInert(false); document.body.style.overflow=""; }
+    if(conHist && n>0){ saltarPop=true; try{ history.go(-n); }catch(e){ saltarPop=false; } }
+  }
+  // La confirmación tiene su propia entrada en el historial, para que «atrás» la cierre sin salir de la web.
+  // Si aún está pendiente el history.go() de cierraTodo, la entrada se añade cuando ese salto termina.
+  var confHist=false, confPend=false, reabrirConf=false;
+  function empujaConf(){ try{ history.pushState({ov:"conf"},""); confHist=true; }catch(e){ confHist=false; } }
+  function salConf(reabrir){ if(confHist){ reabrirConf=!!reabrir; history.back(); } else cierraConf(reabrir); }
+  addEventListener("popstate",function(){
+    if(saltarPop){ saltarPop=false; if(confPend){ confPend=false; if(!ovConf.hidden) empujaConf(); } return; }
+    if(confHist){ confHist=false; if(!ovConf.hidden){ var r=reabrirConf; reabrirConf=false; cierraConf(r); } return; }
+    if(ovDepth>0) ovDepth--;
+    if(!ovPedido.hidden){ cierraPedido(); return; }
+    if(!ovCarta.hidden) cierraCarta();
+  });
+  function abreConf(){ ovConf.hidden=false; document.body.style.overflow="hidden"; fijaInert(true); if(saltarPop) confPend=true; else empujaConf(); enfoca("sheetConf"); }
+  function cierraConf(reabrir){
+    ovConf.hidden=true; confId=null; fijaInert(false); document.body.style.overflow="";
+    if(mesaURL!=null){ mesaSel=mesaURL; } // sin QR se mantiene la última mesa elegida
+    if(reabrir) abreCarta(); else enfoca("abrirCarta");
+  }
   ["abrirCarta","abrirCarta2","abrirCarta3"].forEach(function(id){ var el=document.getElementById(id); if(el) el.addEventListener("click",abreCarta); });
-  document.getElementById("cerrarCarta").addEventListener("click",cierraCarta);
-  document.getElementById("ovCarta").addEventListener("click",function(e){ if(e.target===this) cierraCarta(); });
+  document.getElementById("cerrarCarta").addEventListener("click",atrasCarta);
+  ovCarta.addEventListener("click",function(e){ if(e.target===this) atrasCarta(); });
   document.getElementById("verPedido").addEventListener("click",abrePedido);
-  document.getElementById("cerrarPedido").addEventListener("click",cierraPedido);
-  document.getElementById("seguir").addEventListener("click",function(){ cierraPedido(); });
-  document.getElementById("ovPedido").addEventListener("click",function(e){ if(e.target===this) cierraPedido(); });
+  document.getElementById("cerrarPedido").addEventListener("click",atrasPedido);
+  document.getElementById("seguir").addEventListener("click",atrasPedido);
+  ovPedido.addEventListener("click",function(e){ if(e.target===this) atrasPedido(); });
+  addEventListener("keydown",function(e){
+    if(e.key!=="Escape" && e.key!=="Esc") return;
+    if(!ovConf.hidden){ salConf(false); return; }
+    if(!ovPedido.hidden){ atrasPedido(); return; }
+    if(!ovCarta.hidden) atrasCarta();
+  });
 
-  // filtros
+  // filtros (los grupos que se quedan sin platos se ocultan)
   var fbs=document.querySelectorAll(".filtro");
-  fbs.forEach(function(b){ b.addEventListener("click",function(){ var f=b.dataset.f; fbs.forEach(function(o){o.setAttribute("aria-pressed",String(o===b));}); if(f==="todo") document.body.removeAttribute("data-filtro"); else document.body.setAttribute("data-filtro",f); }); });
+  fbs.forEach(function(b){ b.addEventListener("click",function(){ var f=b.dataset.f; fbs.forEach(function(o){o.setAttribute("aria-pressed",String(o===b));}); if(f==="todo") document.body.removeAttribute("data-filtro"); else document.body.setAttribute("data-filtro",f);
+    document.querySelectorAll("#secciones .grupo").forEach(function(g){ g.hidden = f!=="todo" && !g.querySelector("li[data-"+f+"]"); }); }); });
 
-  // comandas: localStorage + db en vivo
-  function leerC(){ try{ return JSON.parse(localStorage.getItem("dor-comandas")||"[]"); }catch(e){ return []; } }
-  function guardaC(a){ try{ localStorage.setItem("dor-comandas",JSON.stringify(a)); }catch(e){} }
+  // comandas: localStorage + db en vivo (supabase-js se carga solo cuando hace falta)
+  function leerJ(k){ try{ return JSON.parse(localStorage.getItem(k)||"[]")||[]; }catch(e){ return []; } }
+  function guardaJ(k,a){ try{ localStorage.setItem(k,JSON.stringify(a)); }catch(e){} }
+  function leerC(){ return leerJ("dor-comandas"); }
+  function guardaC(a){ guardaJ("dor-comandas",a); }
+  function leerP(){ return leerJ("dor-pendientes"); }
+  function guardaP(a){ guardaJ("dor-pendientes",a); }
   var SBURL="https://voalqmfbzmvttrkivxqa.supabase.co", SBKEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvYWxxbWZiem12dHRya2l2eHFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkzMTI5MDgsImV4cCI6MjEwNDg4ODkwOH0.ELMumV1gv1aSNH5jDQ-qFHgV1iCAgvEmgH1pbAAbvs0";
-  var SB=null, sbCache=[], sbOn=false;
-  try{ if(window.supabase){ SB=window.supabase.createClient(SBURL, SBKEY); } }catch(e){ SB=null; }
-  function sbFetch(){ if(!SB) return; try{ SB.from("doritas_comandas").select("*").order("ts",{ascending:false}).limit(80).then(function(r){ if(r && !r.error && r.data){ sbCache=r.data; sbOn=true; if(!document.getElementById("barra").hidden) pintaBarra(); } }); }catch(e){} }
-  if(SB){ sbFetch(); try{ SB.channel("doritas_comandas_rt").on("postgres_changes",{event:"*",schema:"public",table:"doritas_comandas"},function(){ sbFetch(); }).subscribe(); }catch(e){} }
-  function comandas(){ return sbOn ? sbCache.slice() : leerC().slice().reverse(); }
+  var SBSRC="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.min.js";
+  var SB=null, sbCargando=false, sbEsperan=[], sbCache=[], sbOn=false, rtOn=false;
+  var retenidas={}; // comandas que esperan su número antes de salir hacia la barra
+  function getSB(cb){
+    if(SB){ cb(SB); return; }
+    var hecho=false, t=setTimeout(function(){ if(!hecho){ hecho=true; cb(null); } },8000);
+    sbEsperan.push(function(sb){ if(hecho) return; hecho=true; clearTimeout(t); cb(sb); });
+    if(sbCargando) return;
+    sbCargando=true;
+    // si supabase-js llega tarde (después del plazo de 8 s), se reintenta lo pendiente y se arranca la barra
+    var fin=function(){ sbCargando=false; var l=sbEsperan; sbEsperan=[]; l.forEach(function(f){ try{ f(SB); }catch(e){} }); if(SB && leerP().length) reintenta(); if(SB && !document.getElementById("barra").hidden) arrancaBarra(); };
+    carga(SBSRC,function(){ try{ if(window.supabase) SB=window.supabase.createClient(SBURL, SBKEY); }catch(e){ SB=null; } fin(); },fin);
+  }
+  function sbFetch(avisar){ if(!SB) return; try{ SB.from("doritas_comandas").select("*").order("ts",{ascending:false}).limit(80).then(function(r){ if(r && !r.error && r.data){
+      if(avisar && sbOn){ var ya={}; sbCache.forEach(function(c){ ya[c.id]=1; }); if(r.data.some(function(c){ return !ya[c.id] && c.estado==="nueva"; }) && !document.getElementById("barra").hidden) pitido(); }
+      sbCache=r.data; sbOn=true; } if(!document.getElementById("barra").hidden) pintaBarra(); },function(){}); }catch(e){} }
+  function arrancaBarra(){ getSB(function(sb){ if(!sb) return; sbFetch(); if(!rtOn){ rtOn=true; try{ sb.channel("doritas_comandas_rt").on("postgres_changes",{event:"*",schema:"public",table:"doritas_comandas"},function(){ sbFetch(true); }).subscribe(); }catch(e){} } }); }
+  // aviso de comanda nueva: pitido corto y vibración. El navegador solo deja sonar tras un toque en la pantalla.
+  var audioCtx=null, avisosOn=false, pitidos=0;
+  function activaAvisos(){
+    if(!audioCtx){ try{ var AC=window.AudioContext||window.webkitAudioContext; if(AC) audioCtx=new AC(); }catch(e){ audioCtx=null; } }
+    try{ if(audioCtx && audioCtx.state==="suspended") audioCtx.resume(); }catch(e){}
+    if(!avisosOn){ avisosOn=true; var sb=document.getElementById("barraSub"); if(sb) sb.textContent="Pantalla de barra · en vivo · suena cuando entra una comanda"; }
+  }
+  function pitido(){
+    pitidos++;
+    if(!avisosOn) return;
+    try{ if(navigator.vibrate) navigator.vibrate(200); }catch(e){}
+    if(!audioCtx) return;
+    try{ var t0=audioCtx.currentTime, o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.type="sine"; o.frequency.value=880;
+      g.gain.setValueAtTime(0.0001,t0); g.gain.exponentialRampToValueAtTime(0.35,t0+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t0+0.2);
+      o.connect(g); g.connect(audioCtx.destination); o.start(t0); o.stop(t0+0.22); }catch(e){}
+  }
+  document.getElementById("barra").addEventListener("pointerdown",activaAvisos);
+  document.getElementById("barra").addEventListener("keydown",activaAvisos);
+  function comandas(){
+    var lim=Date.now()-12*3600*1000, base;
+    if(sbOn){ base=sbCache.slice(); var ya={}; base.forEach(function(c){ ya[c.id]=1; }); leerP().forEach(function(c){ if(!ya[c.id]) base.push(c); }); base.sort(function(a,b){ return (b.ts||0)-(a.ts||0); }); }
+    else base=leerC().slice().reverse();
+    return base.filter(function(c){ return !c.ts || c.ts>lim; });
+  }
+  // envío con cola: la comanda queda en dor-pendientes hasta que la base de datos la acepta
+  function mandaCom(com,cb){ getSB(function(sb){ if(!sb){ cb(false); return; } try{ sb.from("doritas_comandas").insert([com]).then(function(r){ cb(!(r && r.error) || r.error.code==="23505"); },function(){ cb(false); }); }catch(e){ cb(false); } }); }
+  var reintentando=false, otraVez=false;
+  function reintenta(cb){
+    var p=leerP().filter(function(y){ return !retenidas[y.id]; });
+    if(reintentando){ otraVez=true; if(cb) cb(); return; }
+    if(!p.length){ pintaConf(); if(cb) cb(); return; }
+    reintentando=true; var quedan=p.length, alguno=false;
+    p.forEach(function(com){ mandaCom(com,function(ok){
+      if(ok){ alguno=true; guardaP(leerP().filter(function(y){ return y.id!==com.id; })); }
+      if(--quedan===0){
+        reintentando=false;
+        if(alguno) sbFetch();
+        if(!document.getElementById("barra").hidden) pintaBarra();
+        if(otraVez){ otraVez=false; if(cb) cb(); reintenta(); }
+        else { pintaConf(); if(cb) cb(); }
+      }
+    }); });
+  }
+  addEventListener("online",function(){ reintenta(); });
+  if(leerP().length) setTimeout(function(){ reintenta(); },1500);
+
+  // número de comanda: el siguiente del día. Primero se pregunta a la base de datos (el mayor número de hoy);
+  // si no contesta en 3 s, vale el mayor que conoce este móvil.
+  function inicioDia(){ var h=new Date(); h.setHours(0,0,0,0); return h.getTime(); }
+  function maxLocal(sin){ var h=inicioDia(), m=0; sbCache.concat(leerC()).forEach(function(c){ if(c && c.id!==sin && c.ts>=h && (c.numero|0)>m) m=c.numero|0; }); return m; }
+  function siguienteNum(){ return maxLocal()+1; }
+  function numeroHoy(cb){
+    var hecho=false, fin=function(n){ if(hecho) return; hecho=true; clearTimeout(t); cb(n); };
+    var t=setTimeout(function(){ fin(null); },3000);
+    getSB(function(sb){ if(!sb){ fin(null); return; }
+      try{ sb.from("doritas_comandas").select("numero").gte("ts",inicioDia()).order("numero",{ascending:false}).limit(1).then(function(r){
+        if(r && !r.error && r.data){ fin(r.data.length?(r.data[0].numero|0):0); } else fin(null); },function(){ fin(null); }); }catch(e){ fin(null); } });
+  }
+  var confId=null;
+  function pintaConf(estado){
+    if(confId==null) return;
+    if(!estado) estado = leerP().some(function(y){ return y.id===confId; }) ? ((reintentando||otraVez||retenidas[confId])?"enviando":"fallo") : "ok";
+    var ok=document.getElementById("confOk"), tit=document.getElementById("confTit"), cs=document.getElementById("confSync"), rb=document.getElementById("reintentar");
+    rb.disabled=false; rb.textContent="Reintentar ahora"; var cli=mesaURL!=null; document.getElementById("verBarra").hidden=cli;
+    if(estado==="enviando"){ ok.textContent="…"; ok.classList.remove("ko"); tit.textContent="Enviando a la barra…"; cs.textContent=""; rb.hidden=true; }
+    else if(estado==="ok"){ ok.textContent="✓"; ok.classList.remove("ko"); tit.textContent="Pedido enviado a la barra"; cs.textContent=cli?"Tu pedido ya está en la barra.":"Recibida en la barra. Toca abajo para ver la pantalla que tendría tu camarero."; rb.hidden=true; }
+    else { ok.textContent="!"; ok.classList.add("ko"); tit.textContent="No ha llegado a la barra"; cs.textContent="No se ha podido conectar. La comanda queda guardada en este móvil y se enviará sola cuando vuelva la conexión."; rb.hidden=false; }
+  }
 
   document.getElementById("enviarPedido").addEventListener("click",function(){
     if(mesaSel==null || !tot().n) return;
     var items=Object.keys(cart).map(function(id){ return {n:cart[id].n,p:cart[id].p,q:cart[id].q}; });
-    var total=tot().t, num=Math.floor(Math.random()*900)+100;
-    var com={id:"c"+Date.now()+"-"+num,numero:num,mesa:mesaSel,items:items,total:total,estado:"nueva",ts:Date.now()};
+    var T0=tot(); if(T0.faltan>0) items.push({n:"Tapa a elegir (preguntar en la mesa)",p:0,q:T0.faltan});
+    var np=document.getElementById("notaPed"), nota=np?np.value.replace(/\s+/g," ").trim().slice(0,140):"";
+    if(nota) items.push({n:"Nota",nota:nota,p:0,q:0});
+    var total=T0.t, num=siguienteNum();
+    var com={id:"c"+Date.now()+"-"+Math.random().toString(36).slice(2,7),numero:num,mesa:mesaSel,items:items,total:total,estado:"nueva",ts:Date.now()};
     var a=leerC(); a.push(com); if(a.length>80) a=a.slice(-80); guardaC(a);
-    if(SB){ try{ SB.from("doritas_comandas").insert([com]).then(function(){},function(){}); }catch(e){} }
-    cart={}; guarda(); pinta(); cierraPedido();
-    document.getElementById("confMesa").textContent="Mesa "+com.mesa;
-    document.getElementById("confNum").textContent="Comanda #"+num;
-    document.getElementById("confSync").textContent="Recibida en la barra. Ábrela en «vista de barra» para verla en pantalla.";
-    document.getElementById("ovConf").hidden=false; document.body.style.overflow="hidden";
+    var p=leerP(); p.push(com); guardaP(p); retenidas[com.id]=1;
+    cierraTodo(true);
+    cart={}; guarda(); pinta(); if(np) np.value="";
+    confId=com.id;
+    document.getElementById("confMesa").textContent=nomMesa(com.mesa);
+    document.getElementById("confNum").textContent="Comanda #…";
+    abreConf(); pintaConf("enviando");
+    // la comanda ya está guardada con el número local; si la base de datos contesta, se corrige antes de enviarla
+    numeroHoy(function(maxDb){
+      var n=num;
+      if(maxDb!=null) n=Math.max(maxDb,maxLocal(com.id))+1;
+      delete retenidas[com.id];
+      var pend=leerP(), sigue=false;
+      pend.forEach(function(y){ if(y.id===com.id){ y.numero=n; sigue=true; } });
+      if(sigue){ guardaP(pend); var ac=leerC(); ac.forEach(function(y){ if(y.id===com.id) y.numero=n; }); guardaC(ac); }
+      else n=num;
+      if(confId===com.id) document.getElementById("confNum").textContent="Comanda #"+n;
+      reintenta();
+    });
   });
-  document.getElementById("otro").addEventListener("click",function(){ document.getElementById("ovConf").hidden=true; document.body.style.overflow=""; if(mesaURL!=null){ mesaSel=mesaURL; } else { mesaSel=null; document.querySelectorAll(".mesab").forEach(function(o){o.setAttribute("aria-pressed","false");}); } });
+  document.getElementById("otro").addEventListener("click",function(){ salConf(true); });
+  // la entrada de la confirmación se sustituye por la de la barra: «atrás» desde la barra vuelve a la web
+  document.getElementById("verBarra").addEventListener("click",function(){ if(confHist){ confHist=false; confPend=false; try{ location.replace("#barra"); }catch(e){ location.hash="barra"; } } else { confPend=false; location.hash="barra"; } });
+  document.getElementById("reintentar").addEventListener("click",function(){ var rb=this; rb.disabled=true; rb.textContent="Reintentando…"; reintenta(); });
+
+  // cambios en la barra: se ven al momento y luego se sincronizan
+  function cambiaEstado(id,est){
+    var a=leerC(); a.forEach(function(y){ if(y.id===id) y.estado=est; }); guardaC(a);
+    var p=leerP(); p.forEach(function(y){ if(y.id===id) y.estado=est; }); guardaP(p);
+    sbCache.forEach(function(y){ if(y.id===id) y.estado=est; });
+    pintaBarra();
+    if(SB){ try{ SB.from("doritas_comandas").update({estado:est}).eq("id",id).then(function(r){ if(r && r.error) sbFetch(); },function(){ sbFetch(); }); }catch(e){} }
+  }
+  function quita(ids){
+    var fuera={}; ids.forEach(function(i){ fuera[i]=1; });
+    var no=function(y){ return !fuera[y.id]; };
+    guardaC(leerC().filter(no)); guardaP(leerP().filter(no)); sbCache=sbCache.filter(no);
+    pintaBarra();
+    if(SB && ids.length){ try{ SB.from("doritas_comandas").delete().in("id",ids).then(function(r){ if(r && r.error) sbFetch(); },function(){ sbFetch(); }); }catch(e){} }
+  }
 
   function pintaBarra(){
     var lista=comandas(), c=document.getElementById("comandas"), msg=document.getElementById("barramsg"); c.textContent="";
+    var pend={}; leerP().forEach(function(y){ pend[y.id]=1; });
+    var vb=document.getElementById("vaciarBarra"); if(vb) vb.parentNode.hidden=!lista.length;
     if(!lista.length){ msg.hidden=false; msg.textContent="Aún no hay comandas. Haz un pedido desde la carta y aparecerá aquí."; return; }
     msg.hidden=true;
     lista.forEach(function(x){
       var card=document.createElement("div"); card.className="comanda"+(x.estado==="servida"?" servida":"");
-      var ch=document.createElement("div"); ch.className="ch"; var m=document.createElement("span"); m.className="mesa"; m.textContent="Mesa "+(x.mesa||"—"); var ho=document.createElement("span"); ho.className="hora"; try{ ho.textContent=new Date(x.ts).toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"}); }catch(e){} ch.appendChild(m); ch.appendChild(ho); card.appendChild(ch);
-      var ul=document.createElement("ul"); (x.items||[]).forEach(function(it){ var li=document.createElement("li"); var b=document.createElement("b"); b.textContent=(it.q||1)+"×"; var s=document.createElement("span"); s.textContent=it.n; s.style.flex="1 1 auto"; s.style.padding="0 .5rem"; li.appendChild(b); li.appendChild(s); ul.appendChild(li); }); card.appendChild(ul);
+      var ch=document.createElement("div"); ch.className="ch"; var m=document.createElement("span"); m.className="mesa"; m.textContent=nomMesa(x.mesa); var ho=document.createElement("span"); ho.className="hora"; try{ ho.textContent=new Date(x.ts).toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"})+(pend[x.id]?" · sin enviar":""); }catch(e){} ch.appendChild(m); ch.appendChild(ho); card.appendChild(ch);
+      var suma=0;
+      var notaTxt="";
+      var ul=document.createElement("ul"); (x.items||[]).forEach(function(it){ if(it && it.nota!=null){ notaTxt=String(it.nota); return; } suma+=(it.q||1)*(it.p||0); var li=document.createElement("li"); var b=document.createElement("b"); b.textContent=(it.q||1)+"×"; var s=document.createElement("span"); s.textContent=it.n; s.style.flex="1 1 auto"; s.style.padding="0 .5rem"; li.appendChild(b); li.appendChild(s); ul.appendChild(li); });
+      var nCasa=0; (x.items||[]).forEach(function(it){ if(it && CASA[it.n]) nCasa+=(it.q||1); });
+      if(nCasa>0){ var lc=document.createElement("li"); lc.className="lcasa"; var lcb=document.createElement("b"); lcb.textContent="+"+nCasa; var lcs=document.createElement("span"); lcs.textContent=nCasa===1?"tapa de la casa":"tapas de la casa"; lcs.style.flex="1 1 auto"; lcs.style.padding="0 .5rem"; lc.appendChild(lcb); lc.appendChild(lcs); ul.appendChild(lc); }
+      card.appendChild(ul);
+      if(notaTxt){ var cn=document.createElement("p"); cn.className="cnota"; var cnb=document.createElement("b"); cnb.textContent="Nota"; cn.appendChild(cnb); cn.appendChild(document.createTextNode(notaTxt)); card.appendChild(cn); }
+      var des=Math.round((suma-(x.total||0))*100)/100;
+      if(des>0.004){ var ci=document.createElement("div"); ci.className="cinc"; var cit=document.createElement("span"); cit.textContent="Incluido con la bebida"; var cid=document.createElement("span"); cid.textContent="−"+eur(des); ci.appendChild(cit); ci.appendChild(cid); card.appendChild(ci); }
       var ct=document.createElement("div"); ct.className="ct"; var cl=document.createElement("span"); cl.textContent="#"+(x.numero||""); var cr=document.createElement("span"); cr.textContent=eur(x.total||0); ct.appendChild(cl); ct.appendChild(cr); card.appendChild(ct);
       var acc=document.createElement("div"); acc.className="acc";
-      if(x.estado!=="servida"){ var bs=document.createElement("button"); bs.className="bserv"; bs.type="button"; bs.textContent="Marcar servida"; bs.addEventListener("click",function(){ var a=leerC(); a.forEach(function(y){ if(y.id===x.id) y.estado="servida"; }); guardaC(a); if(SB){ try{ SB.from("doritas_comandas").update({estado:"servida"}).eq("id",x.id).then(function(){},function(){}); }catch(e){} } pintaBarra(); }); acc.appendChild(bs); }
-      var bq=document.createElement("button"); bq.className="bquit"; bq.type="button"; bq.textContent="Quitar"; bq.addEventListener("click",function(){ guardaC(leerC().filter(function(y){return y.id!==x.id;})); if(SB){ try{ SB.from("doritas_comandas").delete().eq("id",x.id).then(function(){},function(){}); }catch(e){} } pintaBarra(); }); acc.appendChild(bq);
+      if(x.estado!=="servida"){ var bs=document.createElement("button"); bs.className="bserv"; bs.type="button"; bs.textContent="Marcar servida"; bs.addEventListener("click",function(){ cambiaEstado(x.id,"servida"); }); acc.appendChild(bs); }
+      var bq=document.createElement("button"); bq.className="bquit"; bq.type="button"; bq.textContent="Quitar"; var tq=null;
+      bq.addEventListener("click",function(){ if(!bq.classList.contains("armado")){ bq.classList.add("armado"); bq.textContent="Toca otra vez para quitar"; tq=setTimeout(function(){ bq.classList.remove("armado"); bq.textContent="Quitar"; },3000); return; } clearTimeout(tq); quita([x.id]); }); acc.appendChild(bq);
       card.appendChild(acc); c.appendChild(card);
     });
   }
-  addEventListener("storage",function(e){ if(e.key==="dor-comandas" && !document.getElementById("barra").hidden) pintaBarra(); });
+  addEventListener("storage",function(e){ if((e.key==="dor-comandas"||e.key==="dor-pendientes") && !document.getElementById("barra").hidden) pintaBarra(); });
 
   // paneles a pantalla completa (barra / qr)
   function mostrarPanel(which){
     var barra=document.getElementById("barra"), qr=document.getElementById("qrpanel");
+    if(which){ cierraTodo(false); if(!ovConf.hidden){ ovConf.hidden=true; confId=null; confHist=false; confPend=false; fijaInert(false); } }
     barra.hidden = which!=="barra";
     if(qr) qr.hidden = which!=="qr";
     var oculto=!!which;
-    document.querySelectorAll("main, header.nav, footer, .demo").forEach(function(el){ el.hidden=oculto; });
+    document.querySelectorAll("main, header.nav, .navmovil, footer, .demo").forEach(function(el){ el.hidden=oculto; });
     document.getElementById("cesta").hidden = oculto || !tot().n;
+    syncCesta();
     document.body.style.overflow="";
-    if(which==="barra") pintaBarra();
-    if(which==="qr") pintaQR();
+    if(which==="barra"){ pintaBarra(); arrancaBarra(); }
+    if(which==="qr") pintaQR(true);
     if(ST){ try{ if(oculto){ ST.disable&&ST.disable(); } else { ST.enable&&ST.enable(); } }catch(_){} }
   }
   document.getElementById("volverWeb").addEventListener("click",function(){ location.hash=""; });
-  var vbar=document.getElementById("vaciarBarra"); if(vbar) vbar.addEventListener("click",function(){ try{ localStorage.removeItem("dor-comandas"); localStorage.removeItem("dor-cart"); }catch(e){} if(SB){ try{ SB.from("doritas_comandas").delete().neq("id","").then(function(){},function(){}); }catch(e){} } cart={}; guarda(); pinta(); pintaBarra(); });
+  // «Vaciar demo» pide un segundo toque y solo borra las comandas que hay en pantalla
+  var vbar=document.getElementById("vaciarBarra"), tArm=null;
+  function desarma(){ clearTimeout(tArm); vbar.classList.remove("armado"); vbar.textContent="Vaciar demo"; }
+  if(vbar) vbar.addEventListener("click",function(){
+    if(!vbar.classList.contains("armado")){ vbar.classList.add("armado"); vbar.textContent="Toca otra vez para borrar las comandas"; tArm=setTimeout(desarma,3000); return; }
+    desarma();
+    var ids=comandas().map(function(y){ return y.id; });
+    try{ localStorage.removeItem("dor-comandas"); localStorage.removeItem("dor-pendientes"); localStorage.removeItem("dor-cart-v2"); }catch(e){}
+    cart={}; guarda(); pinta(); quita(ids);
+  });
   var vwq=document.getElementById("volverWebQR"); if(vwq) vwq.addEventListener("click",function(){ location.hash=""; });
 
   // mesa desde la URL: ?mesa=N en el dominio real; #mesa=N en la demo
-  var mesaURL=null;
+  var mesaURL=null, mesaFuente=null;
+  // desde el QR la carta la lee el cliente, no el dueño
+  var FNOTA_DUENO="Marcado según los asteriscos de tu carta. Los alérgenos los confirma la cocina.", FNOTA_CLIENTE="Marcado según la carta del bar. Los alérgenos los confirma la cocina.";
   function mesaDesdeBusqueda(){ try{ var p=new URLSearchParams(location.search); var v=p.get("mesa"); return (v!=null && v!=="")?v:null; }catch(e){ return null; } }
-  function mesaDesdeHash(){ var m=location.hash.replace(/^#/,"").match(/(?:^|[&;])mesa=([^&;]+)/i); return m?decodeURIComponent(m[1]):null; }
-  function aplicarMesa(v){
-    if(v==null) return; mesaURL=v; mesaSel=v;
-    var pill=document.getElementById("mesaPill"); if(pill){ document.getElementById("mesaPillN").textContent=v; pill.hidden=false; }
+  function mesaDesdeHash(){ var m=location.hash.replace(/^#/,"").match(/(?:^|[&;])mesa=([^&;]+)/i); if(!m) return null; try{ return decodeURIComponent(m[1]); }catch(e){ return m[1]; } }
+  function normMesa(v){ if(v==null) return null; v=String(v).trim(); if(/^\d{1,2}$/.test(v)){ var n=parseInt(v,10); return n>0?String(n):null; } if(/^barra$/i.test(v)) return "Barra"; if(/^terraza$/i.test(v)) return "Terraza"; return null; }
+  function aplicarMesa(v,fuente){
+    v=normMesa(v); if(v==null) return;
+    mesaURL=v; mesaSel=v; mesaFuente=fuente||"query"; document.body.classList.add("conmesa");
+    var pill=document.getElementById("mesaPill"); if(pill){ var num=/^\d+$/.test(v); document.getElementById("mesaPillP").hidden=!num; document.getElementById("mesaPillN").textContent=num?v:nomMesa(v); pill.hidden=false; }
     var mm=document.getElementById("mesasManual"); if(mm) mm.hidden=true;
-    var mf=document.getElementById("mesaFija"); if(mf){ document.getElementById("mesaFijaVal").textContent="Mesa "+v; mf.hidden=false; }
-    if(!document.getElementById("ovPedido").hidden) pintaPedido();
+    var mf=document.getElementById("mesaFija"); if(mf){ document.getElementById("mesaFijaVal").textContent=nomMesa(v); mf.hidden=false; }
+    var fn=document.getElementById("fnota"); if(fn) fn.textContent=FNOTA_CLIENTE;
+    if(!ovPedido.hidden) pintaPedido();
+  }
+  function quitaMesa(){
+    mesaURL=null; mesaSel=null; mesaFuente=null; document.body.classList.remove("conmesa");
+    var pill=document.getElementById("mesaPill"); if(pill) pill.hidden=true;
+    var mm=document.getElementById("mesasManual"); if(mm) mm.hidden=false;
+    var mf=document.getElementById("mesaFija"); if(mf) mf.hidden=true;
+    document.querySelectorAll(".mesab").forEach(function(o){o.setAttribute("aria-pressed","false");});
+    var fn=document.getElementById("fnota"); if(fn) fn.textContent=FNOTA_DUENO;
+    if(!ovPedido.hidden) pintaPedido();
   }
 
-  // QR por mesa
+  // QR por mesa (qrcode.js se carga al abrir el panel)
+  var QRSRC="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js", qrEstado=0;
   function baseCarta(){ return location.origin+location.pathname; }
-  function pintaQR(){
+  function pintaQR(cargar){
     var grid=document.getElementById("qrGrid"); if(!grid) return; grid.textContent="";
-    var inp=document.getElementById("qrNum"); var n=inp?parseInt(inp.value,10):12; if(!(n>0)) n=12; if(n>60) n=60;
+    var inp=document.getElementById("qrNum"); var n=inp?parseInt(inp.value,10):12; if(!(n>0)) n=12; var ql=document.getElementById("qrLim"); if(ql){ ql.classList.toggle("aviso",n>12); ql.textContent=n>12?"En la demo salen 12 como mucho. En tu bar, las que tengas.":"En la demo, hasta 12 mesas."; } if(n>12) n=12; if(inp) inp.value=n;
+    if(!window.QRCode && qrEstado!==1 && cargar!==false){
+      qrEstado=1;
+      var tq=setTimeout(function(){ if(qrEstado===1){ qrEstado=3; pintaQR(false); } },8000);
+      carga(QRSRC,function(){ clearTimeout(tq); qrEstado=window.QRCode?2:3; pintaQR(false); },function(){ clearTimeout(tq); qrEstado=3; pintaQR(false); });
+    }
+    var err=document.getElementById("qrErr"); if(err) err.hidden = !!window.QRCode || qrEstado!==3;
     for(var i=1;i<=n;i++){ (function(k){
       var card=document.createElement("div"); card.className="qrcard";
       var lbl=document.createElement("div"); lbl.className="ql"; lbl.textContent="Mesa "+k; card.appendChild(lbl);
       var box=document.createElement("div"); box.className="qrbox"; card.appendChild(box);
-      try{ if(window.QRCode) new QRCode(box,{text:baseCarta()+"?mesa="+k, width:120, height:120, correctLevel:QRCode.CorrectLevel.M}); else box.textContent="Mesa "+k; }catch(e){ box.textContent="Mesa "+k; }
+      try{ if(window.QRCode) new QRCode(box,{text:baseCarta()+"?mesa="+k, width:120, height:120, correctLevel:QRCode.CorrectLevel.M}); else box.textContent=qrEstado===1?"Cargando…":"Sin QR"; }catch(e){ box.textContent="Sin QR"; }
       var b=document.createElement("button"); b.className="qb"; b.type="button"; b.textContent="Abrir como Mesa "+k; b.addEventListener("click",function(){ location.hash="mesa="+k; }); card.appendChild(b);
       grid.appendChild(card);
     })(i); }
   }
-  var qg=document.getElementById("qrGen"); if(qg) qg.addEventListener("click",pintaQR);
+  var qg=document.getElementById("qrGen"); if(qg) qg.addEventListener("click",function(){ pintaQR(true); });
   var qp=document.getElementById("qrPrint"); if(qp) qp.addEventListener("click",function(){ try{ window.print(); }catch(e){} });
 
   // enrutado por hash
   function router(){
     var h=location.hash.replace(/^#/,"");
     var mh=mesaDesdeHash();
-    if(mh!=null){ aplicarMesa(mh); mostrarPanel(null); abreCarta(); return; }
+    if(mh==null && mesaFuente==="hash" && /^(qr|barra)\b/i.test(h)){ quitaMesa(); var q=mesaDesdeBusqueda(); if(q) aplicarMesa(q,"query"); }
+    if(mh!=null){ aplicarMesa(mh,"hash"); mostrarPanel(null); abreCarta(); return; }
     if(/(?:^|[&;])barra\b/i.test(h)){ mostrarPanel("barra"); return; }
     if(/(?:^|[&;])qr\b/i.test(h)){ mostrarPanel("qr"); return; }
     mostrarPanel(null);
@@ -786,8 +1151,10 @@
 
   pinta();
   var mesaIni=mesaDesdeBusqueda();
-  if(mesaIni){ aplicarMesa(mesaIni); }
+  if(mesaIni){ aplicarMesa(mesaIni,"query"); }
   router();
   if(mesaIni && mesaDesdeHash()==null){ abreCarta(); }
 })();
 </script>
+</body>
+</html>
