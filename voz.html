@@ -5,17 +5,23 @@
 <script>try{var t=localStorage.getItem("dor-tema");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Recepción Dorita's · agente de voz</title>
+<meta name="robots" content="noindex">
 <meta name="description" content="Demo del agente de voz de Dorita's: contesta el teléfono cuando nadie puede cogerlo y apunta la reserva en la agenda del bar.">
 <meta property="og:title" content="Dorita's · agente de voz para reservas">
 <meta property="og:description" content="Prueba cómo contesta el teléfono y apunta la reserva. Demo preparada por Erigo.">
-<meta property="og:image" content="https://topnuk3yt.github.io/doritas/og.jpg?v=1">
+<meta property="og:image" content="https://topnuk3yt.github.io/doritas/og-voz.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="Dorita's, agente de voz para reservas">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="Dorita's · demo de Erigo">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:url" content="https://topnuk3yt.github.io/doritas/voz.html">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#120E0A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23120E0A'/%3E%3Ctext x='32' y='46' font-family='Arial Black,Arial' font-weight='900' font-size='40' text-anchor='middle' fill='%23F1E7D8'%3ED%3C/text%3E%3Crect x='44' y='12' width='6' height='14' fill='%23C2481C'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Newsreader:ital,wght@0,400;1,400&display=swap" media="print" onload="this.media='all'">
@@ -55,7 +61,7 @@
   .demo{background:var(--noche);color:var(--sobre-noche)}
   .demo .wrap{max-width:56rem;margin:0 auto;padding:.6rem 1.1rem;display:flex;gap:.7rem 1rem;align-items:center;flex-wrap:wrap;font-family:var(--disp);font-size:.76rem}
   .demo b{background:var(--brasa);color:var(--sobre-brasa);font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .5rem;border-radius:5px}
-  .demo span{color:var(--sobre-noche-2)}
+  .demo span{color:var(--sobre-noche-2);flex-basis:100%;order:2}
 
   .app{max-width:56rem;margin:0 auto;padding:1.2rem 1.1rem 3rem;display:grid;gap:1.2rem;grid-template-columns:1fr}
   @media (min-width:820px){ .app{grid-template-columns:1.5fr 1fr;align-items:start} }
@@ -71,14 +77,14 @@
   @media (prefers-reduced-motion:no-preference){ .dotlive{animation:lat 1.4s ease-in-out infinite} }
   @keyframes lat{0%,100%{opacity:.35}50%{opacity:1}}
   .sonido{flex:none;width:2.75rem;height:2.75rem;padding:0;display:grid;place-items:center;background:rgba(241,231,216,.12);border:1px solid rgba(241,231,216,.28);color:var(--sobre-noche);border-radius:100px;cursor:pointer}
-  @media (max-width:480px){ .fono-cab{padding:.8rem .9rem;gap:.6rem} .fono-cab .quien{gap:.6rem} .fono-cab .av{width:2.2rem;height:2.2rem} .fono-cab .av svg{width:18px;height:18px} .fono-cab .n{font-size:1rem;white-space:nowrap} .fono-cab .st{white-space:nowrap} }
+  @media (max-width:480px){ .fono-cab{padding:.8rem .9rem;gap:.6rem} .fono-cab .quien{gap:.6rem} .fono-cab .av{width:2.2rem;height:2.2rem} .fono-cab .av svg{width:18px;height:18px} .fono-cab .n{font-size:1rem} }
 
   .charla{flex:1;min-height:0;overflow-y:auto;padding:1.2rem 1.1rem;display:flex;flex-direction:column;gap:.7rem;background:var(--papel)}
   .b{max-width:82%;padding:.7rem .95rem;border-radius:16px;font-size:1.02rem;line-height:1.4;white-space:pre-wrap}
   .b.ag{align-self:flex-start;background:var(--papel-alto);border:1px solid var(--linea-2);border-bottom-left-radius:5px}
   .b.cl{align-self:flex-end;background:var(--brasa);color:var(--sobre-brasa);border-bottom-right-radius:5px}
   .b .qui{display:block;font-family:var(--disp);font-size:.64rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.65;margin-bottom:.2rem}
-  .inicio{margin:1.5rem auto auto;max-width:20rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.1rem;color:var(--tinta-2);padding:1rem 0}
+  .inicio{margin:.3rem auto auto;max-width:20rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.9rem;color:var(--tinta-2);padding:.3rem 0}
   .bllamar{display:inline-flex;align-items:center;gap:.6rem;min-height:3.2rem;padding:.8rem 1.6rem;border:0;border-radius:100px;background:var(--verde);color:#fff;font-weight:700;font-size:1.05rem;cursor:pointer;box-shadow:var(--sombra)}
   .aviso{align-self:stretch;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .8rem;padding:.7rem .9rem;border-radius:12px;border-left:4px solid var(--verde);background:var(--verde-2);font-family:var(--disp);font-size:.88rem;font-weight:600;color:var(--tinta)}
   .veragenda{min-height:2.75rem;padding:.4rem 1rem;border-radius:100px;border:1.5px solid var(--verde);background:transparent;color:var(--verde);font-weight:700;font-size:.85rem;cursor:pointer}
@@ -129,28 +135,45 @@
   .vozsel .seg button{font-family:var(--disp);font-weight:700;font-size:.9rem;min-height:44px;padding:.5rem 1rem;border-radius:100px;border:1.5px solid var(--brasa);background:transparent;color:var(--brasa);cursor:pointer}
   .vozsel .seg button[aria-pressed="true"]{background:var(--brasa);color:#fff}
   .vozsel .exp{margin:.65rem 0 0;color:var(--tinta-2);font-size:.95rem;line-height:1.5}
-  .vozsel .oir{margin-top:.55rem;font-family:var(--disp);font-weight:600;font-size:.88rem;min-height:40px;padding:.4rem .9rem;border-radius:100px;border:1px solid var(--linea);background:transparent;color:var(--tinta);cursor:pointer}
+  .vozsel .oir{margin-top:.55rem;font-family:var(--disp);font-weight:600;font-size:.88rem;min-height:44px;text-wrap:balance;padding:.4rem .9rem;border-radius:100px;border:1px solid var(--linea);background:transparent;color:var(--tinta);cursor:pointer}
+  .fono-cab .quien>div{min-width:0} .fono-cab .n,.fono-cab #est{min-width:0;overflow-wrap:break-word}
+  /* en pantallas estrechas el icono deja el sitio al título y al estado, que se leen enteros */
+  @media (max-width:380px){ .fono-cab .av{display:none} }
+  a,button,.chip{-webkit-tap-highlight-color:transparent}
+  .pie:not(.cierre){padding-bottom:1.2rem} .pie.cierre p{margin:0 0 .75rem}
+  .pie a.wa{display:inline-flex;align-items:center;min-height:44px;padding:.7rem 1.3rem;border-radius:100px;background:var(--brasa);color:var(--sobre-brasa);font-family:var(--disp);font-weight:700;font-size:.95rem;text-decoration:none}
+  /* antes de llamar la tarjeta mide lo que su contenido: sin hueco vacío debajo de «Llamar» */
+  .fono.espera{height:auto;min-height:0} .fono.espera .charla{flex:none;padding-top:1.6rem;padding-bottom:1.6rem}
+  body.tecl .pista{display:none!important}
+  body.tecl .chips{flex-wrap:nowrap;overflow-x:auto;margin-bottom:.5rem;-webkit-overflow-scrolling:touch}
+  body.tecl .chip{flex:none}
+  /* pantallas bajas (iPhone SE de 568 px): que «Llamar» se vea sin desplazar */
+  @media (orientation:portrait) and (max-height:620px){
+    .demo .wrap{padding:.45rem 1.1rem;gap:.4rem .8rem} .vozsel{padding-top:.6rem} .vozsel .caja{padding:.7rem .9rem}
+    .vozsel h2{margin-bottom:.4rem} .vozsel .exp{margin-top:.45rem;font-size:.9rem;line-height:1.4} .vozsel .oir{margin-top:.4rem}
+    .app{padding-top:.6rem} .charla{padding-top:.7rem} .inicio{gap:.6rem;margin-top:0} .fono-cab{padding-top:.6rem;padding-bottom:.6rem}
+  }
 </style>
 </head>
 <body>
 
-<div class="demo"><div class="wrap"><b>Demo</b><span>Simulación del agente de voz de Erigo para Dorita's. En el servicio real contesta el teléfono de los dos locales. Esta demo no graba nada.</span><a class="volver" href="./#servicios">← Volver a la web</a></div></div>
+<div class="demo"><div class="wrap"><b>Demo</b><span>Simulación del agente de voz de Erigo para Dorita's. No guarda nada fuera de tu móvil.</span><a class="volver" id="volver" href="./#servicios">← Volver a la web</a></div></div>
 
 <section class="vozsel" aria-label="Voz de la recepción">
   <div class="caja">
     <h2>¿Con qué voz te atiende?</h2>
     <div class="seg" role="group" aria-label="Elegir voz">
       <button type="button" data-voz="pro" aria-pressed="true">Voz profesional</button>
-      <button type="button" data-voz="demo" aria-pressed="false">Voz de muestra</button>
+      <button type="button" data-voz="demo" aria-pressed="false">Otra voz</button>
     </div>
     <p class="exp" id="vozExp"></p>
-    <button class="oir" id="vozOir" type="button">▶ Escuchar el saludo con esta voz</button>
+    <button class="oir" id="vozOir" type="button">▶ Oír el saludo con esta voz</button>
   </div>
 </section>
 
 <main class="app">
   <h1 class="sr">Demo del agente de voz de Dorita's</h1>
-  <section class="fono">
+  <section class="fono espera">
     <div class="fono-cab">
       <div class="quien">
         <div class="av" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="currentColor"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></div>
@@ -162,7 +185,7 @@
     <div class="entrada" id="entrada" hidden>
       <div class="chips" id="chips"></div>
       <div class="fila">
-        <input id="txt" type="text" autocomplete="off" placeholder="Escribe aquí…" aria-label="Tu respuesta">
+        <input id="txt" type="text" autocomplete="off" enterkeyhint="send" placeholder="Escribe…" aria-label="Tu respuesta">
         <button class="ib bmic" id="mic" type="button" aria-label="Hablar" title="Hablar"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button>
         <button class="ib bsend" id="send" type="button" aria-label="Enviar" title="Enviar"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"/></svg></button>
       </div>
@@ -191,7 +214,8 @@
   </aside>
 </main>
 
-<p class="pie"><b>Lo que es y lo que no.</b> Es una simulación: no hay llamada real y la página no guarda nada fuera de tu móvil. Si usas el micrófono, tu navegador (Google o Apple) pasa la voz a texto. El servicio de verdad contesta el teléfono cuando no llegas a cogerlo, apunta la reserva en tu agenda y te deja un registro de cada llamada. Los horarios son los de Google; se ajustan contigo.<br><br><b>Precio.</b> Alta 900&nbsp;€ + 149&nbsp;€/mes, sin IVA y sin permanencia. Cubre los dos locales con un solo número de teléfono e incluye 150&nbsp;llamadas al mes.<br><br><b>¿Te lo montamos?</b> Contesta al mensaje por el que te llegó este enlace, o escribe a <a href="mailto:hola@erigoestudio.com">hola@erigoestudio.com</a>. Más en <a href="https://erigoestudio.com">erigoestudio.com</a>.</p>
+<p class="pie"><b>Lo que es y lo que no.</b> Es una simulación: no hay llamada real y la página no guarda nada fuera de tu móvil. Si usas el micrófono, tu navegador (Google o Apple) pasa la voz a texto. El servicio de verdad contesta el teléfono cuando no llegas a cogerlo, apunta la reserva en tu agenda y te deja un registro de cada llamada. Los horarios son los de Google; se ajustan contigo.<br><br><b>Precio.</b> Alta 900&nbsp;€ + 149&nbsp;€/mes, sin IVA y sin permanencia. Cada local conserva su teléfono. Cuando nadie lo coge, la llamada pasa al agente, que atiende los dos locales. Incluye 150&nbsp;llamadas al mes; si un mes pasas de 150, no se corta: te avisamos y lo ajustamos contigo.</p>
+<div class="pie cierre"><p><b>¿Te lo montamos?</b> Escríbeme por WhatsApp y lo hablamos: Miguel, de Erigo.</p><p><a class="wa" href="https://wa.me/34600342501?text=Hola%20Miguel%2C%20he%20visto%20la%20demo%20de%20voz%20de%20Dorita%27s" target="_blank" rel="noopener">WhatsApp · 600 34 25 01</a></p><p>O por correo: <a href="mailto:hola@erigoestudio.com">hola@erigoestudio.com</a> · Más en <a href="https://erigoestudio.com" target="_blank" rel="noopener">erigoestudio.com</a>.</p></div>
 
 <script>
 "use strict";
@@ -217,7 +241,7 @@
     "Empezamos de nuevo. ¿La quiere en el bar o en el mesón?":"g13",
     "Gracias por llamar a Dorita's. ¡Que tenga un buen día!":"g15",
     "¿Quiere que le tome una reserva?":"g16",
-    "Perdone, ¿la quiere en el bar o en el mesón?":"g17",
+    "Disculpe, ¿la quiere en el bar o en el mesón?":"g17",
     "Ese día el bar está cerrado. Abrimos de martes a sábado. ¿Qué otro día le viene bien?":"g18",
     "Ese día el mesón está cerrado. Abrimos de lunes a sábado. ¿Qué otro día le viene bien?":"g19",
     "A esa hora el bar está cerrado. Abrimos de una a cuatro y de ocho a doce de la noche. ¿A qué hora le pongo?":"g20",
@@ -339,7 +363,7 @@
     "a las diez y cuarto de la mañana. ¿Es correcto?":"g141",
     "a las once menos cuarto de la mañana. ¿Es correcto?":"g142",
     "a las once y cuarto de la mañana. ¿Es correcto?":"g143",
-    "a las doce menos cuarto del mediodía. ¿Es correcto?":"g144",
+    "a las doce menos cuarto de la mañana. ¿Es correcto?":"g144",
     "a las doce y cuarto del mediodía. ¿Es correcto?":"g145",
     "a la una menos cuarto de la tarde. ¿Es correcto?":"g146",
     "a la una y cuarto de la tarde. ¿Es correcto?":"g147",
@@ -371,9 +395,17 @@
     "¿En cuál la prefiere?":"g175",
     "No encuentro ninguna reserva a ese nombre. Le dejo el aviso al encargado y le tomo la nueva.":"g176",
     "De acuerdo, no la apunto. ¿Necesita algo más?":"g177",
-    "¿Y a nombre de quién pongo la reserva?":"g178"
+    "¿Y a nombre de quién pongo la reserva?":"g178",
+    "Soy la recepción automática.":"g180",
+    "¿Necesita algo más?":"g181",
+    "¿A nombre de quién le dejo el aviso?":"g182",
+    "Para grupos de más de veinte, el encargado lo organiza en persona.":"g183",
+    "Cada bebida lleva su tapa. La jarra de medio litro con dos tapas, una de la casa y otra a elegir, sale por cinco euros con ochenta, y la tapa suelta, por dos con ochenta.":"g184",
+    "A esa hora ya no damos mesa en el bar. La última es a las tres de la tarde para comer y a las once de la noche para cenar. ¿A qué hora le pongo?":"g186",
+    "A esa hora ya no damos mesa en el mesón. La última es a las diez de la noche. ¿A qué hora le pongo?":"g187",
+    "el día que me ha dicho,":"g188"
   };
-  var AUDV="g9";
+  var AUDV="g10";
   // piezas de la confirmación hablada (clave → frase de AUD)
   var PZ={"A|Bar|1":"Le confirmo: mesa en el bar para una persona,",
     "A|Bar|2":"Le confirmo: mesa en el bar para dos personas,",
@@ -430,6 +462,8 @@
     "D|4v":"el jueves que viene,",
     "D|5v":"el viernes que viene,",
     "D|6v":"el sábado que viene,",
+    // más allá de una semana la fecha se lee en pantalla
+    "D|lejos":"el día que me ha dicho,",
     "H|480":"a las ocho de la mañana. ¿Es correcto?",
     "H|510":"a las ocho y media de la mañana. ¿Es correcto?",
     "H|540":"a las nueve de la mañana. ¿Es correcto?",
@@ -469,7 +503,7 @@
     "H|615":"a las diez y cuarto de la mañana. ¿Es correcto?",
     "H|645":"a las once menos cuarto de la mañana. ¿Es correcto?",
     "H|675":"a las once y cuarto de la mañana. ¿Es correcto?",
-    "H|705":"a las doce menos cuarto del mediodía. ¿Es correcto?",
+    "H|705":"a las doce menos cuarto de la mañana. ¿Es correcto?",
     "H|735":"a las doce y cuarto del mediodía. ¿Es correcto?",
     "H|765":"a la una menos cuarto de la tarde. ¿Es correcto?",
     "H|795":"a la una y cuarto de la tarde. ¿Es correcto?",
@@ -496,7 +530,7 @@
     "H|1425":"a las doce menos cuarto de la noche. ¿Es correcto?"};
   var PZID={}; for(var kp in PZ){ PZID[AUD[PZ[kp]]]=1; }
   // un solo elemento de audio para todas las frases: iOS lo desbloquea una vez, en el
-  // toque de «Llamar», y despues deja reproducir en el mismo elemento aunque play()
+  // toque de «Llamar», y después deja reproducir en el mismo elemento aunque play()
   // llegue desde un setTimeout. Los mp3 se precargan como blob para que no haya espera.
   var vozEl=null, BLOB={}, audioAct=null, seqAud=0;
   try{ vozEl=new Audio(); vozEl.preload="auto"; }catch(e){ vozEl=null; }
@@ -506,14 +540,15 @@
   function kAud(id,v){ return (v||VOZ)+":"+id; }
   function urlAud(id){ return BLOB[kAud(id)] || (dirVoz()+id+".mp3?v="+AUDV); }
   // cada mp3 se pide una sola vez; cb se llama al terminar (bien o mal), aunque ya estuviera pedido
-  var PIDIENDO={};
+  // NOHAY: los que el servidor no tiene; no se vuelven a pedir
+  var PIDIENDO={}, NOHAY={};
   function precarga(id, cb){
     var k=kAud(id), dir=dirVoz();
-    if(!id || BLOB[k] || !window.fetch || !window.URL || !URL.createObjectURL){ if(cb) setTimeout(cb,0); return; }
+    if(!id || BLOB[k] || NOHAY[k] || !window.fetch || !window.URL || !URL.createObjectURL){ if(cb) setTimeout(cb,0); return; }
     if(PIDIENDO[k]){ if(cb) PIDIENDO[k].push(cb); return; }
     PIDIENDO[k]=cb?[cb]:[];
     var fin=function(){ var l=PIDIENDO[k]||[]; delete PIDIENDO[k]; for(var i=0;i<l.length;i++){ try{ l[i](); }catch(e){} } };
-    try{ fetch(dir+id+".mp3?v="+AUDV).then(function(r){ return r.ok ? r.blob() : null; })
+    try{ fetch(dir+id+".mp3?v="+AUDV).then(function(r){ if(r.status===404) NOHAY[k]=1; return r.ok ? r.blob() : null; })
       .then(function(b){ if(b && !BLOB[k]) BLOB[k]=URL.createObjectURL(b); fin(); }, fin); }catch(e){ fin(); }
   }
   // espera a tener todos los ids (o a que pase ms) y llama a cb una vez
@@ -529,7 +564,7 @@
   // al abrir se piden el saludo y, después, las cinco frases que suelen sonar en el primer paso
   // (unos 330 kB). El resto se pide cuando toca (ver prever), así no se gastan datos de más
   var PRIMER_PASO=["g1","g45","g3","g6","g8"];
-  precarga("g0", function(){ PRIMER_PASO.forEach(function(id){ precarga(id); }); });
+  precarga("g0", function(){ PRIMER_PASO.forEach(function(id){ precarga(id); }); precarga(AUD[PZ["D|lejos"]]); });
   var MUESTRA=null;
   function pararAudio(){ seqAud++; try{ if(vozEl) vozEl.pause(); if(MUESTRA) MUESTRA.pause(); }catch(e){} audioAct=null; }
   function callarTodo(){ pararAudio(); try{ speechSynthesis.cancel(); }catch(e){} }
@@ -553,8 +588,8 @@
       // Una lista (la confirmación por piezas) espera a tener todas las piezas, para que no haya huecos
       var una=function(){
         if(mio!==seqAud) return;
-        // si la reproduccion se corta a proposito (otra frase, o el boton de silencio)
-        // el navegador rechaza la promesa: ahi NO hay que recurrir a la voz sintetica,
+        // si la reproducción se corta a propósito (otra frase, o el botón de silencio)
+        // el navegador rechaza la promesa: ahí NO hay que recurrir a la voz sintética,
         // o se oye leyendo la frase anterior por encima de la nueva
         try{ a.muted=false; a.setAttribute("data-id",ids[n]); a.src=urlAud(ids[n]); var p=a.play();
           if(p&&p.catch){ p.catch(function(err){
@@ -565,7 +600,7 @@
       };
       a.onended=function(){ if(mio!==seqAud) return; n++; if(n<ids.length) una(); };
       var faltan=ids.filter(function(id){ return !BLOB[kAud(id)]; });
-      if(!ya && faltan.length && (ids.length>1 || PIDIENDO[ids[0]])){
+      if(!ya && faltan.length && (ids.length>1 || PIDIENDO[kAud(ids[0])])){
         cuandoEsten(faltan, ids.length>1?3000:1500, function(){ if(mio===seqAud) una(); });
         return;
       }
@@ -585,18 +620,18 @@
   // desbloquear voz y audio en el primer gesto (política de autoplay del navegador)
   var ttsCebado=false;
   function cebarTTS(e){
-    if(e && e.type==="keydown" && e.key==="Escape") return; // Esc no otorga activacion
+    if(e && e.type==="keydown" && e.key==="Escape") return; // Esc no otorga activación
     if(ttsCebado) return;
     ttsCebado=true;
     if("speechSynthesis" in window){ try{ var u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); }catch(e){} }
     // si el primer toque no fue «Llamar» (que ya suena dentro del gesto), se desbloquea
-    // el elemento de audio con una reproduccion muda que se para en cuanto arranca
+    // el elemento de audio con una reproducción muda que se para en cuanto arranca
     if(vozEl && !audioAct){
       try{ vozEl.muted=true; vozEl.src=urlAud("g0"); var p=vozEl.play();
         if(p&&p.then){ p.then(function(){ if(!audioAct){ vozEl.pause(); } vozEl.muted=false; }, function(){ vozEl.muted=false; }); } }catch(e){}
     }
   }
-  // click y keydown si otorgan activacion de usuario; pointerdown en tactil NO
+  // click y keydown sí otorgan activación de usuario; pointerdown en táctil NO
   document.addEventListener("click", cebarTTS);
   document.addEventListener("keydown", cebarTTS);
 
@@ -635,13 +670,13 @@
   var charla=document.getElementById("charla"), chipsBox=document.getElementById("chips"), txt=document.getElementById("txt");
   var entradaEl=document.getElementById("entrada"), estTxt=document.getElementById("est"), dot=document.querySelector(".dotlive");
   function scroll(){ charla.scrollTop=charla.scrollHeight; }
-  // en el movil la tarjeta ocupa la pantalla: se lleva a la vista la zona de respuesta
+  // en el móvil la tarjeta ocupa la pantalla: se lleva a la vista la zona de respuesta
   function seguir(){ var f=document.querySelector(".fono"); try{ f.scrollIntoView({block:(f.offsetHeight<=innerHeight?"nearest":"end"),behavior:RM?"auto":"smooth"}); }catch(e){} }
 
   // ---- selector de voz ----
   (function(){
-    var EXP={pro:"Es la voz con la que contestaría el teléfono de Dorita's cuando contrates el servicio: natural, con acento de aquí. La llamada de abajo suena ya con ella.",
-             demo:"Voz de muestra, más básica, para que compares. Con el servicio contratado te atiende la voz profesional."};
+    var EXP={pro:"Es la voz con la que contestaría el teléfono de Dorita's cuando contrates el servicio: natural y cercana. La llamada de abajo ya suena con ella.",
+             demo:"Otra voz de ejemplo, más sencilla, para que compares. La voz final se elige contigo al montar el servicio."};
     var bs=document.querySelectorAll(".vozsel .seg button"), ex=document.getElementById("vozExp"), oir=document.getElementById("vozOir");
     function pinta(){ for(var i=0;i<bs.length;i++) bs[i].setAttribute("aria-pressed", String(bs[i].getAttribute("data-voz")===VOZ)); ex.textContent=EXP[VOZ]; }
     for(var i=0;i<bs.length;i++) bs[i].addEventListener("click",function(){ var v=this.getAttribute("data-voz"); if(v===VOZ) return; callarTodo(); VOZ=v; try{ localStorage.setItem("dor-voz",v); }catch(e){} pinta(); precarga("g0"); });
@@ -658,10 +693,10 @@
   var typingEl=null;
   function typingOn(){ typingOff(); typingEl=document.createElement("div"); typingEl.className="typing"; typingEl.innerHTML="<i></i><i></i><i></i>"; charla.appendChild(typingEl); scroll(); }
   function typingOff(){ if(typingEl&&typingEl.parentNode){ typingEl.parentNode.removeChild(typingEl); } typingEl=null; }
-  var agTimer=null;
+  var agTimer=null, ultimoAg=null;
   function cancelaAgente(){ if(agTimer){ clearTimeout(agTimer); agTimer=null; } typingOff(); }
   function agente(t, chips, spoken, despues){
-    cancelaAgente(); typingOn();
+    cancelaAgente(); typingOn(); ultimoAg=[t, chips||[], spoken||t];
     // lo que va a sonar se pide ya, mientras se ve «escribiendo…»
     if(sonido) precargaFrases(spoken||t);
     var esperar=RM?250:Math.min(1100, 350+t.length*11);
@@ -674,13 +709,13 @@
   }
 
   // ---- máquina de estados ----
-  var estado="inicio", reserva, pend;
-  function reset(){ reserva={local:null,personas:null,dia:null,diaK:null,fecha:null,esHoy:false,hora:null,horaM:null,nombre:null,reemplaza:null,reemplazaId:null}; pend={dia:null,hora:null,ctx:null}; }
+  var estado="inicio", reserva, pend, fallosP=0;
+  function reset(){ reserva={local:null,personas:null,dia:null,diaK:null,fecha:null,esHoy:false,hora:null,horaM:null,nombre:null,reemplaza:null,reemplazaId:null,noche:false}; pend={dia:null,hora:null,ctx:null}; fallosP=0; }
   reset();
-  var PALN={uno:1,una:1,dos:2,tres:3,cuatro:4,cinco:5,seis:6,siete:7,ocho:8,nueve:9,diez:10,once:11,doce:12,trece:13,catorce:14,quince:15,"dieciséis":16,dieciseis:16,diecisiete:17,dieciocho:18,diecinueve:19,veinte:20,veintiuno:21,"veintidós":22,veintidos:22,"veintitrés":23,veintitres:23,veinticuatro:24,veinticinco:25,"veintiséis":26,veintiseis:26,veintisiete:27,veintiocho:28,veintinueve:29,treinta:30,cuarenta:40,cincuenta:50};
-  var NUMW="uno|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|diecis[eé]is|diecisiete|dieciocho|diecinueve|veinte|veintiuno|veintid[oó]s|veintitr[eé]s|veinticuatro|veinticinco|veintis[eé]is|veintisiete|veintiocho|veintinueve|treinta|cuarenta|cincuenta";
+  var PALN={uno:1,una:1,dos:2,tres:3,cuatro:4,cinco:5,seis:6,siete:7,ocho:8,nueve:9,diez:10,once:11,doce:12,trece:13,catorce:14,quince:15,"dieciséis":16,dieciseis:16,diecisiete:17,dieciocho:18,diecinueve:19,veinte:20,veintiuno:21,"veintidós":22,veintidos:22,"veintitrés":23,veintitres:23,veinticuatro:24,veinticinco:25,"veintiséis":26,veintiseis:26,veintisiete:27,veintiocho:28,veintinueve:29,treinta:30,cuarenta:40,cincuenta:50,cien:100,ciento:100};
+  var NUMW="uno|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce|trece|catorce|quince|diecis[eé]is|diecisiete|dieciocho|diecinueve|veinte|veintiuno|veintid[oó]s|veintitr[eé]s|veinticuatro|veinticinco|veintis[eé]is|veintisiete|veintiocho|veintinueve|treinta|cuarenta|cincuenta|cien|ciento";
   var num=function(s){ var m=String(s).match(/\d+/); if(m) return parseInt(m[0],10); var w=String(s).toLowerCase().match(new RegExp("(^|[^\\p{L}])("+NUMW+")(?=$|[^\\p{L}])","u")); return w?PALN[w[2]]:null; };
-  var esSi=function(s){ return /(^|[^\p{L}])(s[ií]|vale|venga|genial|estupendo|guay|exacto|correcto|confirm\p{L}*|conf[ií]rm\p{L}*|perfecto|claro|ok|de acuerdo|eso es|as[ií] es|muy bien|est[aá] bien|de lujo)(?=$|[^\p{L}])/iu.test(s); };
+  var esSi=function(s){ return /(^|[^\p{L}])(s[ií]|vale|venga|genial|estupendo|guay|exacto|correcto|confirm\p{L}*|conf[ií]rm\p{L}*|perfecto|claro|ok|de acuerdo|eso es|as[ií] es|muy bien|est[aá] bien|de lujo|sip|okey|okay|oki|dale)(?=$|[^\p{L}])/iu.test(s) || /^\s*(bueno|ea|hecho)([\s,.!]+(pues|va|venga))?[\s.!]*$/iu.test(s); };
   var esNo=function(s){ return /(^|[^\p{L}])(no|cambiar|cambia|c[aá]mbialo|mal|otra vez)(?=$|[^\p{L}])/iu.test(s); };
   var sinTildes=function(s){ return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,""); };
   // horario según Google (a confirmar con el dueño): días abiertos (0=domingo) y franjas en minutos
@@ -704,14 +739,23 @@
     return best; }
   function diaDe(s){ var b=diaTok(s); return b?b.d:null; }
   // «el 15 de octubre»: fecha concreta (si ya ha pasado este año, la del año que viene)
-  function fechaDe(s){ var t=sinTildes(s).replace("setiembre","septiembre"), m=t.match(/(\d{1,2})\s+de\s+([a-z]+)/); if(!m) return null;
+  // «el día 10», «para el 10» sin mes: el próximo día 10 (hoy incluido)
+  function fechaDe(s){ var t=sinTildes(s).replace("setiembre","septiembre"), m=t.match(/(\d{1,2})\s+de\s+([a-z]+)/);
+    if(!m){ var dn=t.match(/(^|[^a-z\d])(?:el\s+)?dia\s+(\d{1,2})(?![\d:.h])/) || t.match(/(^|[^a-z\d])el\s+(\d{1,2})(?=$|[^\d:.h])(?!\s*(personas|pax|comensales))/);
+      if(!dn) return null; var dnum=parseInt(dn[2],10); if(dnum<1 || dnum>31) return null;
+      var h1=new Date(); h1.setHours(0,0,0,0);
+      for(var k1=0;k1<3;k1++){ var f1=new Date(h1.getFullYear(),h1.getMonth()+k1,dnum); if(f1.getDate()===dnum && f1>=h1) return f1; }
+      return null; }
     var mes=MESES.indexOf(m[2]), d=parseInt(m[1],10); if(mes<0) return null;
     var hoy=new Date(); hoy.setHours(0,0,0,0); var f=new Date(hoy.getFullYear(),mes,d);
     if(f.getMonth()!==mes) return null; if(f<hoy) f.setFullYear(f.getFullYear()+1); return f; }
   // qué día ha dicho: día de la semana, etiqueta para la pantalla y clave de la pieza de audio
   function infoDia(s){
     var fx=fechaDe(s), f, clave=null, etq;
-    if(fx){ f=fx; etq="el "+DSEM[f.getDay()]+" "+f.getDate()+" de "+MESES[f.getMonth()]; }
+    if(fx){ f=fx; etq="el "+DSEM[f.getDay()]+" "+f.getDate()+" de "+MESES[f.getMonth()];
+      // dentro de la semana se puede decir con la pieza del día: «el jueves»
+      var h0=new Date(); h0.setHours(0,0,0,0); var dd=Math.round((f-h0)/864e5);
+      if(dd===0) clave="hoy"; else if(dd>0 && dd<7) clave=String(f.getDay()); else if(dd===7) clave=String(f.getDay())+"v"; else if(dd>7) clave="lejos"; }
     else {
       var b=diaTok(s); if(!b) return null; var d=b.d, off;
       if(b.tipo==="pasado"){ off=2; clave="pasado"; etq="pasado mañana"; }
@@ -728,30 +772,50 @@
     return {d:f.getDay(), f:f, clave:clave, etq:etq};
   }
   function mismoDia(a,b){ return a.getDate()===b.getDate() && a.getMonth()===b.getMonth() && a.getFullYear()===b.getFullYear(); }
-  function minDe(s){ var t=String(s).toLowerCase(), m=t.match(/(\d{1,2})(?:[:.h ](\d{2}))?/), h, mi=0;
-    if(m){ h=parseInt(m[1],10); mi=m[2]?parseInt(m[2],10):0; }
-    else { var w=t.match(/(^|[^\p{L}])(una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce)(?=$|[^\p{L}])/u); if(!w) return null; h=PALN[w[2]]; }
-    if(!m||!m[2]){ if(/y\s+media/.test(t)) mi=30; else if(/y\s+cuarto/.test(t)) mi=15; else if(/menos\s+cuarto/.test(t)){ h-=1; mi=45; if(h===0) h=12; } }
+  function minDe(s){ var th=trozoHora(String(s)), t=String(th.hora||s).toLowerCase(), m=t.match(/(\d{1,2})(?:[:.h ](\d{2}))?/), h, mi=0;
+    var w=t.match(/(^|[^\p{L}])(una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|diez|once|doce)(?=$|[^\p{L}])/u);
+    // la hora es lo primero que se dice: «a las nueve para 6» son las nueve
+    if(m && w && w.index+w[1].length<m.index) m=null;
+    if(m){ h=parseInt(m[1],10); mi=m[2]?parseInt(m[2],10):0;
+      // «21:10» también va al cuarto más cercano, igual que «las nueve y diez»
+      if(mi<60 && mi%15){ mi=Math.round(mi/15)*15; if(mi===60){ mi=0; h+=1; } } }
+    else { if(!w) return null; h=PALN[w[2]]; }
+    if(!m||!m[2]){ if(/y\s+media/.test(t)) mi=30; else if(/y\s+cuarto/.test(t)) mi=15; else if(/menos\s+cuarto/.test(t)){ h-=1; mi=45; if(h===0) h=12; }
+      else { var yx=t.match(/(y|menos)\s+(veinticinco|veinte|diez|cinco)(?=$|[^\p{L}])/u);
+        // «y diez», «menos cinco»: se redondea al cuarto más cercano (la confirmación enseña la hora)
+        if(yx){ var x={cinco:5,diez:10,veinte:20,veinticinco:25}[yx[2]]; if(yx[1]==="y") mi=x; else { h-=1; mi=60-x; if(h===0) h=12; }
+          mi=Math.round(mi/15)*15; if(mi===60){ mi=0; h+=1; } } } }
     if(h===24||(h===12 && /noche/.test(t))) h=0;
     if(h>=1 && h<=7 && !/(de|por)\s+la\s+ma[nñ]ana|madrugada/.test(t)) h+=12;
     if(/(noche|tarde)/.test(t) && h<12 && h>0) h+=12;
     if(h>23||mi>59) return null; return h*60+mi; }
   function horaTxt(mm){ var h=Math.floor(mm/60), m=mm%60; return h+":"+(m<10?"0":"")+m; }
-  function abierto(local,mm){ var fr=HOR[local].fr; if(mm===0) mm=1440; for(var i=0;i<fr.length;i++){ if(mm>=fr[i][0] && mm<fr[i][1]) return true; } return false; }
-  function hayHoy(local){ var ahora=ahoraM(); for(var m=Math.ceil((ahora+31)/30)*30; m<1440; m+=30){ if(abierto(local,m)) return true; } return false; }
+  // se da mesa hasta una hora antes de cerrar cada franja
+  function abierto(local,mm){ var fr=HOR[local].fr; if(mm===0) mm=1440; for(var i=0;i<fr.length;i++){ if(mm>=fr[i][0] && mm<=fr[i][1]-60) return true; } return false; }
+  function enHorario(local,mm){ var fr=HOR[local].fr; if(mm===0) mm=1440; for(var i=0;i<fr.length;i++){ if(mm>=fr[i][0] && mm<fr[i][1]) return true; } return false; }
+  // el finde es el de esta semana (el domingo, el que viene)
+  function chipsFinde(local){ var out=[], d=hoyD(), lim=(d===0)?7:7-d;
+    for(var k=0;k<lim;k++){ var wd=(d+k)%7; if((wd!==5 && wd!==6) || HOR[local].dias.indexOf(wd)<0) continue;
+      if(k===0){ if(!hayHoy(local)) continue; out.push({t:"Hoy"}); }
+      else if(k===1) out.push({t:"Mañana"});
+      else { var n=DSEM[wd]; out.push({t:n.charAt(0).toUpperCase()+n.slice(1)}); } }
+    return out; }
+  function hayHoy(local){ var ahora=ahoraM(); for(var m=Math.ceil((ahora+MARGEN+1)/30)*30; m<1440; m+=30){ if(abierto(local,m)) return true; } return false; }
   function chipsDia(local){ var out=[], d=hoyD();
     for(var k=0;k<8 && out.length<4;k++){ var wd=(d+k)%7; if(HOR[local].dias.indexOf(wd)<0) continue;
       if(k===0){ if(!hayHoy(local)) continue; out.push({t:"Hoy"}); }
       else if(k===1) out.push({t:"Mañana"});
       else { var n=DSEM[wd]; out.push({t:n.charAt(0).toUpperCase()+n.slice(1)}); } }
     return out; }
-  function chipsHora(local){ var c=HOR[local].chips, out=[], ahora=ahoraM();
-    c.forEach(function(h){ if(reserva.esHoy && minDe(h)<=ahora+30) return; out.push({t:h}); });
-    if(!out.length && reserva.esHoy){ for(var m=Math.ceil((ahora+31)/30)*30; m<1440 && out.length<4; m+=30){ if(abierto(local,m)) out.push({t:horaTxt(m)}); } }
+  // para hoy, horas desde dentro de MARGEN minutos; «esta noche», «para cenar»: solo las de la noche
+  var MARGEN=10;
+  function chipsHora(local){ var c=HOR[local].chips, out=[], ahora=ahoraM(), noche=reserva.noche;
+    c.forEach(function(h){ var mh=minDe(h); if(reserva.esHoy && mh<=ahora+MARGEN) return; if(noche && mh<1080) return; out.push({t:h}); });
+    if(out.length<2 && reserva.esHoy){ out=[]; for(var m=Math.ceil((ahora+MARGEN+1)/30)*30; m<1440 && out.length<4; m+=30){ if(abierto(local,m) && !(noche && m<1080)) out.push({t:horaTxt(m)}); } }
     return out; }
   var CH_LOCAL=[{t:"El bar",v:"bar"},{t:"El mesón",v:"meson"}];
   var CH_CONF=[{t:"Sí, confírmalo",v:"si"},{t:"Otra hora",v:"cambiar hora"},{t:"Otro día",v:"cambiar dia"},{t:"Cambiar personas",v:"cambiar personas"},{t:"Otro local",v:"__otrolocal"},{t:"Empezar de nuevo",v:"__denuevo"}];
-  var CH_CAMB=CH_CONF.slice(1,5).concat([{t:"Así está bien",v:"__asi"}]);
+  var CH_CAMB=CH_CONF.slice(1,5).concat([{t:"Otro nombre",v:"cambiar nombre"},{t:"Así está bien",v:"__asi"}]);
   var CH_PERS=[{t:"2"},{t:"3"},{t:"4"},{t:"6"},{t:"8"}];
   var CH_HECHO=[{t:"Otra reserva",v:"otra reserva"},{t:"No, gracias",v:"colgar"}];
   var SALUDO="Dorita's, dígame. Soy la recepción automática. ¿Le reservo una mesa?";
@@ -773,11 +837,22 @@
     horario:"El bar abre de martes a sábado, de una a cuatro y de ocho a doce de la noche. El mesón, de lunes a sábado, de ocho de la mañana a once de la noche.",
     donde:"Tenemos dos casas: el bar en la calle Almenillas, y el mesón en Santa Clotilde, en Granada.",
     confGen:"¿Le confirmo la reserva con estos datos?",
-    queCambia:"¿Qué quiere cambiar: el sitio, el día, la hora o las personas?"
+    queCambia:"¿Qué quiere cambiar: el sitio, el día, la hora o las personas?",
+    algoMas:"¿Necesita algo más?",
+    tomo:"¿Quiere que le tome una reserva?",
+    nomRes:"¿A nombre de quién está la reserva?",
+    nomAviso:"¿A nombre de quién le dejo el aviso?",
+    robot:"Soy la recepción automática.",
+    precio:"Cada bebida lleva su tapa. La jarra de medio litro con dos tapas, una de la casa y otra a elegir, sale por cinco euros con ochenta, y la tapa suelta, por dos con ochenta.",
+    grupo:"Para grupos de más de veinte, el encargado lo organiza en persona.",
+    aviso:"Hecho, le dejo el aviso al encargado. ¿Necesita algo más?"
   };
+  var CH_RES=[{t:"Sí, reservar",v:"reservar"},{t:"No, gracias",v:"colgar"}];
   // piezas de la confirmación hablada: «Le confirmo: mesa en el bar para cuatro personas,» + «el viernes,» + «a las nueve y media de la noche. ¿Es correcto?»
   function piezasConf(){
     var a=PZ["A|"+reserva.local+"|"+reserva.personas], d=reserva.diaK!=null?PZ["D|"+reserva.diaK]:null, h=reserva.horaM!=null?PZ["H|"+reserva.horaM]:null;
+    // la pieza de la fecha lejana solo si ya está en el móvil; si no, la pregunta general
+    if(d && reserva.diaK==="lejos" && !BLOB[kAud(AUD[d])]) d=null;
     return (a&&d&&h)?[a,d,h]:null;
   }
   // cada pieza se pide en cuanto se conoce su dato, para que al confirmar ya esté en el móvil
@@ -803,16 +878,18 @@
     ids.forEach(function(id){ precarga(id); });
   }
 
-  // el saludo suena dentro del toque de «Llamar» (sin setTimeout): asi el navegador lo deja sonar
+  // el saludo suena dentro del toque de «Llamar» (sin setTimeout): así el navegador lo deja sonar
   var filaEl=document.querySelector(".entrada .fila");
   function llamar(){
     cancelaAgente(); callarTodo();
+    document.querySelector(".fono").classList.remove("espera");
     charla.textContent=""; estado="inicio"; reset(); ultimaRes=null;
-    txt.value=""; txt.setAttribute("placeholder","Escribe aquí…");
+    txt.value=""; txt.setAttribute("placeholder","Escribe…");
     entradaEl.hidden=false; filaEl.hidden=false; pista.hidden=false; estadoLlamada(true);
     burbuja(SALUDO,"ag"); hablar(SALUDO, true);
-    if(sonido) PRIMER_PASO.forEach(function(id){ precarga(id); });
-    pintaChips([{t:"Sí, reservar",v:"reservar"},{t:"¿Qué horario tenéis?",v:"horario"},{t:"¿Dónde estáis?",v:"donde"}]);
+    if(sonido){ PRIMER_PASO.forEach(function(id){ precarga(id); }); precarga(AUD[PZ["D|lejos"]]); }
+    var ch0=[{t:"Sí, reservar",v:"reservar"},{t:"¿Qué horario tenéis?",v:"horario"},{t:"¿Dónde estáis?",v:"donde"}];
+    pintaChips(ch0); ultimoAg=[SALUDO, ch0, SALUDO]; fallosCamb=0;
     scroll(); try{ document.querySelector(".fono").scrollIntoView({block:"start",behavior:RM?"auto":"smooth"}); }catch(e){ seguir(); }
   }
   function colgar(t){
@@ -832,27 +909,58 @@
 
   // ---- lo que ha dicho el cliente ----
   function localDe(v){ if(/mes[oó]n|clotilde/i.test(v)) return "Mesón"; if(/(^|[^\p{L}])bar(?=$|[^\p{L}])|almenill/iu.test(v)) return "Bar"; return null; }
+  // el local dicho como sitio de la reserva: «en el bar», «al mesón», o el local a secas
+  function localPide(v){ var lc=localDe(v); if(!lc) return null;
+    return /(^|[^\p{L}])(?:(en|para|pa)\s+(el\s+|la\s+(calle\s+)?)?|al\s+)(bar|mes[oó]n|almenill\p{L}*|santa\s+clotilde|clotilde)(?=$|[^\p{L}])|^[\s¡!,.]*(en\s+)?(el\s+)?(bar|mes[oó]n)[\s.!]*$/iu.test(v)?lc:null; }
   function personasDe(v){ var t=String(v).toLowerCase();
     if(/solo\s+yo|yo\s+solo|(^|[^\p{L}])una\s+persona|para\s+m[ií](?=$|[^\p{L}])/u.test(t)) return 1;
     if(/(^|[^\p{L}])(en\s+)?pareja(?=$|[^\p{L}])/u.test(t)) return 2;
-    var re="("+NUMW+"|\\d{1,3})", m=t.match(new RegExp("(?:para|somos|seremos|vamos(?:\\s+a\\s+ser)?|ser[eé]mos)\\s+"+re+"(?=$|[^\\p{L}\\d:.h])","u")) || t.match(new RegExp(re+"\\s+(?:personas|pax|comensales)","u"));
+    var re="("+NUMW+"|\\d{1,3})", m=t.match(new RegExp("(?:para|pa|somos|semos|seremos|vamos(?:\\s+a\\s+ser)?|ser[eé]mos)\\s+"+re+"(?=$|[^\\p{L}\\d:.h])","u")) || t.match(new RegExp(re+"\\s+(?:personas|pax|comensales)","u"));
+    // «somos una más», «dos más»: es una suma sobre lo de antes, no el total
+    // («tres más un niño» sí es el total: se suma abajo; «cuatro más o menos», también)
+    if(m && new RegExp("^\\s*m[aá]s(?=$|[^\\p{L}])(?!\\s+(?:tarde|temprano|pronto|o\\s+menos)(?=$|[^\\p{L}]))(?!\\s+(?:"+NUMW+"|un|\\d{1,2})\\s+(?:adult|mayores|ni[ñn]|cr[ií]|beb[eé]|peque))","u").test(t.slice(m.index+m[0].length))) m=null;
+    // «dos adultos y dos niños», «somos cuatro y un bebé»: se suman
+    var rg=new RegExp("(^|[^\\p{L}\\d])("+NUMW+"|un|\\d{1,2})\\s+(?:adult\\p{L}*|mayores|ni[ñn][oa]s?|cr[ií]os?|beb[eé]s?|peques?|peque[ñn]\\p{L}*)(?=$|[^\\p{L}])","gu"), g, suma=0, pos=[];
+    // «somos 4, uno es un niño», «para 6, de ellos dos niños»: esos niños ya van en el total
+    var incl=false;
+    while((g=rg.exec(t))){ suma+=(g[2]==="un"?1:num(g[2])); pos.push(g.index+g[1].length);
+      if(/(^|[^\p{L}])(es|son|de\s+ellos|de\s+ellas|de\s+los\s+cuales|inclu[ií]d\p{L}*|contando|entre\s+ellos)[\s,:]*$/u.test(t.slice(Math.max(0,g.index-24),g.index+g[1].length))) incl=true; }
+    if(pos.length && m && incl) return num(m[1]);
+    if(pos.length){ if(m && pos.indexOf(m.index+m[0].length-m[1].length)<0) suma+=num(m[1]); return suma; }
     return m? num(m[1]) : null; }
   // «a las nueve y media», «sobre las 21:30», «a mediodía»: el trozo de la hora y lo que va antes
-  function trozoHora(v){ var m=v.match(/(^|[^\p{L}])((?:a|sobre|para|hacia)\s+(?:las?\s+|eso\s+de\s+las?\s+)\S.*)$/iu) || v.match(/(^|[^\p{L}\d])(\d{1,2}[:h.]\d{2}.*)$/u) || v.match(/(^|[^\p{L}])(a\s+mediod[ií]a.*)$/iu);
-    return m? {hora:m[2], resto:v.slice(0,m.index+m[1].length)} : {hora:null, resto:v}; }
+  function trozoHora(v){ v=String(v); var m=v.match(/(^|[^\p{L}])((?:a|sobre|para|pa|hacia)\s+(?:las?\s+|eso\s+de\s+las?\s+)\S.*)$/iu) || v.match(/(^|[^\p{L}\d])(\d{1,2}[:h.]\d{2}.*)$/u) || v.match(/(^|[^\p{L}])(a\s+mediod[ií]a.*)$/iu);
+    if(!m) return {hora:null, resto:v};
+    // lo que va detrás («para 6 personas», «, somos 2», «en el mesón») ya no es la hora
+    var h=m[2], k=h.slice(1).search(/,|\s+(?:para|pa|somos|semos|seremos|en\s+el|en\s+la|a\s+nombre)(?=$|[^\p{L}])/iu); if(k>=0) h=h.slice(0,k+1);
+    return {hora:h, resto:v.slice(0,m.index+m[1].length)}; }
+  var DIAS_RE="lunes|martes|mi[eé]rcoles|jueves|viernes|s[aá]bado|domingo";
   function nombreDe(val){
-    var nom=String(val).replace(/^\s*(muchas\s+)?gracias[\s,.]+/i,"").replace(/^\s*(pues\s+|vale,?\s+|s[ií],?\s+)?(p[oó]n(lo|la|ga(la|lo)?|mela)\s+)?(soy|me\s+llamo|a\s+nombre\s+de|de)\s+/i,"")
-      .replace(/[\s,.;]*((muchas\s+)?gracias|por\s+favor)[\s.!¡]*$/i,"").replace(/[.!¡,;]+$/,"").trim();
-    if(!nom || DESP.test(nom) || /\d|\?|¿/.test(nom) || /^((muchas\s+)?gracias|no|s[ií]|venga|genial|perfecto|ok|claro|exacto|correcto|estupendo|de\s+acuerdo|muy\s+bien|est[aá]\s+bien|a\s+las?|sobre|hora|mejor|ma[nñ]ana|esta\s+noche|hoy|vale|pero|espera|cambi)(\s|,|$)/i.test(nom) || nom.split(/\s+/).length>6) return null;
+    // «pues, bueno, Lucía»: las muletillas del principio no son el nombre
+    var nom=String(val).replace(/^\s*(muchas\s+)?gracias[\s,.]+/i,"").replace(/^\s*((pues|bueno|vale|mira|s[ií]|venga|vamos|a\s+ver|oye|eh+|em+|mm+|hola|buenas)[\s,.!;:]+)+/i,"").replace(/^\s*(pues,?\s+|vale,?\s+|s[ií],?\s+|bueno,?\s+|mira,?\s+)?(p[oó]n(lo|la|ga(la|lo)?|mela)\s+)?(soy|me\s+llamo|a\s+nombre\s+de|de\s+parte\s+de|de)\s+/i,"")
+      .replace(/^\s*(soy\s+)?yo[\s,]+(soy\s+)?/i,"").replace(/^[\s,.;:]+/,"");
+    // lo que va detrás de una coma o de «somos…», «a las…», «el sábado» no es el nombre
+    var mc=nom.match(new RegExp("\\s*,|\\s+(?:y\\s+)?(?:somos|semos|seremos|para|pa|a\\s+las?|el\\s+(?:"+DIAS_RE+")|ma[nñ]ana)(?=$|[^\\p{L}])","iu"));
+    if(mc && mc.index>0) nom=nom.slice(0,mc.index);
+    nom=nom.replace(/[\s,.;]*((muchas\s+)?gracias|por\s+favor)[\s.!¡]*$/i,"").replace(/[.!¡,;]+$/,"").trim();
+    if(!nom || DESP.test(nom) || /\d|\?|¿/.test(nom) || /^((muchas\s+)?gracias|no|s[ií]|venga|genial|perfecto|ok|claro|exacto|correcto|estupendo|de\s+acuerdo|muy\s+bien|est[aá]\s+bien|a\s+las?|sobre|hora|mejor|ma[nñ]ana|esta\s+noche|hoy|vale|pero|espera|cambi|nada|nadie|ningun[oa]|somos|para|finde|(en\s+)?el\s+(bar|mes[oó]n)|bar|mes[oó]n)(\s|,|$)/i.test(nom)
+      || new RegExp("^((el\\s+)?("+DIAS_RE+")|"+NUMW+")(\\s|,|$)","i").test(nom) || nom.split(/\s+/).length>6) return null;
     // «María José de la Fuente», «Club de Pádel»: las partículas van en minúscula
-    return nom.split(/\s+/).map(function(w,i){ if(i>0 && /^(de|del|la|las|los|y|e)$/i.test(w)) return w.toLowerCase();
+    // «Paco el del taller»: desde «el del…», «la de…» es una seña y se deja como la escribe
+    var ws=nom.split(/\s+/), sena=false;
+    return ws.map(function(w,i){ if(i>0 && /^(el|la)$/i.test(w) && /^(de|del)$/i.test(ws[i+1]||"")) sena=true;
+      if(i>0 && /^(de|del|la|las|los|y|e|el)$/i.test(w)) return w.toLowerCase();
+      if(sena) return w;
       return w.replace(/(^|-)(\p{L})/gu,function(m,a,b){ return a+b.toUpperCase(); }); }).join(" ");
   }
   function diaEn(v,th){ return infoDia(th.resto)?th.resto:(infoDia(v)?v:null); }
   // corrección en la misma frase: «el viernes, no, mejor el sábado» → lo que va después de «mejor»
-  function partirMejor(v){ var re=/(^|[^\p{L}])(?:no[\s,]+)?mejor(?=$|[^\p{L}])[\s,:]*/giu, m, u=null;
-    while((m=re.exec(v))){ u={antes:v.slice(0,m.index+m[1].length).replace(/[\s,;.]*(no)?[\s,;.]*$/i,""), despues:quitaQue(v.slice(m.index+m[0].length))}; }
+  // y «el mesón no, el bar», «a las nueve no, a las diez»: cuenta lo que va detrás del «no,» si trae un dato
+  function partirMejor(v){ var re=/(^|[^\p{L}])(?:(?:no[\s,]+)?(mejor)|no\s*,)(?=$|[^\p{L}])[\s,:]*/giu, m, u=null, d;
+    while((m=re.exec(v))){ d=quitaQue(v.slice(m.index+m[0].length)); if(!m[2] && !tieneDato(d)) continue;
+      u={antes:v.slice(0,m.index+m[1].length).replace(/[\s,;.]*(no)?[\s,;.]*$/i,""), despues:d}; }
     return (u && u.despues.trim())?u:null; }
+  function tieneDato(s){ return !!(localDe(s) || personasDe(s) || infoDia(s) || trozoHora(s).hora || minDe(s)!=null); }
   // «mejor el viernes que el sábado», «mejor a las diez, que a las nueve no llegamos»: lo de detrás de «que el…» no cuenta
   function quitaQue(s){ return String(s).replace(/[\s,]+que\s+(el|la|los|las|en|a|para)(?=\s).*$/i,""); }
   // ¿trae algún dato (local, personas, día, hora, nombre) y alguno es distinto del de ref? (lo que va tras «mejor» es lo que cuenta)
@@ -879,30 +987,48 @@
     if(manda || (!reserva.dia && !pend.dia)){ var ds=diaEn(v,th); if(ds){ pend.dia=ds; if(manda){ reserva.dia=null; reserva.diaK=null; reserva.fecha=null; reserva.esHoy=false; } } else if(/esta\s+noche/i.test(v) && !pend.dia) pend.dia="hoy"; }
     if(th.hora && (manda || (!reserva.hora && !pend.hora))){ pend.hora=th.hora; pend.ctx=todo; if(manda){ reserva.hora=null; reserva.horaM=null; } }
     var mn=v.match(/a\s+nombre\s+de\s+(.+)$/i); if(mn && (manda || !reserva.nombre)){ var nn=nombreDe(mn[1]); if(nn) reserva.nombre=nn; }
+    // «me llamo José Luis y somos 4», «me llamo Ana quería mesa…»: el nombre llega hasta la «y», la coma o lo que pide
+    var ml=!mn && v.match(/(^|[^\p{L}])me\s+llamo\s+(.+)$/iu); if(ml && (manda || !reserva.nombre)){ var nl=nombreDe(ml[2].split(/\s+y\s+|[,.;]|\s+(?=(?:quer[ií]a|quiero|quisiera|querr[ií]a|quer[ií]amos|queremos|necesito|necesitar[ií]a|busco|ven[ií]a|llamo|llamaba|reserv\p{L}*|una\s+mesa|mesa|para|pa|somos|seremos|semos|vamos|venimos|en\s+el|en\s+la|hoy|ma[nñ]ana)(?=$|[^\p{L}]))/iu)[0]); if(nl) reserva.nombre=nl; }
+    franja(v);
   }
+  // «esta noche», «para cenar» / «a mediodía», «para comer»: qué horas se ofrecen en los botones
+  function franja(v){ if(/(^|[^\p{L}])(noche|cena\p{L}*)(?=$|[^\p{L}])/iu.test(v)) reserva.noche=true; else if(/mediod[ií]a|(^|[^\p{L}])(comer|comida|almorzar|almuerzo)(?=$|[^\p{L}])/iu.test(v)) reserva.noche=false; }
   // aplica un día; si no vale, contesta y devuelve "resp"
   function aplicarDia(s){
     var i=infoDia(s); if(!i) return "nodia";
     var L=reserva.local;
-    if(HOR[L].dias.indexOf(i.d)<0){ estado="dia"; agente(L==="Bar"?"Ese día el bar está cerrado. Abrimos de martes a sábado. ¿Qué otro día le viene bien?":"Ese día el mesón está cerrado. Abrimos de lunes a sábado. ¿Qué otro día le viene bien?", chipsDia(L)); return "resp"; }
+    if(HOR[L].dias.indexOf(i.d)<0){ estado="dia"; pend.diaRech=s; agente(L==="Bar"?"Ese día el bar está cerrado. Abrimos de martes a sábado. ¿Qué otro día le viene bien?":"Ese día el mesón está cerrado. Abrimos de lunes a sábado. ¿Qué otro día le viene bien?", chipsDia(L)); return "resp"; }
     var hoy=mismoDia(i.f,new Date());
-    if(hoy && !hayHoy(L)){ estado="dia"; agente("Para hoy ya no nos quedan horas. ¿Le pongo otro día?", chipsDia(L)); return "resp"; }
-    reserva.dia=i.etq; reserva.diaK=i.clave; reserva.esHoy=hoy; reserva.fecha=DSEM[i.d]+" "+i.f.getDate()+"/"+(i.f.getMonth()+1);
+    if(hoy && !hayHoy(L)){ estado="dia"; pend.diaRech=s; agente("Para hoy ya no nos quedan horas. ¿Le pongo otro día?", chipsDia(L)); return "resp"; }
+    pend.diaRech=null; reserva.dia=i.etq; reserva.diaK=i.clave; reserva.esHoy=hoy; reserva.fecha=DSEM[i.d]+" "+i.f.getDate()+"/"+(i.f.getMonth()+1);
     if(reserva.horaM!=null && (!abierto(L,reserva.horaM) || (hoy && reserva.horaM<=ahoraM()))){ reserva.hora=null; reserva.horaM=null; }
     return "ok";
   }
   // aplica una hora; ctx es la frase entera («esta noche…»)
-  function aplicarHora(s, ctx){
-    var c=String(ctx||s).toLowerCase(), L=reserva.local, mm;
+  // la hora en minutos; ctx es la frase entera («esta noche…», «para cenar»)
+  function horaDe(s, ctx, L){
+    var c=String(ctx||s).toLowerCase(), mm;
     if(/mediod[ií]a/.test(s) && !/\d/.test(s) && minDe(s)==null) mm=14*60; else mm=minDe(s);
-    if(mm==null) return "nohora";
+    if(mm==null) return null;
     // «a las nueve» para cenar es por la noche; por la mañana solo si lo dice
     if(mm>0 && mm<720 && !/(de|por)\s+la\s+ma[nñ]ana|desayun|temprano|madrugada/.test(c) && !/(^|\D)0\d[:.h]\d{2}/.test(s)){
-      if(/noche|tarde|cena/.test(c) || abierto(L,mm+720)) mm+=720;
+      if(/noche|tarde|cena/.test(c) || (L?abierto(L,mm+720):true)) mm+=720;
     }
-    if(!abierto(L,mm)){ estado="hora"; agente(L==="Bar"?"A esa hora el bar está cerrado. Abrimos de una a cuatro y de ocho a doce de la noche. ¿A qué hora le pongo?":"A esa hora el mesón está cerrado. Abrimos de ocho de la mañana a once de la noche. ¿A qué hora le pongo?", chipsHora(L)); return "resp"; }
+    return mm;
+  }
+  // a esa hora no se da mesa: cerrado, o ya pasada la última hora de reserva
+  function horaNoVale(L,mm){
+    var frC=HOR[L].fr, mC=(mm===0?1440:mm), cierre=false; for(var ic=0;ic<frC.length;ic++){ if(mC===frC[ic][1]) cierre=true; }
+    if(enHorario(L,mm) || cierre) return L==="Bar"?"A esa hora ya no damos mesa en el bar. La última es a las tres de la tarde para comer y a las once de la noche para cenar. ¿A qué hora le pongo?":"A esa hora ya no damos mesa en el mesón. La última es a las diez de la noche. ¿A qué hora le pongo?";
+    return L==="Bar"?"A esa hora el bar está cerrado. Abrimos de una a cuatro y de ocho a doce de la noche. ¿A qué hora le pongo?":"A esa hora el mesón está cerrado. Abrimos de ocho de la mañana a once de la noche. ¿A qué hora le pongo?";
+  }
+  // aplica una hora; ctx es la frase entera
+  function aplicarHora(s, ctx){
+    var L=reserva.local, mm=horaDe(s,ctx,L);
+    if(mm==null) return "nohora";
+    if(!abierto(L,mm)){ estado="hora"; pend.horaRech={s:s,ctx:ctx}; agente(horaNoVale(L,mm), chipsHora(L)); return "resp"; }
     if(reserva.esHoy && mm<=ahoraM()){ estado="hora"; agente("Esa hora ya ha pasado. ¿A qué hora le pongo?", chipsHora(L)); return "resp"; }
-    reserva.hora=horaTxt(mm); reserva.horaM=mm; return "ok";
+    pend.horaRech=null; reserva.hora=horaTxt(mm); reserva.horaM=mm; return "ok";
   }
   function otroLocal(nl){
     reserva.local=nl; var sinDia=null, sinHora=false;
@@ -911,18 +1037,27 @@
       if(d!=null && HOR[nl].dias.indexOf(d)<0) sinDia="cerrado";
       else if(reserva.esHoy && !hayHoy(nl)) sinDia="hoy";
       if(sinDia){ reserva.dia=null; reserva.diaK=null; reserva.fecha=null; reserva.esHoy=false; } }
-    if(reserva.horaM!=null && !abierto(nl,reserva.horaM)){ reserva.hora=null; reserva.horaM=null; sinHora=true; }
+    var hmV=reserva.horaM; if(hmV!=null && !abierto(nl,hmV)){ reserva.hora=null; reserva.horaM=null; sinHora=true; }
     if(reserva.personas>20) return pedir("corr");
     if(sinDia==="cerrado"){ estado="dia"; return agente(nl==="Bar"?"Ese día el bar está cerrado. Abrimos de martes a sábado. ¿Qué otro día le viene bien?":"Ese día el mesón está cerrado. Abrimos de lunes a sábado. ¿Qué otro día le viene bien?", chipsDia(nl)); }
     if(sinDia==="hoy"){ estado="dia"; return agente("Para hoy ya no nos quedan horas. ¿Le pongo otro día?", chipsDia(nl)); }
-    if(sinHora && reserva.dia){ estado="hora"; return agente(nl==="Bar"?"A esa hora el bar está cerrado. Abrimos de una a cuatro y de ocho a doce de la noche. ¿A qué hora le pongo?":"A esa hora el mesón está cerrado. Abrimos de ocho de la mañana a once de la noche. ¿A qué hora le pongo?", chipsHora(nl)); }
+    if(sinHora && reserva.dia){ estado="hora"; return agente(horaNoVale(nl,hmV), chipsHora(nl)); }
     return pedir("corr");
+  }
+  // a mitad de reserva dice el otro local: se aprovecha lo que traiga la frase y, si no, el día o la hora
+  // que no valían en el primero
+  function cambiaLocal(val, lc){
+    var dr=pend.diaRech, hr=pend.horaRech; pend.diaRech=null; pend.horaRech=null;
+    extraer(val);
+    if(!reserva.dia && !pend.dia && dr) pend.dia=dr;
+    if(!reserva.hora && !pend.hora && hr){ pend.hora=hr.s; pend.ctx=hr.ctx; }
+    return otroLocal(lc);
   }
 
   // pregunta el siguiente dato que falta; con todos, la confirmación
   function pedir(corr){
     // grupo grande con el nombre ya dado (p. ej. «vale, pero somos 30» al confirmar): se deja el aviso sin volver a preguntar
-    if(reserva.personas>20 && reserva.nombre){ guardarReserva(true); estado="hecho"; txt.setAttribute("placeholder","Escribe aquí…"); return agente("Hecho, le dejo el aviso al encargado. ¿Necesita algo más?", CH_HECHO, null, avisoAgenda); }
+    if(reserva.personas>20 && reserva.nombre){ guardarReserva(true); estado="hecho"; txt.setAttribute("placeholder","Escribe…"); return agente(TXT.grupo+" "+TXT.aviso, CH_HECHO, [TXT.grupo, TXT.aviso], avisoAgenda); }
     if(reserva.personas>20){ estado="grupo"; txt.setAttribute("placeholder","Tu nombre…"); return agente("Para grupos de más de veinte, el encargado lo organiza en persona. ¿A nombre de quién le dejo el aviso?", []); }
     if(reserva.local){
       if(pend.dia && !reserva.dia){ var s1=pend.dia; pend.dia=null; if(aplicarDia(s1)==="resp") return; }
@@ -930,12 +1065,13 @@
     }
     precargaConf();
     if(!reserva.local){ estado="local"; return agente(TXT.local, CH_LOCAL); }
-    if(!reserva.personas){ estado="personas"; return agente(corr?TXT.cPers:TXT.personas, CH_PERS); }
-    if(!reserva.dia){ estado="dia"; return agente(corr?TXT.cDia:TXT.dia, chipsDia(reserva.local)); }
+    // si ya se estaba pidiendo ese dato, la pregunta va con la otra forma, sin repetir «Perfecto» ni «Estupendo»
+    if(!reserva.personas){ var yaP=(estado==="personas"); estado="personas"; return agente(corr?TXT.cPers:(yaP?TXT.rPers:TXT.personas), CH_PERS); }
+    if(!reserva.dia){ var yaD=(estado==="dia"); estado="dia"; return agente(corr?TXT.cDia:(yaD?TXT.rDia:TXT.dia), chipsDia(reserva.local)); }
     if(!reserva.hora){ estado="hora"; return agente(corr?TXT.cHora:TXT.hora, chipsHora(reserva.local)); }
-    if(!reserva.nombre){ estado="nombre"; txt.setAttribute("placeholder","Tu nombre…"); return agente(corr?TXT.cNombre:TXT.nombre, []); }
-    estado="confirmar"; txt.setAttribute("placeholder","Escribe aquí…");
-    return agente("Le confirmo: mesa en el "+(reserva.local==="Mesón"?"mesón":"bar")+" para "+reserva.personas+(reserva.personas===1?" persona":" personas")+", "+reserva.dia+" a las "+reserva.hora+", a nombre de "+reserva.nombre+". ¿Es correcto?",
+    if(!reserva.nombre){ var yaN=(estado==="nombre"); estado="nombre"; txt.setAttribute("placeholder","Tu nombre…"); return agente(corr==="nombre"?TXT.cNombre:(yaN?TXT.rNombre:TXT.nombre), []); }
+    estado="confirmar"; txt.setAttribute("placeholder","Escribe…");
+    return agente("Le confirmo: mesa en el "+(reserva.local==="Mesón"?"mesón":"bar")+" para "+reserva.personas+(reserva.personas===1?" persona":" personas")+", "+reserva.dia+" a las "+reserva.hora+". ¿Es correcto?",
       CH_CONF, piezasConf()||TXT.confGen);
   }
   function deNuevo(){ reset(); estado="local"; return agente("Empezamos de nuevo. ¿La quiere en el bar o en el mesón?", CH_LOCAL); }
@@ -947,7 +1083,7 @@
 
   // cambios en la confirmación: «mejor el sábado», «somos cinco», «a las diez», «en el mesón»
   function cambios(v){
-    v=quitaQue(v);
+    v=quitaQue(v); var pmC=partirMejor(v); if(pmC && v!=="__otrolocal") v=pmC.despues;
     if(v==="__otrolocal") return otroLocal(reserva.local==="Bar"?"Mesón":"Bar"), true;
     var th=trozoHora(v), lc=localDe(v);
     if(lc && lc!==reserva.local) return otroLocal(lc), true;
@@ -964,7 +1100,7 @@
     if(/(^|[^\p{L}])hora(?=$|[^\p{L}])/iu.test(v)){ reserva.hora=null; reserva.horaM=null; pedir("corr"); return true; }
     if(/(^|[^\p{L}])(d[ií]a|fecha)(?=$|[^\p{L}])/iu.test(v)){ reserva.dia=null; reserva.diaK=null; reserva.fecha=null; reserva.esHoy=false; pedir("corr"); return true; }
     if(/persona|somos|pax|gente/i.test(v)){ reserva.personas=null; pedir("corr"); return true; }
-    if(/nombre/i.test(v)){ reserva.nombre=null; pedir("corr"); return true; }
+    if(/nombre/i.test(v)){ reserva.nombre=null; pedir("nombre"); return true; }
     if(estado==="cambiar" && /^\s*\d{1,2}\s*$/.test(v) && num(v)<=20){ reserva.personas=num(v); pedir(); return true; }
     return false;
   }
@@ -979,14 +1115,27 @@
   var PIDE_ANU=/(^|[^\p{L}])(me\s+)?(la|lo)\s+(puede|puedes|podr[ií]a|podr[ií]as|pod[eé]is)\s+(canc[eé]l|an[uú]l)|(canc[eé]l|an[uú]l)\p{L}*[\s,]+por\s+favor|por\s+favor[\s,]+(canc[eé]l|an[uú]l)/iu;
   var DUDA_ANU=/pol[ií]tica|(^|[^\p{L}])si\s+(al\s+final\s+)?no(?=$|[^\p{L}])|antelaci|luego|m[aá]s\s+adelante|despu[eé]s|se\s+puede/iu;
   // tras confirmar: despedirse aunque se repita un dato («nos vemos el viernes», «allí estaremos a las nueve y media»)
-  var DESPH=/gracias|nos\s+vemos|hasta\s+(el|la|los|las|ma[nñ]ana|luego|pronto|otra|entonces|ahora)(?=$|[^\p{L}])|all[ií]\s+(estaremos|estamos|nos\s+vemos|vamos)|adi[oó]s|chao|nada\s+m[aá]s|eso\s+es\s+todo|ya\s+est[aá]|(^|[^\p{L}])colgar/iu;
+  var DESPH=/gracias|nos\s+vemos|hasta\s+(el|la|los|las|ma[nñ]ana|luego|pronto|otra|entonces|ahora)(?=$|[^\p{L}])|all[ií]\s+(estaremos|estamos|nos\s+vemos|vamos)|adi[oó]s|chao|nada\s+m[aá]s|(^|[^\p{L}])n[aá]\s+m[aá]s(?=$|[^\p{L}])|eso\s+es\s+todo|ya\s+est[aá]|(^|[^\p{L}])colgar/iu;
   // lo que en la confirmación pide cambiar un dato en vez de anular
   var MARCA_CAMBIO=/c[aá]mbi|correg|modific|equivoc|(^|[^\p{L}])(pero|mejor|espera|en\s+vez\s+de)(?=$|[^\p{L}])|otr[oa]\s+(hora|d[ií]a|local|sitio)/iu;
   // pregunta que no es de horario ni de dirección: se apunta para el personal y se sigue
-  function otraPregunta(){ var ra, a="Eso se lo tiene que confirmar el personal. Le dejo la pregunta apuntada.";
-    if(estado==="inicio") return agente("Eso se lo tiene que confirmar el personal. Le dejo la pregunta apuntada. ¿Le reservo una mesa mientras tanto?", [{t:"Sí, reservar",v:"reservar"},{t:"No, gracias",v:"colgar"}]);
+  // «¿cuánto cuesta la tapa?»: eso sí lo sabe
+  var P_PRECIO=/(^|[^\p{L}])(tapas?|jarras?|ca[ñn]as?|cervezas?|bebidas?)(?=$|[^\p{L}])/iu;
+  function esPrecio(v){ return P_PRECIO.test(v) && (esPreg(v) || /cu[aá]nto|precio|vale|cuesta/i.test(v)); }
+  var dicho="";
+  function otraPregunta(){ var ra, a=esPrecio(dicho)?TXT.precio:"Eso se lo tiene que confirmar el personal. Le dejo la pregunta apuntada.";
+    if(estado==="inicio"){
+      // recién confirmada una reserva no se ofrece otra «mientras tanto»
+      if(ultimaRes){ estado="hecho"; return agente(a+" "+TXT.algoMas, CH_HECHO, [a, TXT.algoMas]); }
+      if(a===TXT.precio) return agente(a+" "+TXT.tomo, CH_RES, [a, TXT.tomo]);
+      return agente("Eso se lo tiene que confirmar el personal. Le dejo la pregunta apuntada. ¿Le reservo una mesa mientras tanto?", CH_RES);
+    }
     ra=reAsk(); return agente(a+" "+ra[0], ra[1], [a, ra[0]]); }
   function reAsk(){
+    if(estado==="inicio") return ultimaRes?[TXT.algoMas, CH_HECHO]:[TXT.tomo, CH_RES];
+    if(estado==="hecho") return [TXT.algoMas, CH_HECHO];
+    if(estado==="anular" || estado==="cambiarRes") return [TXT.nomRes, []];
+    if(estado==="grupo") return [TXT.nomAviso, []];
     if(estado==="local") return [TXT.local, CH_LOCAL];
     if(estado==="personas") return [TXT.rPers, CH_PERS];
     if(estado==="dia") return [TXT.rDia, chipsDia(reserva.local)];
@@ -996,17 +1145,33 @@
     return [TXT.hora, chipsHora(reserva.local)];
   }
   var DESP=/(^|[^\p{L}])(adi[oó]s|hasta\s+(luego|pronto|otra)|chao|ciao)(?=$|[^\p{L}])/iu;
-  var FINC=/(^|[^\p{L}])(nada\s+m[aá]s|eso\s+es\s+todo|ya\s+est[aá])(?=$|[^\p{L}])/iu;
+  var FINC=/(^|[^\p{L}])((nada|n[aá])\s+m[aá]s|na\s+de\s+na|eso\s+es\s+todo|ya\s+est[aá])(?=$|[^\p{L}])/iu;
   var P_ANU=/canc[eé]l|an[uú]l|(quitar|borrar)\s+(la|mi|una)\s+reserva|no\s+(podemos|puedo|vamos\s+a\s+poder)\s+ir/i;
   var P_MOD=/(cambiar|mover|modificar)\s+(mi|la|una)\s+reserva|cambiar\s+la\s+que\s+tengo/i;
   var P_APARC=/aparc|coche|parking|garaje/i;
   var P_PER=/(hablar|p[aá]same|pasar)\s+con|(^|[^\p{L}])(una|alguna)\s+persona(?=$|[^\p{L}])|encargad|camarer|due[nñ]o|alguien\s+de/iu;
+  // «¿cómo?», «perdona, ¿qué has dicho?», «¿estás ahí?»: se repite lo último
+  var REPITE=/^[\s¿¡,.]*(?:(?:c[oó]mo|qu[eé]|mande|eh|perd[oó]n[ae]?|disculp[ae])[\s,.!?¿¡]*)*(?:(?:qu[eé]\s+)?(?:me\s+)?(?:has|ha)\s+dicho|dices?|(?:me\s+lo\s+)?(?:puedes|puede|podr[ií]as?)\s+repetir(?:lo)?|rep[ií]t[ea](?:me(?:lo)?|lo)?|no\s+(?:te|le)\s+(?:he\s+)?(?:o[ií]do|entendido)|no\s+(?:te|le)\s+oigo|est[aá]s?\s+ah[ií]|sigues\s+ah[ií])?[\s?!.¿¡]*$/iu;
+  var ROBOT=/(^|[^\p{L}])(robot|m[aá]quina|contestador|bot|inteligencia\s+artificial)(?=$|[^\p{L}])|persona\s+(real|de\s+verdad)|eres\s+(humano|humana|real|una\s+persona|persona)/iu;
+  // a mitad de la reserva: «déjalo, ya llamo luego», «cancela», «olvídalo»
+  var DEJA=/d[eé]ja(lo|la)|ya\s+(te\s+|le\s+|os\s+)?llamo|llamo\s+(luego|m[aá]s\s+tarde|otro\s+d[ií]a|en\s+otro\s+momento)|(^|[^\p{L}])(canc[eé]la(lo|la)?|an[uú]la(lo|la)?)(?=$|[^\p{L}])|olv[ií]da(lo|la)|no\s+quiero\s+(ya\s+)?(reservar|la\s+reserva|mesa)|(^|[^\p{L}])mejor\s+no(?=$|[^\p{L}])/iu;
+  var fallosCamb=0;
+  // «asdf», «qwerty»: tres consonantes seguidas que no forman grupo del castellano («mbr», «nstr», «ntr» sí lo son)
+  function raro(w){ var c=w.replace(/ch|ll|rr/g,"c").match(/[^aeiou]{3,}/g)||[];
+    for(var i=0;i<c.length;i++){ if(!/([bcdfgkpt][lr]|^[bnrx]s[bcdfgkmnpqtv])$/.test(c[i])) return true; } return false; }
 
   function procesar(val){
     if(estado==="fin"){ llamar(); return; }
+    dicho=val; if(estado!=="inicio" && estado!=="hecho") franja(val);
     // en la confirmación, «vale, hasta luego» confirma; un «adiós» a secas cuelga sin apuntar nada
     if(DESP.test(val) && !((estado==="confirmar"||estado==="cambiar") && esSi(val))) return colgar("Gracias por llamar a Dorita's. ¡Hasta pronto!");
-    if(["local","personas","dia","hora","nombre","confirmar"].indexOf(estado)>=0 && (P_HOR.test(val)||P_DON.test(val))){
+    if(REPITE.test(val) && ultimoAg) return agente(ultimoAg[0], ultimoAg[1], ultimoAg[2]);
+    if(ROBOT.test(val)){ var rr=reAsk(); return agente(TXT.robot+" "+rr[0], rr[1], [TXT.robot, rr[0]]); }
+    if(["local","personas","dia","hora","nombre"].indexOf(estado)>=0 && DEJA.test(val) && !difiere(val,reserva).hay){
+      estado="hecho"; ultimaRes=null; txt.setAttribute("placeholder","Escribe…");
+      return agente("De acuerdo, no la apunto. ¿Necesita algo más?", CH_HECHO);
+    }
+    if(["local","personas","dia","hora","nombre","confirmar","cambiar","grupo","anular","cambiarRes"].indexOf(estado)>=0 && (P_HOR.test(val)||P_DON.test(val))){
       var info=P_HOR.test(val)?TXT.horario:TXT.donde, ra=reAsk();
       // eligiendo local, tras decir las dos calles basta con «¿En cuál la prefiere?»
       if(estado==="local" && info===TXT.donde) ra=["¿En cuál la prefiere?", CH_LOCAL];
@@ -1019,40 +1184,60 @@
       // «¿tenéis sitio para 4 esta noche?» es pedir mesa, no la dirección
       // pero «¿tenéis sitio para aparcar?» es una pregunta para el personal
       if(P_APARC.test(val)) return otraPregunta();
-      if(/(^|[^\p{L}])(sitio|hueco|mesa\s+libre)(?=$|[^\p{L}])/iu.test(val) && !/d[oó]nde|direcci/i.test(val)){ return nuevaReserva(val); }
+      if(/(^|[^\p{L}])(sitio|hueco|mesa\s+libre|os\s+queda\s+(algo|sitio|hueco|mesa)|queda\s+algo\s+(para|pa|libre)|ten[eé]is\s+algo\s+(para|pa|libre))(?=$|[^\p{L}])/iu.test(val) && !/d[oó]nde|direcci/i.test(val)){ return nuevaReserva(val); }
       if(/d[oó]nde|direcci/i.test(val)){ return agente("Tenemos dos casas: el bar en la calle Almenillas, y el mesón en Santa Clotilde, en Granada. ¿Le reservo mesa?", [{t:"Sí, reservar",v:"reservar"},{t:"No, gracias",v:"colgar"}]); }
       // la negación va antes que «reserv»: «No quiero reservar, gracias» es una despedida
       if(/(^|[^\p{L}])no\s+(quiero|hace\s+falta|necesito|gracias)|^\s*(no|nada|colgar)(?=$|[^\p{L}])|^\s*(muchas\s+)?gracias[\s.!]*$|colgar/iu.test(val) || FINC.test(val)){ return colgar("Gracias por llamar a Dorita's. ¡Hasta pronto!"); }
+      // «¿cuánto vale la caña?»: ese «vale» no es un sí
+      // («vale, unas cañas el viernes para 4» es un sí: sin pregunta, «cuánto» ni «precio» se toma la reserva)
+      if(esPrecio(val) && !/reserv|mesa/i.test(val) && (esPreg(val) || /cu[aá]nto|precio|cuesta/i.test(val) || !tieneDato(val))) return otraPregunta();
       if(/reserv|mesa/i.test(val) || esSi(val)){ return nuevaReserva(val); }
       if(P_PER.test(val)){ return agente("Ahora mismo están todos atendiendo. Dejo apuntada su llamada para el encargado. ¿Le reservo mesa mientras tanto?", [{t:"Sí, reservar",v:"reservar"},{t:"No, gracias",v:"colgar"}]); }
       if(personasDe(val)){ return nuevaReserva(val); }
       var sinSal=val.replace(/^\s*(hola|buenas|buenos\s+d[ií]as)(\s+(tardes|noches))?[\s,.!¡]*/i,"");
       if(sinSal!==val && /^\s*(otra\s+vez|de\s+nuevo|qu[eé]\s+tal|buenas)?[\s,.!?¿]*$/i.test(sinSal)){ return agente("Hola, buenas. ¿Le reservo una mesa?", [{t:"Sí, reservar",v:"reservar"},{t:"¿Qué horario tenéis?",v:"horario"}]); }
-      return agente("Eso se lo tiene que confirmar el personal. Le dejo la pregunta apuntada. ¿Le reservo una mesa mientras tanto?", [{t:"Sí, reservar",v:"reservar"},{t:"No, gracias",v:"colgar"}]);
+      // «Buenas, para el viernes a las diez en el bar»: trae datos de una reserva aunque no diga «mesa»
+      // («llamo del bar de enfrente» nombra un bar, pero no pide mesa en él)
+      if(!esPreg(val) && (localPide(val) || infoDia(val) || trozoHora(val).hora || personasDe(val))) return nuevaReserva(val);
+      // teclear sin sentido («asdf», «xd»): no hay nada que apuntar, se vuelve a ofrecer la reserva
+      var sueltaG=sinTildes(val).replace(/[\s.!,]+/g,"");
+      if(!esPreg(val) && /^[a-zñ]+$/.test(sueltaG) && (/^([jh][aeiou])\1+[jh]?$/.test(sueltaG) || (/^\s*\S+\s*$/.test(val) && (!/[aeiouy]/.test(sueltaG) || raro(sueltaG) || /(.)\1\1/.test(sueltaG))))){ var rg=reAsk(); if(ultimaRes) estado="hecho"; return agente(rg[0], rg[1]); }
+      return otraPregunta();
     }
     if(estado==="local"){
       var antes=JSON.stringify([reserva,pend]), npL=personasDe(val);
+      // un número suelto mientras elige local son las personas
+      if(!npL && /^\s*\d{1,2}\s*$/.test(val) && num(val)>0) npL=num(val);
       extraer(val);
       if(npL && !partirMejor(val)) reserva.personas=npL;
       if(!reserva.local && reserva.personas>20) return pedir();
       if(!reserva.local && esPreg(val)) return otraPregunta();
       // «somos cinco»: el dato se queda y solo falta el local
       if(!reserva.local && (npL || antes!==JSON.stringify([reserva,pend]))) return agente("¿En cuál la prefiere?", CH_LOCAL);
-      if(!reserva.local) return agente("Perdone, ¿la quiere en el bar o en el mesón?", CH_LOCAL);
+      if(!reserva.local) return agente("Disculpe, ¿la quiere en el bar o en el mesón?", CH_LOCAL);
       return pedir();
     }
     if(estado==="personas"){
+      var lcP=localDe(val); if(lcP && lcP!==reserva.local) return cambiaLocal(val,lcP);
       var pm0=partirMejor(val), vp=pm0?pm0.despues:val, th0=trozoHora(vp), n=personasDe(vp)||num(th0.resto);
       if(!n && pm0){ th0=trozoHora(val); n=personasDe(val)||num(th0.resto); }
       if(n && n>20){ reserva.personas=n; return pedir(); }
+      // «mañana», «a las 14:00»: el dato se guarda y se vuelve a pedir el número
+      if((!n || n<1) && difiere(val,reserva).dist){ extraer1(vp,true,val); return pedir(); }
       if((!n || n<1) && esPreg(val)) return otraPregunta();
-      if(!n || n<1){ return agente("¿Para cuántas personas sería? Dígame un número.", CH_PERS.slice(0,4)); }
+      // a la segunda negativa sin número no se insiste: se deja la reserva
+      if((!n || n<1) && fallosP>=1 && /^\s*no(\s+gracias)?[\s,.!]*$/i.test(val)){ estado="hecho"; ultimaRes=null; txt.setAttribute("placeholder","Escribe…"); return agente("De acuerdo, no la apunto. ¿Necesita algo más?", CH_HECHO); }
+      if(!n || n<1){ fallosP++; return agente("¿Para cuántas personas sería? Dígame un número.", CH_PERS.slice(0,4)); }
       reserva.personas=n; extraer(val); return pedir();
     }
     if(estado==="dia"){
+      var lcD=localDe(val); if(lcD && lcD!==reserva.local) return cambiaLocal(val,lcD);
+      if(/finde|fin\s+de\s+semana/i.test(val) && !infoDia(val)){ var cf=chipsFinde(reserva.local); if(cf.length) return agente(TXT.cDia, cf); }
       var pm1=partirMejor(val), th1=trozoHora(val), ds1=diaEn(val,th1);
       if(pm1){ var ths=trozoHora(pm1.despues); if(ths.hora) th1={hora:ths.hora, resto:th1.resto}; var dss=diaEn(pm1.despues,ths); if(dss) ds1=dss; }
       if(!ds1 && !th1.hora && esPreg(val)) return otraPregunta();
+      // «para 2» cuando se pide el día: el número se queda y se vuelve a pedir el día
+      var npD=personasDe(pm1?pm1.despues:val); if(npD && !ds1){ reserva.personas=npD; if(npD>20) return pedir(); }
       if(th1.hora && !reserva.hora){ pend.hora=th1.hora; pend.ctx=val; }
       var r=aplicarDia(ds1||th1.resto);
       if(r==="resp") return;
@@ -1060,21 +1245,38 @@
       return pedir();
     }
     if(estado==="hora"){
-      var pm2=partirMejor(val), vh=(pm2 && minDe(pm2.despues)!=null)?pm2.despues:val;
+      var lcH=localDe(val); if(lcH && lcH!==reserva.local) return cambiaLocal(val,lcH);
+      var pm2=partirMejor(val), vh=(pm2 && minDe(pm2.despues)!=null)?pm2.despues:val, tH=pm2?pm2.despues:val;
+      // «mejor el sábado» (con o sin hora): cambia el día, no solo la hora
+      if(diaEn(tH,trozoHora(tH)) && difiere(val,reserva).dist){ extraer1(tH,true,val); return pedir(); }
+      // repite el día que ya estaba («el 10 de octubre»): el número es del día, no la hora
+      // («el sábado, nueve y media» sí trae la hora: sin cifras, lo que se lea como hora vale)
+    if(diaEn(tH,trozoHora(tH)) && !trozoHora(tH).hora && !/\d{1,2}[:h.]\d{2}/.test(tH) && (/\d/.test(tH) || minDe(tH)==null)) return agente(TXT.hora, chipsHora(reserva.local));
       var rh=aplicarHora(vh,val);
       if(rh==="resp") return;
+      // «a las nueve, somos 3»
+      var npH=personasDe(tH); if(rh==="ok" && npH && npH!==reserva.personas) reserva.personas=npH;
+      if(rh==="nohora" && difiere(val,reserva).dist){ extraer1(tH,true,val); return pedir(); }
       if(rh==="nohora" && esPreg(val)) return otraPregunta();
       if(rh==="nohora") return agente("Perdone, ¿a qué hora le pongo? Por ejemplo, a las nueve y media.", chipsHora(reserva.local));
       return pedir();
     }
     if(estado==="nombre"){
       var nom=nombreDe(val);
+      // «espera, mejor a las 21:00», «en el mesón»: es un cambio, no el nombre
+      if(!nom && difiere(val,reserva).dist){ var tN=(partirMejor(val)||{despues:val}).despues, lcN=localDe(tN);
+        if(lcN && lcN!==reserva.local) return cambiaLocal(val,lcN);
+        extraer1(tN,true,val); return pedir(); }
       if(!nom && esPreg(val) && !/nombre/i.test(val)) return otraPregunta();
       if(!nom) return agente("Perdone, no le he entendido. ¿A nombre de quién pongo la reserva?", []);
-      reserva.nombre=nom; return pedir();
+      reserva.nombre=nom;
+      // «Rosa, somos tres»: lo que va detrás del nombre también cuenta
+      var cola=String(val).match(/,|\s+(?:y\s+)?(?:somos|semos|seremos|para|pa|a\s+las?)(?=$|[^\p{L}])/iu);
+      if(cola){ var tc=String(val).slice(cola.index); if(tieneDato(tc)){ var lcC=localDe(tc); if(lcC && lcC!==reserva.local) return cambiaLocal(tc,lcC); extraer1(tc,true,val); } }
+      return pedir();
     }
     if(estado==="confirmar" || estado==="cambiar"){
-      if(P_APARC.test(val) && esPreg(val)) return otraPregunta();
+      if((P_APARC.test(val) || esPrecio(val)) && esPreg(val)) return otraPregunta();
       // «cancelar» solo anula si no es una pregunta («¿se puede cancelar luego?») ni trae un cambio
       // («no podemos ir el viernes, mejor el sábado»)
       if(P_ANU.test(val)){
@@ -1083,7 +1285,7 @@
         // la marca de cambio («mejor», «espera», «pero») solo cuenta si trae un dato nuevo: «mejor cancélala» anula
         var hayCambio=MARCA_CAMBIO.test(val) && difiere(val,reserva).dist, diaHora=!!(infoDia(val) || trozoHora(val).hora || /\d{1,2}[:h.]\d{2}/.test(val));
         if(!hayCambio && !diaHora){
-          estado="hecho"; txt.setAttribute("placeholder","Escribe aquí…");
+          estado="hecho"; txt.setAttribute("placeholder","Escribe…");
           // si estaba cambiando una reserva ya apuntada, anular es quitar esa también
           if(reserva.reemplazaId){ var fueraA=quitarPorId(reserva.reemplazaId); reserva.reemplazaId=null; ultimaRes=null;
             return agente("Hecho, le dejo el aviso al encargado. ¿Necesita algo más?", CH_HECHO, null, function(){ if(fueraA.length) avisoQuitada(fueraA,""); }); }
@@ -1108,6 +1310,9 @@
       if(estado==="cambiar" || no){
         if(cambios(v2.replace(/^.*?(pero|mejor|espera)[\s,]*/i,"")) || cambios(v2)) return;
         if(estado==="cambiar" && si) return pedir();
+        // si tampoco a la segunda dice qué cambiar, se le relee la reserva
+        if(estado==="cambiar" && fallosCamb>=1){ fallosCamb=0; return pedir(); }
+        fallosCamb=(estado==="cambiar")?fallosCamb+1:0;
         estado="cambiar";
         return agente("¿Qué quiere cambiar: el sitio, el día, la hora o las personas?", CH_CAMB);
       }
@@ -1115,17 +1320,23 @@
         guardarReserva(); estado="hecho";
         return agente("¡Reserva confirmada! Le esperamos en Dorita's. ¿Necesita algo más?", CH_HECHO, null, avisoAgenda);
       }
+      // «somos cinco», «el sábado», «en el mesón» a secas también corrigen la reserva
+      if(difiere(v2,reserva).dist && cambios(v2)) return;
+      // repite un dato que ya estaba («a las 21:00» otra vez): se le relee la reserva
+      if(estado==="confirmar" && difiere(v2,reserva).hay) return pedir();
       // «¿tenéis terraza?» al confirmar: se apunta y se vuelve a preguntar si se confirma
       if(estado==="confirmar" && esPreg(val) && !/hora|d[ií]a|persona|nombre|reserva|mesa/i.test(val)) return otraPregunta();
       return agente("Perdone, no le he entendido bien. ¿Le confirmo la reserva, sí o no?", CH_CONF);
     }
     if(estado==="anular" || estado==="cambiarRes" || estado==="grupo"){
       var nm=nombreDe(val);
-      if(!nm) return agente("Perdone, no le he entendido. ¿A nombre de quién pongo la reserva?", []);
-      txt.setAttribute("placeholder","Escribe aquí…");
+      if(!nm && estado==="grupo"){ extraer(val); return agente(TXT.nomAviso, []); }
+      if(!nm) return agente(TXT.nomRes, []);
+      txt.setAttribute("placeholder","Escribe…");
       if(estado==="grupo"){
-        reserva.nombre=nm; guardarReserva(true); estado="hecho";
-        return agente("Hecho, le dejo el aviso al encargado. ¿Necesita algo más?", CH_HECHO, null, avisoAgenda);
+        reserva.nombre=nm; var cg=String(val).match(/,|\s+(?:y\s+)?(?:somos|semos|seremos|para|pa|a\s+las?)(?=$|[^\p{L}])/iu); if(cg) extraer(String(val).slice(cg.index));
+        guardarReserva(true); estado="hecho";
+        return agente(TXT.aviso, CH_HECHO, null, avisoAgenda);
       }
       if(estado==="anular"){
         var quitadas=quitarPorNombre(nm); ultimaRes=null;
@@ -1144,7 +1355,7 @@
       if(ultimaRes && !quiereCambiar(val) && !P_ANU.test(val) && !/otra|reserv/i.test(val) && (DESPH.test(val) || (difiere(val,ultimaRes).hay && !esPreg(val)))) return despedida();
       if(ultimaRes && quiereCambiar(val)){
         reserva=JSON.parse(JSON.stringify(ultimaRes)); reserva.reemplazaId=ultimaRes.id; pend={dia:null,hora:null,ctx:null};
-        estado="cambiar"; txt.setAttribute("placeholder","Escribe aquí…");
+        estado="cambiar"; fallosCamb=0; txt.setAttribute("placeholder","Escribe…");
         var vc=val.replace(/no\s+hay\s+problema|no\s+pasa\s+nada/giu," ");
         if(cambios(vc.replace(/^.*?(pero|mejor|espera|al\s+final)[\s,]*/i,"").replace(/^\s*que\s+/i,"")) || cambios(vc)) return;
         return agente(TXT.queCambia, CH_CAMB);
@@ -1181,19 +1392,23 @@
     quitadasUlt=reserva.reemplaza?quitarPorNombre(reserva.reemplaza):null; reserva.reemplaza=null;
     // cambio de la recién confirmada: se sustituye esa (por id), sin duplicarla en la agenda
     if(reserva.reemplazaId){ var fu=quitarPorId(reserva.reemplazaId); if(fu.length) quitadasUlt=(quitadasUlt||[]).concat(fu); reserva.reemplazaId=null; }
-    var a=leerR(); ultima={id:"r"+Date.now(),local:reserva.local,personas:reserva.personas,dia:grupo?null:(reserva.fecha||reserva.dia),hora:grupo?null:reserva.hora,nombre:reserva.nombre,grupo:!!grupo,ts:Date.now()};
+    // un grupo también guarda el día y la hora que haya dicho, aunque no se hayan validado
+    var gd=reserva.fecha||reserva.dia, gh=reserva.hora;
+    if(grupo && !gd && pend.dia){ var ip=infoDia(pend.dia); if(ip) gd=DSEM[ip.d]+" "+ip.f.getDate()+"/"+(ip.f.getMonth()+1); }
+    if(grupo && !gh && pend.hora){ var gm=horaDe(pend.hora,pend.ctx,reserva.local); if(gm!=null) gh=horaTxt(gm); }
+    var a=leerR(); ultima={id:"r"+Date.now(),local:reserva.local,personas:reserva.personas,dia:gd||null,hora:gh||null,nombre:reserva.nombre,grupo:!!grupo,ts:Date.now()};
     a.push(ultima);
     ultimaRes=JSON.parse(JSON.stringify(reserva)); ultimaRes.id=ultima.id; ultimaRes.grupo=!!grupo;
     if(a.length>40) a=a.slice(-40); guardaR(a); pintaAgenda(); marcaNueva();
   }
   var marcaT=null;
   function marcaNueva(){ var c=document.querySelector("#agenda .resv"); if(!c) return; c.classList.add("nueva"); if(marcaT) clearTimeout(marcaT); marcaT=setTimeout(function(){ c.classList.remove("nueva"); marcaT=null; }, 1600); }
-  // en el movil la agenda queda mas abajo: el chat avisa de que la reserva ya esta apuntada
+  // en el móvil la agenda queda más abajo: el chat avisa de que la reserva ya está apuntada
   function avisoAgenda(){
     if(quitadasUlt && quitadasUlt.length){ avisoQuitada(quitadasUlt,""); } quitadasUlt=null;
     if(!ultima) return;
     var r=ultima, d=document.createElement("div"); d.className="aviso";
-    var p=document.createElement("span"); p.textContent=r.grupo?("✓ Aviso para el encargado: grupo de "+r.personas+" a nombre de "+r.nombre):("✓ Apuntada en la agenda: "+r.nombre+" · "+r.personas+" pax · "+r.local+" · "+(r.dia||"")+" · "+(r.hora||"")); d.appendChild(p);
+    var p=document.createElement("span"); p.textContent=r.grupo?("✓ Aviso para el encargado: grupo de "+r.personas+" a nombre de "+r.nombre+[r.local,r.dia,r.hora].filter(Boolean).map(function(x){ return " · "+x; }).join("")):("✓ Apuntada en la agenda: "+r.nombre+" · "+r.personas+" pax · "+r.local+" · "+(r.dia||"")+" · "+(r.hora||"")); d.appendChild(p);
     var b=document.createElement("button"); b.type="button"; b.className="veragenda"; b.textContent="Ver la agenda";
     b.addEventListener("click",function(){ var ag=document.getElementById("agenda"); try{ ag.scrollIntoView({behavior:RM?"auto":"smooth",block:"center"}); }catch(e){ ag.scrollIntoView(); } marcaNueva(); });
     d.appendChild(b); charla.appendChild(d); scroll();
@@ -1217,10 +1432,13 @@
       var c=document.createElement("div"); c.className="resv";
       var x=document.createElement("button"); x.className="x"; x.type="button"; x.textContent="quitar"; x.setAttribute("aria-label","Quitar la reserva de "+(r.nombre||"")); x.addEventListener("click",function(){ guardaR(leerR().filter(function(y){return y.id!==r.id;})); pintaAgenda(); }); c.appendChild(x);
       var r1=document.createElement("div"); r1.className="r1"; var nom=document.createElement("span"); nom.className="nom"; nom.textContent=r.nombre||"—"; var pax=document.createElement("span"); pax.className="pax"; pax.textContent=(r.personas||"?")+" pax"; r1.appendChild(nom); r1.appendChild(pax); c.appendChild(r1);
-      var r2=document.createElement("div"); r2.className="r2"; r2.textContent=r.grupo?((r.local?r.local+" · ":"")+"grupo · pendiente del encargado"):((r.local?r.local+" · ":"")+(r.dia||"")+" · "+(r.hora||"")); c.appendChild(r2);
+      var r2=document.createElement("div"); r2.className="r2"; r2.textContent=r.grupo?([r.local,r.dia,r.hora].filter(Boolean).map(function(x){ return x+" · "; }).join("")+"grupo · pendiente del encargado"):((r.local?r.local+" · ":"")+(r.dia||"")+" · "+(r.hora||"")); c.appendChild(r2);
       box.appendChild(c);
     });
   }
+
+  // con el teclado abierto queda poco alto: la pista se oculta y los botones van en una fila
+  if(window.visualViewport){ var vvp=window.visualViewport, tecl=function(){ document.body.classList.toggle("tecl", ((vvp.scale||1)<1.1 && innerHeight-vvp.height>150) || (document.activeElement===txt && vvp.height<520)); }; vvp.addEventListener("resize",tecl); txt.addEventListener("focus",tecl); txt.addEventListener("blur",tecl); tecl(); }
 
   // ---- envío ----
   function enviar(){ var v=txt.value.trim(); if(!v) return; manejar(v); }
@@ -1229,6 +1447,15 @@
   document.getElementById("llamar").addEventListener("click",llamar);
   document.getElementById("reiniciar").addEventListener("click",llamar);
   var va=document.getElementById("vaciarAgenda"); if(va) va.addEventListener("click",function(){ guardaR([]); pintaAgenda(); });
+  // «Volver a la web»: si se vino desde la web se vuelve atrás (a la misma altura), sin sumar pasos al historial
+  var vol=document.getElementById("volver");
+  if(vol) vol.addEventListener("click",function(e){
+    try{
+      e.preventDefault();
+      if(document.referrer && document.referrer.indexOf(location.origin+"/")===0 && history.length>1){ history.back(); return; }
+      location.replace(vol.href);
+    }catch(x){ location.href=vol.href; }
+  });
 
   pintaAgenda();
 })();
