@@ -927,7 +927,7 @@
     var fin=function(){ sbCargando=false; var l=sbEsperan; sbEsperan=[]; l.forEach(function(f){ try{ f(SB); }catch(e){} }); if(SB && leerP().length) reintenta(); if(SB && !document.getElementById("barra").hidden) arrancaBarra(); };
     carga(SBSRC,function(){ try{ if(window.supabase) SB=window.supabase.createClient(SBURL, SBKEY); }catch(e){ SB=null; } fin(); },fin);
   }
-  function sbFetch(avisar){ if(!SB) return; try{ SB.from("doritas_comandas").select("*").gte("ts",inicioDia(Date.now()-12*3600*1000)).order("ts",{ascending:false}).limit(500).then(function(r){ if(r && !r.error && r.data){
+  function sbFetch(avisar){ if(!SB) return; try{ SB.from("doritas_comandas").select("*").neq("estado","archivada").gte("ts",inicioDia(Date.now()-12*3600*1000)).order("ts",{ascending:false}).limit(500).then(function(r){ if(r && !r.error && r.data){
       if(avisar && sbOn){ var ya={}; sbCache.forEach(function(c){ ya[c.id]=1; }); if(r.data.some(function(c){ return !ya[c.id] && c.estado==="nueva"; }) && !document.getElementById("barra").hidden){ if(document.hidden) avisoPend=true; else pitido(); } }
       sbCache=r.data; sbOn=true; redBarra(true); } else redBarra(false); if(!document.getElementById("barra").hidden) pintaBarra(); },function(){ redBarra(false); }); }catch(e){ redBarra(false); } }
   // sin conexión con la base de datos la barra lo dice, y vuelve a intentarlo mientras siga a la vista
@@ -972,7 +972,8 @@
     var base;
     if(sbOn){ base=sbCache.slice(); var ya={}; base.forEach(function(c){ ya[c.id]=1; }); leerP().forEach(function(c){ if(!ya[c.id]) base.push(c); }); base.sort(function(a,b){ return (b.ts||0)-(a.ts||0); }); }
     else base=leerC().slice().reverse();
-    return base;
+    // las archivadas («Vaciar demo») ni se enseñan ni cuentan para el número: tras vaciar se vuelve a la #1
+    return base.filter(function(c){ return c.estado!=="archivada"; });
   }
   // las quitadas no se enseñan, pero siguen contando para el número de las demás
   function comandas(conQuitadas){ var lim=Date.now()-12*3600*1000; return todas().filter(function(c){ return (!c.ts || c.ts>lim) && (conQuitadas || c.estado!=="quitada"); }); }
@@ -1007,13 +1008,13 @@
   function antes(a,b){ return ((a.ts||0)-(b.ts||0)) || (a.id<b.id?-1:(a.id>b.id?1:0)); }
   function numeros(lista){ var m={}, dia=null, n=0; lista.slice().sort(antes).forEach(function(c){ var d=inicioDia(c.ts||0); if(d!==dia){ dia=d; n=0; } m[c.id]=++n; }); return m; }
   // el campo numero se sigue guardando como referencia; no es el que se enseña
-  function siguienteNum(){ var h=inicioDia(), m=0; sbCache.concat(leerC()).forEach(function(c){ if(c && c.ts>=h && (c.numero|0)>m) m=c.numero|0; }); return m+1; }
+  function siguienteNum(){ var h=inicioDia(), m=0; sbCache.concat(leerC()).forEach(function(c){ if(c && c.ts>=h && c.estado!=="archivada" && (c.numero|0)>m) m=c.numero|0; }); return m+1; }
   // ya en la base de datos, la comanda pregunta cuántas han llegado hoy antes que ella
   function posicionHoy(com,cb){
     var hecho=false, fin=function(n){ if(hecho) return; hecho=true; clearTimeout(t); cb(n); };
     var t=setTimeout(function(){ fin(null); },6000);
     getSB(function(sb){ if(!sb){ fin(null); return; }
-      try{ sb.from("doritas_comandas").select("id,ts").gte("ts",inicioDia(com.ts)-12*3600*1000).limit(1000).then(function(r){
+      try{ sb.from("doritas_comandas").select("id,ts").neq("estado","archivada").gte("ts",inicioDia(com.ts)-12*3600*1000).limit(1000).then(function(r){
         if(r && !r.error && r.data){ var yo=null; r.data.forEach(function(c){ if(c.id===com.id) yo=c; }); if(!yo){ fin(null); return; }
           var d=inicioDia(yo.ts), n=0; r.data.forEach(function(c){ if(inicioDia(c.ts)===d && antes(c,yo)<=0) n++; }); fin(n); } else fin(null); },function(){ fin(null); }); }catch(e){ fin(null); } });
   }
@@ -1074,14 +1075,15 @@
   // «Quitar» la esconde sin borrarla, para que las de después no cambien de número; la que no ha salido del móvil se borra
   function quitaUna(id){
     if(leerP().some(function(y){ return y.id===id; })){ quita([id]); return; }
-    cambiaEstado(id,"quitada",function(){ quita([id]); });
+    cambiaEstado(id,"quitada");
   }
+  // la base de datos no borra nada desde el navegador: lo quitado se marca «archivada» y deja de verse
   function quita(ids){
     var fuera={}; ids.forEach(function(i){ fuera[i]=1; });
-    var no=function(y){ return !fuera[y.id]; };
-    guardaC(leerC().filter(no)); guardaP(leerP().filter(no)); sbCache=sbCache.filter(no);
+    var no=function(y){ return !fuera[y.id]; }, arch=function(y){ if(fuera[y.id]) y.estado="archivada"; };
+    guardaC(leerC().filter(no)); guardaP(leerP().filter(no)); sbCache.forEach(arch);
     pintaBarra();
-    if(SB && ids.length){ try{ SB.from("doritas_comandas").delete().in("id",ids).then(function(r){ if(r && r.error) sbFetch(); },function(){ sbFetch(); }); }catch(e){} }
+    if(SB && ids.length){ try{ SB.from("doritas_comandas").update({estado:"archivada"}).in("id",ids).then(function(r){ if(r && r.error) sbFetch(); },function(){ sbFetch(); }); }catch(e){} }
   }
 
   function pintaBarra(){
@@ -1143,11 +1145,11 @@
     if(ST){ try{ if(oculto){ ST.disable&&ST.disable(); } else { ST.enable&&ST.enable(); } }catch(_){} }
   }
   document.getElementById("volverWeb").addEventListener("click",volverALaWeb);
-  // «Vaciar demo» pide un segundo toque y solo borra las comandas que hay en pantalla
+  // «Vaciar demo» pide un segundo toque y solo archiva las comandas que hay en pantalla
   var vbar=document.getElementById("vaciarBarra"), tArm=null;
   function desarma(){ clearTimeout(tArm); vbar.classList.remove("armado"); vbar.textContent="Vaciar demo"; }
   if(vbar) vbar.addEventListener("click",function(){
-    if(!vbar.classList.contains("armado")){ vbar.classList.add("armado"); vbar.textContent="Toca otra vez para borrar las comandas"; tArm=setTimeout(desarma,3000); return; }
+    if(!vbar.classList.contains("armado")){ vbar.classList.add("armado"); vbar.textContent="Toca otra vez para vaciar la barra"; tArm=setTimeout(desarma,3000); return; }
     desarma();
     var ids=comandas(true).map(function(y){ return y.id; });
     try{ localStorage.removeItem("dor-comandas"); localStorage.removeItem("dor-pendientes"); localStorage.removeItem("dor-cart-v2"); }catch(e){}
